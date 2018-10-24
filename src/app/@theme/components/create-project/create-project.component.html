@@ -1,0 +1,60 @@
+
+<div class="row" [style.width.px]="600" >
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        {{ title }}
+        <button class="close" aria-label="Close" (click)="dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="projectName">Project Name</label>
+              <input type="text" class="form-control" id="projectName" placeholder="Project Name">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="addressOfProject">Address of Project</label>
+              <input type="text" class="form-control" id="addressOfProject" placeholder="Address of Project">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="client">Client</label>
+              <input type="text" class="form-control" id="client" placeholder="Client">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="dueDate">Due Date</label>
+              <input class="form-control" nbInput placeholder="Due Date" [nbDatepicker]="dueDate">
+              <nb-datepicker #dueDate></nb-datepicker>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="projectTemplate">Project Template</label>
+            <nb-select placeholder="None">
+                <nb-option value="1">Option 1</nb-option>
+                <nb-option value="2">Option 2</nb-option>
+                <nb-option value="3">Option 3</nb-option>
+                <nb-option value="4">Option 4</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton class="btn btn-success" (click)="dismiss()">Create Project</button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

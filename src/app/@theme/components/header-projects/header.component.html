@@ -1,0 +1,14 @@
+<div class="header-container">
+  <div class="logo-containter">
+    <div class="logo">Projects</div>
+  </div>
+</div>
+
+<nb-tabset (click)="goTo($event.currentTarget.getElementsByClassName('active')[0].textContent)">
+  <nb-tab tabTitle="List">
+  </nb-tab>
+  <nb-tab tabTitle="Map">
+  </nb-tab>
+</nb-tabset>
+
+<button nbButton status="success" (click)="createProject()">Create New Project</button>
