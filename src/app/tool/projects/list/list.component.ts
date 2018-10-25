@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProjectsService } from '../../../@core/data/projects.service';
 
 @Component({
   selector: 'ngx-list',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    protected projectsService: ProjectsService
+  ) { }
 
   ngOnInit() {
   }

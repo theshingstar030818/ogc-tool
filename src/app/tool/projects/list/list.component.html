@@ -1,4 +1,7 @@
-<div class="text-center">
+<div class="text-center" *ngIf="!projectsService?.projects.length; else showProjects">
   <h1>Create your first project to get started</h1>
   <h3>Projects are where everything happens. Make documents, collaborate with clients, and more.</h3>
 </div>
+<ng-template #showProjects>
+  <ngx-table></ngx-table>
+</ng-template>
