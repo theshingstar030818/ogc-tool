@@ -9,13 +9,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'Settings',
+    title: 'Price Book',
     icon: 'ion-gear-b',
-    link: '/tools/settings',
+    link: '/tools/price-book',
   },
   {
-    title: 'Price Book',
+    title: 'Clients',
     icon: 'nb-list',
-    link: '/tools/price-book',
+    link: '/tools/clients',
   }
 ];
