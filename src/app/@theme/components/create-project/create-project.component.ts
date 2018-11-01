@@ -1,12 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NbDialogRef } from '@nebular/theme';
 import { ProjectsService } from '../../../@core/data/projects.service';
 
 @Component({
   selector: 'ngx-create-project',
   templateUrl: './create-project.component.html',
-  styleUrls: ['./create-project.component.scss']
+  styleUrls: ['./create-project.component.scss'],
 })
 export class CreateProjectComponent implements OnInit {
 
@@ -14,7 +13,7 @@ export class CreateProjectComponent implements OnInit {
 
   constructor(
     protected ref: NbDialogRef<CreateProjectComponent>,
-    protected projectsService: ProjectsService
+    protected projectsService: ProjectsService,
   ) { }
 
   ngOnInit() {

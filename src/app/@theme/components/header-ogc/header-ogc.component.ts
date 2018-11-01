@@ -17,8 +17,8 @@ export class HeaderOgcComponent implements OnInit {
   user: any;
 
   userMenu = [
-    { title: 'Profile' }, 
-    { title: 'Log out' }
+    { title: 'Profile' },
+    { title: 'Log out' },
   ];
 
   constructor(private sidebarService: NbSidebarService,

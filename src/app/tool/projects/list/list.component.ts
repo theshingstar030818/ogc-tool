@@ -4,12 +4,12 @@ import { ProjectsService } from '../../../@core/data/projects.service';
 @Component({
   selector: 'ngx-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
 
   constructor(
-    protected projectsService: ProjectsService
+    protected projectsService: ProjectsService,
   ) { }
 
   ngOnInit() {

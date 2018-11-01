@@ -61,10 +61,10 @@ import { CORPORATE_THEME } from './styles/theme.corporate';
 import { HeaderProjectComponent } from './components/header-projects/header.component';
 
 const BASE_MODULES = [
-  CommonModule, 
-  FormsModule, 
-  ReactiveFormsModule, 
-  Ng2SmartTableModule
+  CommonModule,
+  FormsModule,
+  ReactiveFormsModule,
+  Ng2SmartTableModule,
 ];
 
 const NB_MODULES = [
@@ -112,7 +112,7 @@ const COMPONENTS = [
 
 const ENTRY_COMPONENTS = [
   ThemeSwitcherListComponent,
-  CreateProjectComponent
+  CreateProjectComponent,
 ];
 
 const PIPES = [

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProjectsService {
 
-  public projects: Array<any> = []
+  public projects: Array<any> = [];
   public observableProjects: BehaviorSubject<any>;
 
   public mockProject = {
@@ -17,11 +17,11 @@ export class ProjectsService {
     cost: '$0.00',
     status: 'In-Progress',
     dueDate: '21 Days (2018/09/21)',
-    created: '2017/06/21'
-  }
+    created: '2017/06/21',
+  };
 
   constructor() {
-    this.observableProjects= new BehaviorSubject<any[]>(this.projects);
+    this.observableProjects = new BehaviorSubject<any[]>(this.projects);
     this.addProject(this.mockProject);
   }
 
@@ -33,8 +33,7 @@ export class ProjectsService {
 
   // TODO
   removeProject(event) {
-    console.log(event)
-    this.projects.splice(event.index,1)
+    this.projects.splice(event.index, 1);
     this.observableProjects.next(this.projects);
   }
 

@@ -31,7 +31,7 @@ import { AuthGuard } from './auth-guard.service';
   bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
-    AuthGuard
+    AuthGuard,
   ],
 })
 export class AppModule {

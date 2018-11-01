@@ -13,11 +13,11 @@ export class HeaderProjectComponent {
 
   constructor(
     private router: Router,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
   ) { }
 
   goTo(url) {
-    this.router.navigate(['/tools/projects/'+url.toLowerCase()]);
+    this.router.navigate(['/tools/projects/' + url.toLowerCase()]);
   }
 
   createProject() {
@@ -25,7 +25,7 @@ export class HeaderProjectComponent {
       context: {
         title: 'Create Project',
       },
-      closeOnBackdropClick: false
+      closeOnBackdropClick: false,
     });
-  }  
+  }
 }

@@ -7,8 +7,8 @@ import { PriceBookComponent } from './price-book.component';
 @NgModule({
   imports: [
     CommonModule,
-    PriceBookRoutingModule
+    PriceBookRoutingModule,
   ],
-  declarations: [PriceBookComponent]
+  declarations: [PriceBookComponent],
 })
 export class PriceBookModule { }

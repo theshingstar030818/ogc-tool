@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngx-projects',
-  templateUrl: './projects.component.html'
+  templateUrl: './projects.component.html',
 })
 
 export class ProjectsComponent {

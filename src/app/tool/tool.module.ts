@@ -19,6 +19,6 @@ import { ClientsModule } from './clients/clients.module';
   ],
   declarations: [
     ToolComponent,
-  ]
+  ],
 })
 export class ToolModule { }

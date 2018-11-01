@@ -10,8 +10,8 @@ import { ListModule } from './list/list.module';
 
 const components = [
   // ListComponent,
-  MapComponent
-]
+  MapComponent,
+];
 
 @NgModule({
   imports: [
@@ -25,7 +25,7 @@ const components = [
     ...components,
   ],
   entryComponents: [
-    ...components
-  ]
+    ...components,
+  ],
 })
 export class ProjectsModule { }

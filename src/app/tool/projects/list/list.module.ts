@@ -7,11 +7,11 @@ import { ThemeModule } from '../../../@theme/theme.module';
 @NgModule({
   imports: [
     CommonModule,
-    ThemeModule
+    ThemeModule,
   ],
   declarations: [
     ListComponent,
-    TableComponent
-  ]
+    TableComponent,
+  ],
 })
 export class ListModule { }

@@ -12,9 +12,9 @@ export class SmartTableService {
       cost: '$0.00',
       status: 'In-Progress',
       dueDate: '21 Days (2018/09/21)',
-      created: '2017/06/21'
+      created: '2017/06/21',
     },
-  ]
+  ];
 
   data = [
     {
@@ -437,7 +437,7 @@ export class SmartTableService {
       'username': '@Sanchez',
       'email': 'lousanchez@comtours.com',
       'age': 16,
-    }
+    },
   ];
 
   getData() {

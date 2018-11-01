@@ -17,5 +17,5 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Clients',
     icon: 'nb-list',
     link: '/tools/clients',
-  }
+  },
 ];

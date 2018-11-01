@@ -7,16 +7,16 @@ import { ProjectsService } from '../../../../@core/data/projects.service';
 @Component({
   selector: 'ngx-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
 
   settings = {
     mode: 'external',
-    actions:{
+    actions: {
       add: false,
       position: 'right',
-      columnTitle: 'Options'
+      columnTitle: 'Options',
     },
     edit: {
       editButtonContent: '<i class="nb-edit"></i>',
@@ -59,7 +59,7 @@ export class TableComponent implements OnInit {
       created: {
         title: 'Created',
         type: 'number',
-      }
+      },
     },
   };
 
@@ -68,10 +68,8 @@ export class TableComponent implements OnInit {
   constructor(private service: ProjectsService) {
     const data = this.service.getProjects();
     this.source.load(data);
-    console.log(this.source);
-    service.observableProjects.subscribe(data => {
-      console.log('projects changed');
-      this.source.load(data);
+    service.observableProjects.subscribe(newData => {
+      this.source.load(newData);
     });
   }
 

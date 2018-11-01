@@ -11,15 +11,15 @@ import {
 } from '@nebular/auth';
 
 const routes: Routes = [
-  // { 
-  //   path: 'pages', 
+  // {
+  //   path: 'pages',
   //   canActivate: [AuthGuard],
   //   loadChildren: 'app/pages/pages.module#PagesModule'
   // },
-  { 
-    path: 'tools', 
+  {
+    path: 'tools',
     canActivate: [AuthGuard],
-    loadChildren: 'app/tool/tool.module#ToolModule'
+    loadChildren: 'app/tool/tool.module#ToolModule',
   },
   {
     path: 'auth',
