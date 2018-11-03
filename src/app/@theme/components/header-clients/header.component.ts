@@ -12,7 +12,6 @@ import { CreateClientComponent } from '../create-client/create-client.component'
 export class HeaderClientComponent {
 
   constructor(
-    private router: Router,
     private dialogService: NbDialogService,
   ) { }
 

@@ -22,7 +22,6 @@ export class ClientsService {
 
   addClient(client?){
     this.clients.push(client);
-    
   }
 
   getClients(){
@@ -31,6 +30,5 @@ export class ClientsService {
 
   removeClient(event){
     this.clients.splice(event.index, 1);
-
   }
 }

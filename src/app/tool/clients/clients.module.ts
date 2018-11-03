@@ -15,6 +15,6 @@ import { ClientTableComponent } from './table/table.component';
   declarations: [
     ClientsComponent,
     ClientTableComponent,
-  ]
+  ],
 })
 export class ClientsModule { }
