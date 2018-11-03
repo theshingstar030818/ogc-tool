@@ -1,0 +1,54 @@
+
+<div class="row" [style.width.px]="600" >
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        Create Client
+        <button class="close" aria-label="Close" (click)="dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="clientFirstName">First Name</label>
+              <input type="text" class="form-control" id="clientFirstName" placeholder="First Name">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="clientLastName">Last Name</label>
+              <input type="text" class="form-control" id="clientLastName" placeholder="Last Name">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="clientEmail">Email Address</label>
+              <input type="text" class="form-control" id="clientEmail" placeholder="Email">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="clientPhone">Phone Number</label>
+              <input type="number" class="form-control" id="clientPhone" placeholder="Phone Number" >
+            </div>
+          </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="clientAddress">Address</label>
+            <input type="text" class="form-control" id="clientAddress" placeholder="Address" >
+          </div>
+        </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton class="btn btn-success" (click)="dismiss()">Create Client</button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>
