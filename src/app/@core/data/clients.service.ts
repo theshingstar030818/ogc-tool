@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root',
@@ -6,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class ClientsService {
 
   public clients: Array<any> = [];
+  public observableClients: BehaviorSubject<any>;
 
   public mockClient = {
     clientName: 'John Smith',
@@ -17,18 +19,21 @@ export class ClientsService {
   };
 
   constructor() {
+    this.observableClients = new BehaviorSubject<any[]>(this.clients);
     this.addClient(this.mockClient);
    }
 
-  addClient(client?){
+  addClient(client?) {
     this.clients.push(client);
+    this.observableClients.next(this.clients);
   }
 
-  getClients(){
+  getClients() {
     return this.clients;
   }
 
-  removeClient(event){
+  removeClient(event) {
     this.clients.splice(event.index, 1);
+    this.observableClients.next(this.clients);
   }
 }

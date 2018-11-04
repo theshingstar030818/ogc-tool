@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 
-import { Router } from '@angular/router';
 import { CreateClientComponent } from '../create-client/create-client.component';
 
 @Component({

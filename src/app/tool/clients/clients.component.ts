@@ -9,7 +9,7 @@ import { ClientsService } from '../../@core/data/clients.service';
 export class ClientsComponent implements OnInit {
 
   constructor(
-    protected clientService : ClientsService
+    protected clientService: ClientsService,
   ) { }
 
   ngOnInit() {
