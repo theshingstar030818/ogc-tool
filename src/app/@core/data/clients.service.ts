@@ -21,6 +21,7 @@ export class ClientsService {
   constructor() {
     this.observableClients = new BehaviorSubject<any[]>(this.clients);
     this.addClient(this.mockClient);
+    this.observableClients = new BehaviorSubject<any[]>(this.clients);
    }
 
   addClient(client?) {
