@@ -11,7 +11,6 @@ const routes: Routes = [{
     { path: 'list', component: ListComponent }, 
     { path: 'map', component: MapComponent }, 
     { path: '', redirectTo: 'list', pathMatch: 'full' }, 
-    { path: 'projects', loadChildren: './project/project.module#ProjectModule' }, 
     { path: '**', component: ListComponent }
   ],
 }];

@@ -9,7 +9,7 @@ import { ProjectsService } from '../../../@core/data/projects.service';
 export class ListComponent implements OnInit {
 
   constructor(
-    protected projectsService: ProjectsService,
+    public projectsService: ProjectsService,
   ) { }
 
   ngOnInit() {
