@@ -7,20 +7,13 @@ import { MapComponent } from './map/map.component';
 const routes: Routes = [{
   path: '',
   component: ProjectsComponent,
-  children: [{
-    path: 'list',
-    component: ListComponent,
-  }, {
-    path: 'map',
-    component: MapComponent,
-  }, {
-    path: '',
-    redirectTo: 'list',
-    pathMatch: 'full',
-  }, {
-    path: '**',
-    component: ListComponent,
-  }],
+  children: [
+    { path: 'list', component: ListComponent }, 
+    { path: 'map', component: MapComponent }, 
+    { path: '', redirectTo: 'list', pathMatch: 'full' }, 
+    { path: 'projects', loadChildren: './project/project.module#ProjectModule' }, 
+    { path: '**', component: ListComponent }
+  ],
 }];
 
 @NgModule({

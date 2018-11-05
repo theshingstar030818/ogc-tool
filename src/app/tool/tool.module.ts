@@ -7,12 +7,14 @@ import { ProjectsModule } from './projects/projects.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { PriceBookModule } from './price-book/price-book.module';
 import { ClientsModule } from './clients/clients.module';
+import { ProjectModule } from './project/project.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ToolRoutingModule,
     ProjectsModule,
+    ProjectModule,
     PriceBookModule,
     ClientsModule,
     ThemeModule,

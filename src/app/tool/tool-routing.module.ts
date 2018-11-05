@@ -8,23 +8,14 @@ import { ClientsComponent } from './clients/clients.component';
 const routes: Routes = [{
   path: '',
   component: ToolComponent,
-  children: [{
-    path: 'projects',
-    loadChildren: './projects/projects.module#ProjectsModule',
-  }, {
-    path: 'price-book',
-    component: PriceBookComponent,
-  }, {
-    path: 'clients',
-    component: ClientsComponent,
-  }, {
-    path: '',
-    redirectTo: 'projects',
-    pathMatch: 'full',
-  }, {
-    path: '**',
-    component: ProjectsComponent,
-  }],
+  children: [
+    { path: 'projects', loadChildren: './projects/projects.module#ProjectsModule' }, 
+    { path: 'project/:id', loadChildren: './project/project.module#ProjectModule' }, 
+    { path: 'price-book', component: PriceBookComponent }, 
+    { path: 'clients', component: ClientsComponent }, 
+    { path: '', redirectTo: 'projects', pathMatch: 'full' }, 
+    { path: '**', component: ProjectsComponent }
+  ],
 }];
 
 @NgModule({
