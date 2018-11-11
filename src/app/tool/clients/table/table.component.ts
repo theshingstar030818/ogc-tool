@@ -28,23 +28,23 @@ export class ClientTableComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      clientName: {
+      name: {
         title: 'Name',
         type: 'string',
       },
-      clientEmail: {
+      email: {
         title: 'Email',
         type: 'string',
       },
-      clientPhone: {
+      phone: {
         title: 'Phone Number',
         type: 'string',
       },
-      clientAddress: {
+      address: {
         title: 'Address',
         type: 'string',
       },
-      clientProjects: {
+      projects: {
         title: 'Projects',
         type: 'number',
       },
@@ -60,9 +60,9 @@ export class ClientTableComponent implements OnInit {
   constructor(private service: ClientsService) {
     const data = this.service.getClients();
     this.source.load(data);
-    /* service.observableClients.subscribe(newData => {
+    service.observableClients.subscribe(newData => {
       this.source.load(newData);
-    }); */
+    });
   }
 
   onDeleteConfirm(event): void {

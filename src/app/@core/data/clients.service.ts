@@ -10,21 +10,23 @@ export class ClientsService {
   public observableClients: BehaviorSubject<any>;
 
   public mockClient = {
-    clientName: 'John Smith',
-    clientEmail: 'john.smith@g.com',
-    clientPhone: '+11322158256',
-    clientAddress: '201 Evergreen StVestal, NY 13850, USA',
-    clientProjects: '1',
+    name: 'John Smith',
+    email: 'john.smith@g.com',
+    phone: '+11322158256',
+    address: '201 Evergreen StVestal, NY 13850, USA',
+    projects: '1',
     created: '2018/06/21',
   };
 
   constructor() {
     this.observableClients = new BehaviorSubject<any[]>(this.clients);
-    this.addClient(this.mockClient);
-    this.observableClients = new BehaviorSubject<any[]>(this.clients);
+    //this.addClient(this.mockClient);
    }
 
   addClient(client?) {
+
+    client.name = client.name.firstName+" "+client.name.lastName;
+    client.projects = "10";
     this.clients.push(client);
     this.observableClients.next(this.clients);
   }
