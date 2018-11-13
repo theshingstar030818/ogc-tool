@@ -40,6 +40,7 @@ import {
   ThemeSwitcherListComponent,
   HeaderOgcComponent,
   CreateProjectComponent,
+  CreateClientComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -58,8 +59,10 @@ import {
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
+
 import { HeaderProjectsComponent } from './components/header-projects/header.component';
 import { HeaderProjectComponent } from './components/header-project/header-project.component';
+import { HeaderClientComponent } from './components/header-clients/header.component';
 import { RouterModule } from '@angular/router';
 
 const BASE_MODULES = [
@@ -94,6 +97,7 @@ const NB_MODULES = [
 
 const COMPONENTS = [
   CreateProjectComponent,
+  CreateClientComponent,
   SwitcherComponent,
   LayoutDirectionSwitcherComponent,
   ThemeSwitcherComponent,
@@ -102,6 +106,7 @@ const COMPONENTS = [
   HeaderOgcComponent,
   HeaderProjectsComponent,
   HeaderProjectComponent,
+  HeaderClientComponent,
   FooterComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
@@ -116,6 +121,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [
   ThemeSwitcherListComponent,
   CreateProjectComponent,
+  CreateClientComponent,
 ];
 
 const PIPES = [
