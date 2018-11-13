@@ -1,0 +1,14 @@
+<div class="header-container">
+  <div class="logo-containter">
+    <div class="logo">21 Roblou Street Project</div>
+  </div>
+</div>
+
+<nb-tabset routeParam="Preview" (click)="goTo($event.currentTarget.getElementsByClassName('active')[0].textContent)">
+  <nb-tab tabTitle="Info"></nb-tab>
+  <nb-tab tabTitle="Edit"></nb-tab>
+  <nb-tab tabTitle="Preview"></nb-tab>
+  <nb-tab tabTitle="Share"></nb-tab>
+</nb-tabset>
+
+<span><a>Version 3</a></span>

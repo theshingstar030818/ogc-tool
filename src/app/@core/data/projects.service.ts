@@ -10,6 +10,7 @@ export class ProjectsService {
   public observableProjects: BehaviorSubject<any>;
 
   public mockProject = {
+    id: '100',
     projectName: '201 Evergreen Strrt ReRe',
     projectAddress: '201 Evergreen StVestal, NY 13850, USA',
     client: 'John Adams',
@@ -27,7 +28,7 @@ export class ProjectsService {
 
   //  TODO
   addProject(project?) {
-    this.projects.push(project);
+    this.projects.push(this.mockProject);
     this.observableProjects.next(this.projects);
   }
 

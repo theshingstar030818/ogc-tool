@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngx-ui-features',
-  template: `
-    <router-outlet></router-outlet>
-  `,
+  template: './ui-features.component.html',
 })
 export class UiFeaturesComponent {
 }

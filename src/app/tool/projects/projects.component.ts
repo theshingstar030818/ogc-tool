@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-projects',
@@ -7,6 +8,16 @@ import { Component } from '@angular/core';
 
 export class ProjectsComponent {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.route.paramMap.subscribe( params => {
+      if(params['id']) {
+        console.log(params);
+        this.router.navigate(['./info'])
+      }
+    })
+  }
 
 }

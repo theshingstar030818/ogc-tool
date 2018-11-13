@@ -59,8 +59,11 @@ import {
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
-import { HeaderProjectComponent } from './components/header-projects/header.component';
+
+import { HeaderProjectsComponent } from './components/header-projects/header.component';
+import { HeaderProjectComponent } from './components/header-project/header-project.component';
 import { HeaderClientComponent } from './components/header-clients/header.component';
+import { RouterModule } from '@angular/router';
 
 const BASE_MODULES = [
   CommonModule,
@@ -101,6 +104,7 @@ const COMPONENTS = [
   ThemeSwitcherListComponent,
   HeaderComponent,
   HeaderOgcComponent,
+  HeaderProjectsComponent,
   HeaderProjectComponent,
   HeaderClientComponent,
   FooterComponent,
@@ -144,7 +148,7 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-  imports: [...BASE_MODULES, ...NB_MODULES],
+  imports: [...BASE_MODULES, ...NB_MODULES, RouterModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
   declarations: [...COMPONENTS, ...PIPES],
   entryComponents: [...ENTRY_COMPONENTS],

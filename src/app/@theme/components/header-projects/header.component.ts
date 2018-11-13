@@ -9,7 +9,7 @@ import { CreateProjectComponent } from '../create-project/create-project.compone
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })
-export class HeaderProjectComponent {
+export class HeaderProjectsComponent {
 
   constructor(
     private router: Router,
