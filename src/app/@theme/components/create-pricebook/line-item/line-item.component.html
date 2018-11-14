@@ -1,0 +1,113 @@
+
+<div class="row" [style.width.px]="600" >
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        Create Line Item
+        <button class="close" aria-label="Close" (click)="dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+      <form [style.padding.px]="15" [formGroup]= "lineitemForm" (ngSubmit)="onSubmit()">
+      <nb-card-body>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Line Item Name</label>
+              <input formControlName="name" type="text" class="form-control" placeholder="Line Item Name"
+              [ngClass]="{
+                'form-control-danger': name.invalid && name.dirty,
+                'form-control-success': name.valid && name.dirty
+              }">
+              <div class="form-control-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+                <p *ngIf="name.errors.required">Line Item Name is required</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Price Per Unit</label>
+              <input formControlName="price" type="number" class="form-control" placeholder="Price Per Unit"
+              [ngClass]="{
+                'form-control-danger': price.invalid && price.dirty,
+                'form-control-success': price.valid && price.dirty
+              }">
+              <div class="form-control-feedback" *ngIf="price.errors && (price.dirty || price.touched)">
+                <p *ngIf="price.errors.required">Price is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Unit Type</label>
+              <select class="form-control" formControlName="type">
+                <option value="">Please select unit type</option>
+                <option *ngFor="let unit of units"
+                        [value]="unit">{{unit}}
+                </option>
+              </select>
+              <div class="form-control-feedback"
+                *ngIf="type.errors && (type.dirty || type.touched)">
+                <p *ngIf="type.errors.required">Unit Type is required</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Qty</label>
+              <input formControlName="quantity" type="number" class="form-control" placeholder="Quantity" 
+              [ngClass]="{
+                'form-control-danger': quantity.invalid && quantity.dirty,
+                'form-control-success': quantity.valid && quantity.dirty
+              }"
+              >
+              <div class="form-control-feedback"
+                *ngIf="quantity.errors && (quantity.dirty || quantity.touched)">
+                <p *ngIf="quantity.errors.required">Quantity is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Tax %</label>
+              <input formControlName="tax" type="number" class="form-control" placeholder="Tax %" 
+              [ngClass]="{
+                'form-control-danger': tax.invalid && tax.dirty,
+                'form-control-success': tax.valid && tax.dirty
+              }"
+              >
+              <div class="form-control-feedback"
+                *ngIf="tax.errors && (tax.dirty || tax.touched)">
+                <p *ngIf="tax.errors.required">Tax is required</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Total</label>
+              <input formControlName="total" type="number" class="form-control" placeholder="Total" 
+              [ngClass]="{
+                'form-control-danger': total.invalid && total.dirty,
+                'form-control-success': total.valid && total.dirty
+              }"
+              >
+              <div class="form-control-feedback"
+                *ngIf="total.errors && (total.dirty || total.touched)">
+                <p *ngIf="total.errors.required">Total is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      
+      <nb-card-footer>
+        <button nbButton class="btn btn-success" type="submit">Create Line Item</button>
+      </nb-card-footer>
+    </form>
+    </nb-card>
+  </div>
+</div>

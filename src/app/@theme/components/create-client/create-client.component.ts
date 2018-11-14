@@ -18,6 +18,8 @@ export class CreateClientComponent implements OnInit {
     protected clientsService: ClientsService,
   ) { }
 
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+
   clientsForm: FormGroup;
   firstName: FormControl;
   lastName: FormControl;
@@ -28,23 +30,23 @@ export class CreateClientComponent implements OnInit {
   created: FormControl;
 
   createFormControls() {
-    this.firstName = new FormControl("", Validators.required);
-    this.lastName = new FormControl("", Validators.required);
-    this.email = new FormControl("", [
+    this.firstName = new FormControl('', Validators.required);
+    this.lastName = new FormControl('', Validators.required);
+    this.email = new FormControl('', [
       Validators.required,
-      Validators.pattern("[^ @]*@[^ @]*")
+      Validators.pattern(this.emailPattern),
     ]);
-    this.phone = new FormControl("", Validators.required);
-    this.address = new FormControl("", Validators.required);
-    this.created = new FormControl("");
-    this.projects = new FormControl("");
+    this.phone = new FormControl('', Validators.required);
+    this.address = new FormControl('', Validators.required);
+    this.created = new FormControl('');
+    this.projects = new FormControl('');
   }
 
   createForm() {
     this.clientsForm = new FormGroup({
       name: new FormGroup({
         firstName: this.firstName,
-        lastName: this.lastName
+        lastName: this.lastName,
       }),
       email: this.email,
       phone: this.phone,
@@ -61,20 +63,18 @@ export class CreateClientComponent implements OnInit {
 
   onSubmit() {
     if (this.clientsForm.valid) {
-      console.log("Form Submitted!");
       this.clientsForm.controls['created'].setValue(new Date());
-      console.log(this.clientsForm.value);
+      this.clientsForm.controls['projects'].setValue(0);
       this.clientsService.addClient(this.clientsForm.value);
       this.clientsForm.reset();
       this.dismiss();
-      
-    }else{
-      window.alert("Form fields are not valid");
+
+    } else {
+      window.alert('Form fields are not valid');
     }
   }
 
   dismiss() {
     this.ref.close();
   }
-
 }

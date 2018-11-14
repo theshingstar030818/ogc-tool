@@ -41,6 +41,8 @@ import {
   HeaderOgcComponent,
   CreateProjectComponent,
   CreateClientComponent,
+  CreateLineItemComponent,
+  CreateLineItemGroupComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -61,6 +63,7 @@ import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { HeaderProjectComponent } from './components/header-projects/header.component';
 import { HeaderClientComponent } from './components/header-clients/header.component';
+import { HeaderPriceBookComponent } from './components/header-pricebook/header.component';
 
 const BASE_MODULES = [
   CommonModule,
@@ -103,6 +106,7 @@ const COMPONENTS = [
   HeaderOgcComponent,
   HeaderProjectComponent,
   HeaderClientComponent,
+  HeaderPriceBookComponent,
   FooterComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
@@ -112,12 +116,16 @@ const COMPONENTS = [
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  CreateLineItemComponent,
+  CreateLineItemGroupComponent,
 ];
 
 const ENTRY_COMPONENTS = [
   ThemeSwitcherListComponent,
   CreateProjectComponent,
   CreateClientComponent,
+  CreateLineItemComponent,
+  CreateLineItemGroupComponent,
 ];
 
 const PIPES = [
