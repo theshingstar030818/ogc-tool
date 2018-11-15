@@ -20,13 +20,13 @@ export class ClientsService {
 
   constructor() {
     this.observableClients = new BehaviorSubject<any[]>(this.clients);
-    //this.addClient(this.mockClient);
+    // this.addClient(this.mockClient);
    }
 
   addClient(client?) {
 
-    client.name = client.name.firstName+" "+client.name.lastName;
-    client.projects = "10";
+    client.name = client.name.firstName + ' ' + client.name.lastName;
+    client.projects = '10';
     this.clients.push(client);
     this.observableClients.next(this.clients);
   }
