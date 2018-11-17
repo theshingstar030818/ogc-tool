@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
 import { ProjectsService } from '../../../../@core/data/projects.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -65,7 +66,10 @@ export class TableComponent implements OnInit {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private service: ProjectsService) {
+  constructor(
+    private service: ProjectsService,
+    private router: Router
+  ) {
     const data = this.service.getProjects();
     this.source.load(data);
     service.observableProjects.subscribe(newData => {
@@ -79,6 +83,10 @@ export class TableComponent implements OnInit {
     } else {
       event.confirm.reject();
     }
+  }
+
+  onRowSelect(event): void {
+    this.router.navigate(['/tools/project', event.data.id]);
   }
 
   onDelete(event): void {

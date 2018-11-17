@@ -35,6 +35,7 @@ export class CreateClientComponent implements OnInit {
     this.email = new FormControl('', [
       Validators.required,
       Validators.pattern(this.emailPattern),
+      // Validators.pattern('[^ @]*@[^ @]*'),
     ]);
     this.phone = new FormControl('', Validators.required);
     this.address = new FormControl('', Validators.required);
