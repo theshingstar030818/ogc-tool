@@ -9,12 +9,12 @@ const routes: Routes = [{
   path: '',
   component: ToolComponent,
   children: [
-    { path: 'projects', loadChildren: './projects/projects.module#ProjectsModule' }, 
-    { path: 'project/:id', loadChildren: './project/project.module#ProjectModule' }, 
-    { path: 'price-book', component: PriceBookComponent }, 
-    { path: 'clients', component: ClientsComponent }, 
-    { path: '', redirectTo: 'projects', pathMatch: 'full' }, 
-    { path: '**', component: ProjectsComponent }
+    { path: 'projects', loadChildren: './projects/projects.module#ProjectsModule' },
+    { path: 'project/:id', loadChildren: './project/project.module#ProjectModule' },
+    { path: 'price-book', component: PriceBookComponent },
+    { path: 'clients', component: ClientsComponent },
+    { path: '', redirectTo: 'projects', pathMatch: 'full' },
+    { path: '**', component: ProjectsComponent },
   ],
 }];
 

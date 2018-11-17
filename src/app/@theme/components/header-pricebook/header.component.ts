@@ -14,7 +14,7 @@ export class HeaderPriceBookComponent {
 
   constructor(
     private dialogService: NbDialogService,
-    protected pricebookService: PriceBookService,
+    public pricebookService: PriceBookService,
   ) { }
 
   createLineItem() {

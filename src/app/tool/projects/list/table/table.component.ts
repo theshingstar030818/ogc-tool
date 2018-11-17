@@ -68,7 +68,7 @@ export class TableComponent implements OnInit {
 
   constructor(
     private service: ProjectsService,
-    private router: Router
+    private router: Router,
   ) {
     const data = this.service.getProjects();
     this.source.load(data);

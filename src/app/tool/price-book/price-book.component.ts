@@ -9,7 +9,7 @@ import { PriceBookService } from '../../@core/data/pricebook.service';
 export class PriceBookComponent implements OnInit {
 
   constructor(
-     protected pricebookService: PriceBookService,
+     public pricebookService: PriceBookService,
   ) { }
 
   ngOnInit() {

@@ -8,10 +8,10 @@ const routes: Routes = [{
   path: '',
   component: ProjectsComponent,
   children: [
-    { path: 'list', component: ListComponent }, 
-    { path: 'map', component: MapComponent }, 
-    { path: '', redirectTo: 'list', pathMatch: 'full' }, 
-    { path: '**', component: ListComponent }
+    { path: 'list', component: ListComponent },
+    { path: 'map', component: MapComponent },
+    { path: '', redirectTo: 'list', pathMatch: 'full' },
+    { path: '**', component: ListComponent },
   ],
 }];
 
