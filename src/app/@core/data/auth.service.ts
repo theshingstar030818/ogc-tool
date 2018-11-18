@@ -29,6 +29,22 @@ export class AuthService {
     }
   }
 
+  public async register(userData: any) {
+    
+    var user = new Parse.User();
+    user.set("password", userData.password);
+    user.set("email", userData.email);
+    user.set("username", userData.email);
+    user.set("emailVerified", false);
+    
+    try {
+      await user.signUp();
+      return user;
+    } catch (error) {
+      return error;
+    }
+  }
+
   public logout() {
     return Parse.User.logOut();
   }

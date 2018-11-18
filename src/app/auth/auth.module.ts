@@ -14,6 +14,7 @@ import {
 import { LoginComponent } from './login/login.component';
 import { AuthService } from '../@core/data/auth.service';
 import { LogoutComponent } from './logout/logout.component';
+import { RegisterComponent } from './register/register.component';
 
 export let AppInjector: Injector;
 
@@ -33,6 +34,7 @@ export let AppInjector: Injector;
   declarations: [
     LoginComponent,
     LogoutComponent,
+    RegisterComponent,
   ],
   providers: [
     AuthService
