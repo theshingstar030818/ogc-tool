@@ -16,11 +16,11 @@ import { ProjectComponent } from './project.component';
     ProjectRoutingModule,
   ],
   declarations: [
-    InfoComponent, 
-    EditComponent, 
-    PreviewComponent, 
+    InfoComponent,
+    EditComponent,
+    PreviewComponent,
     ShareComponent,
-    ProjectComponent
-  ]
+    ProjectComponent,
+  ],
 })
 export class ProjectModule { }

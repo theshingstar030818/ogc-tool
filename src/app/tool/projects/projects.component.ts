@@ -10,14 +10,14 @@ export class ProjectsComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {
     this.route.paramMap.subscribe( params => {
-      if(params['id']) {
-        console.log(params);
-        this.router.navigate(['./info'])
+      if (params['id']) {
+        // console.log(params);
+        this.router.navigate(['./info']);
       }
-    })
+    });
   }
 
 }

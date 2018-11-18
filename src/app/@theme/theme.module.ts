@@ -41,6 +41,8 @@ import {
   HeaderOgcComponent,
   CreateProjectComponent,
   CreateClientComponent,
+  CreateLineItemComponent,
+  CreateLineItemGroupComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -63,6 +65,7 @@ import { CORPORATE_THEME } from './styles/theme.corporate';
 import { HeaderProjectsComponent } from './components/header-projects/header.component';
 import { HeaderProjectComponent } from './components/header-project/header-project.component';
 import { HeaderClientComponent } from './components/header-clients/header.component';
+import { HeaderPriceBookComponent } from './components/header-pricebook/header.component';
 import { RouterModule } from '@angular/router';
 
 const BASE_MODULES = [
@@ -107,6 +110,7 @@ const COMPONENTS = [
   HeaderProjectsComponent,
   HeaderProjectComponent,
   HeaderClientComponent,
+  HeaderPriceBookComponent,
   FooterComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
@@ -116,12 +120,16 @@ const COMPONENTS = [
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  CreateLineItemComponent,
+  CreateLineItemGroupComponent,
 ];
 
 const ENTRY_COMPONENTS = [
   ThemeSwitcherListComponent,
   CreateProjectComponent,
   CreateClientComponent,
+  CreateLineItemComponent,
+  CreateLineItemGroupComponent,
 ];
 
 const PIPES = [

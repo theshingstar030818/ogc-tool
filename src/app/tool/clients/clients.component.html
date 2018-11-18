@@ -1,17 +1,16 @@
 <nb-layout>
-    <nb-layout-header subheader>
-      <ngx-header-clients></ngx-header-clients>
-    </nb-layout-header>
-  
-    <nb-layout-column>
-      <router-outlet></router-outlet>
-      <div class="text-center" *ngIf="!clientService?.clients.length; else showClients">
-        <h1>Create your first Client to get started</h1>
-        <h3>Clients are used to associate projects to recover payments and more.</h3>
-      </div>
-      <ng-template #showClients>
-        <ngx-table></ngx-table>
-      </ng-template>
-    </nb-layout-column>
-  </nb-layout>
-  
+  <nb-layout-header subheader>
+    <ngx-header-clients></ngx-header-clients>
+  </nb-layout-header>
+
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+    <div class="text-center" *ngIf="!clientService?.clients.length; else showClients">
+      <h1>Create your first Client to get started</h1>
+      <h3>Clients are used to associate projects to recover payments and more.</h3>
+    </div>
+    <ng-template #showClients>
+      <ngx-table></ngx-table>
+    </ng-template>
+  </nb-layout-column>
+</nb-layout>
