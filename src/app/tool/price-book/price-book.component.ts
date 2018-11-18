@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PriceBookService } from '../../@core/data/pricebook.service';
 
 @Component({
   selector: 'ngx-price-book',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PriceBookComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+     public pricebookService: PriceBookService,
+  ) { }
 
   ngOnInit() {
   }

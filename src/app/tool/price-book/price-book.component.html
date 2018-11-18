@@ -1,3 +1,16 @@
-<p>
-  price-book works!
-</p>
+<nb-layout>
+  <nb-layout-header subheader>
+    <ngx-header-pricebook></ngx-header-pricebook>
+  </nb-layout-header>
+
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+    <div class="text-center" *ngIf="!pricebookService?.pricebooks.length; else showPricebook">
+      <h1>Create your first Line item to get started</h1>
+      <h3>Line items are used in line item groups and in projects.</h3>
+    </div>
+    <ng-template #showPricebook>
+      <ngx-table></ngx-table>
+    </ng-template>
+  </nb-layout-column>
+</nb-layout>

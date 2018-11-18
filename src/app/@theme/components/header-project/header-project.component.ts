@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'ngx-header-project',
   templateUrl: './header-project.component.html',
-  styleUrls: ['./header-project.component.scss']
+  styleUrls: ['./header-project.component.scss'],
 })
 export class HeaderProjectComponent implements OnInit {
 
@@ -12,11 +12,11 @@ export class HeaderProjectComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {
     this.route.params.subscribe( params => {
       this.params = params;
-    })
+    });
   }
 
   ngOnInit() {
@@ -25,6 +25,6 @@ export class HeaderProjectComponent implements OnInit {
   goTo(url) {
     this.route.params.subscribe( params => {
       this.router.navigate(['/tools/project/', params.id, url.toLowerCase()]);
-    })
+    });
   }
 }

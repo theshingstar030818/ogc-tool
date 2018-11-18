@@ -12,41 +12,41 @@
       <nb-card-body>
         <div class="row" formGroupName="name">
           <div class="col-sm-6">
-            <div class="form-group"
-            [ngClass]="{
-              'danger': firstName.invalid && firstName.dirty,
-              'success': firstName.valid && firstName.dirty
-             }">
+            <div class="form-group">
               <label for="clientFirstName">First Name</label>
-              <input formControlName="firstName" type="text" class="form-control" placeholder="First Name">
+              <input formControlName="firstName" type="text" class="form-control" placeholder="First Name"
+              [ngClass]="{
+                'form-control-danger': firstName.invalid && firstName.dirty,
+                'form-control-success': firstName.valid && firstName.dirty
+               }">
               <div class="form-control-feedback" *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
                   <p *ngIf="firstName.errors.required">First Name is required</p>
               </div>
             </div>
           </div>
           <div class="col-sm-6">
-            <div class="form-group"
-            [ngClass]="{
-              'has-danger': lastName.invalid && lastName.dirty,
-              'has-success': lastName.valid && lastName.dirty
-             }">
+            <div class="form-group">
               <label for="clientLastName">Last Name</label>
-              <input formControlName="lastName" type="text" class="form-control" placeholder="Last Name">
+              <input formControlName="lastName" type="text" class="form-control" placeholder="Last Name"
+              [ngClass]="{
+                'form-control-danger': lastName.invalid && lastName.dirty,
+                'form-control-success': lastName.valid && lastName.dirty
+               }">
               <div class="form-control-feedback" *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
                   <p *ngIf="lastName.errors.required">Last Name is required</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="row"
-        [ngClass]="{
-          'has-danger': email.invalid && email.dirty,
-          'has-success': email.valid && email.dirty
-        }">
+        <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
               <label for="clientEmail">Email Address</label>
-              <input formControlName="email" type="text" class="form-control" placeholder="Email">
+              <input formControlName="email" type="text" class="form-control" placeholder="Email"
+              [ngClass]="{
+                'form-control-danger': email.invalid && email.dirty,
+                'form-control-success': email.valid && email.dirty
+              }">
               <div class="form-control-feedback"
                 *ngIf="email.errors && (email.dirty || email.touched)">
                 <p *ngIf="email.errors.required">Email is required</p>
@@ -59,8 +59,8 @@
               <label for="clientPhone">Phone Number</label>
               <input formControlName="phone" type="number" class="form-control" placeholder="Phone Number" 
               [ngClass]="{
-                'has-danger': phone.invalid && phone.dirty,
-                'has-success': phone.valid && phone.dirty
+                'form-control-danger': phone.invalid && phone.dirty,
+                'form-control-success': phone.valid && phone.dirty
               }"
               >
               <div class="form-control-feedback"
@@ -76,8 +76,8 @@
             <label for="clientAddress">Address</label>
             <input formControlName="address" type="text" class="form-control" placeholder="Address" 
             [ngClass]="{
-              'has-danger': address.invalid && address.dirty,
-              'has-success': address.valid && address.dirty
+              'form-control-danger': address.invalid && address.dirty,
+              'form-control-success': address.valid && address.dirty
             }"
             >
             <div class="form-control-feedback"

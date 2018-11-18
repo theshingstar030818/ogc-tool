@@ -18,6 +18,8 @@ export class CreateClientComponent implements OnInit {
     protected clientsService: ClientsService,
   ) { }
 
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+
   clientsForm: FormGroup;
   firstName: FormControl;
   lastName: FormControl;
@@ -32,7 +34,8 @@ export class CreateClientComponent implements OnInit {
     this.lastName = new FormControl('', Validators.required);
     this.email = new FormControl('', [
       Validators.required,
-      Validators.pattern('[^ @]*@[^ @]*'),
+      Validators.pattern(this.emailPattern),
+      // Validators.pattern('[^ @]*@[^ @]*'),
     ]);
     this.phone = new FormControl('', Validators.required);
     this.address = new FormControl('', Validators.required);
@@ -75,5 +78,4 @@ export class CreateClientComponent implements OnInit {
   dismiss() {
     this.ref.close();
   }
-
 }

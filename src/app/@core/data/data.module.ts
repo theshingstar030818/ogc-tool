@@ -20,6 +20,7 @@ import { ProjectsService } from './projects.service';
 import { ClientsService } from './clients.service';
 import { BackendService } from './backend.service';
 import { AuthService } from './auth.service';
+import { PriceBookService } from './pricebook.service';
 
 const SERVICES = [
   BackendService,
@@ -41,6 +42,7 @@ const SERVICES = [
   LayoutService,
   ProjectsService,
   ClientsService,
+  PriceBookService,
 ];
 
 @NgModule({

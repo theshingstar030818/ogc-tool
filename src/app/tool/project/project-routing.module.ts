@@ -15,11 +15,11 @@ const routes: Routes = [{
     { path: 'edit', component: EditComponent },
     { path: 'preview', component: PreviewComponent },
     { path: 'share', component: ShareComponent },
-  ]
+  ],
 }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ProjectRoutingModule { }

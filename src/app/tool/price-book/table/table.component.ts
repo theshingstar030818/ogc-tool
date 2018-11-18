@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
-import { ProjectsService } from '../../../../@core/data/projects.service';
-import { Router } from '@angular/router';
+import { PriceBookService } from '../../../@core/data/pricebook.service';
 
 
 @Component({
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class PriceBookTableComponent implements OnInit {
 
   settings = {
     mode: 'external',
@@ -29,36 +28,28 @@ export class TableComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      projectName: {
-        title: 'Project Name',
+      name: {
+        title: 'Line Item Name',
         type: 'string',
       },
-      projectAddress: {
-        title: 'Address of Project',
+      price: {
+        title: 'Price Per Unit',
         type: 'string',
       },
-      client: {
-        title: 'Client',
+      type: {
+        title: 'Unit Type',
         type: 'string',
       },
-      budget: {
-        title: 'Budget',
+      quantity: {
+        title: 'Qty',
         type: 'string',
       },
-      cost: {
-        title: 'Cost',
-        type: 'number',
+      tax: {
+        title: 'tax %',
+        type: 'string',
       },
-      status: {
-        title: 'Status',
-        type: 'number',
-      },
-      dueDate: {
-        title: 'Due Date',
-        type: 'number',
-      },
-      created: {
-        title: 'Created',
+      total: {
+        title: 'Total $',
         type: 'number',
       },
     },
@@ -66,13 +57,10 @@ export class TableComponent implements OnInit {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(
-    private service: ProjectsService,
-    private router: Router,
-  ) {
-    const data = this.service.getProjects();
+  constructor(private service: PriceBookService) {
+    const data = this.service.getPriceBook();
     this.source.load(data);
-    service.observableProjects.subscribe(newData => {
+    service.observablePriceBook.subscribe(newData => {
       this.source.load(newData);
     });
   }
@@ -85,12 +73,8 @@ export class TableComponent implements OnInit {
     }
   }
 
-  onRowSelect(event): void {
-    this.router.navigate(['/tools/project', event.data.id]);
-  }
-
   onDelete(event): void {
-    this.service.removeProject(event);
+    this.service.removePriceBook(event);
   }
 
   ngOnInit() {

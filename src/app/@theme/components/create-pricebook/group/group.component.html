@@ -1,0 +1,55 @@
+
+<div class="row" [style.width.px]="600" >
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        Create Line Item Group
+        <button class="close" aria-label="Close" (click)="dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+      <form [style.padding.px]="15" [formGroup]= "lineitemGroupForm" (ngSubmit)="onSubmit()">
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Line Item Group Name</label>
+                <input formControlName="groupName" type="text" class="form-control" placeholder="Line Item Group Name"
+                [ngClass]="{
+                  'form-control-danger': groupName.invalid && groupName.dirty,
+                  'form-control-success': groupName.valid && groupName.dirty
+                }">
+                <div class="form-control-feedback" *ngIf="groupName.errors && (groupName.dirty || groupName.touched)">
+                    <p *ngIf="groupName.errors.required">First Name is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Select Line Items to Include in Group</label>
+                <select class="form-control" formControlName="lineItems" multiple
+                [ngClass]="{
+                  'form-control-danger': groupName.invalid && groupName.dirty,
+                  'form-control-success': groupName.valid && groupName.dirty
+                }">
+                  <option *ngFor="let item of items"
+                          [value]="item.name">{{item.name}}
+                  </option>
+                </select>
+                <div class="form-control-feedback"
+                  *ngIf="lineItems.errors && (lineItems.dirty || lineItems.touched)">
+                  <p *ngIf="lineItems.errors.required">Line Item is required</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton class="btn btn-success" type="submit">Create Line Item Group</button>
+        </nb-card-footer>
+      </form>
+    </nb-card>
+  </div>
+</div>
