@@ -18,8 +18,12 @@ import { ProfitBarAnimationChartService } from './profit-bar-animation-chart.ser
 import { LayoutService } from './layout.service';
 import { ProjectsService } from './projects.service';
 import { ClientsService } from './clients.service';
+import { BackendService } from './backend.service';
+import { AuthService } from './auth.service';
 
 const SERVICES = [
+  BackendService,
+  AuthService,
   UserService,
   ElectricityService,
   StateService,
