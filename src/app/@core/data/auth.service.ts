@@ -45,6 +45,16 @@ export class AuthService {
     }
   }
 
+  public async requestPassword(user: any) {
+    Parse.User.requestPasswordReset(user.email).then(() => {
+      // Password reset request was sent successfully
+      console.log('Password reset request was sent successfully')
+    }).catch((error) => {
+      // Show the error message somewhere
+      console.log("Error: " + error.code + " " + error.message);
+    });
+  }
+
   public logout() {
     return Parse.User.logOut();
   }

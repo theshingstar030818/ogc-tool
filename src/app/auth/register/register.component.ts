@@ -21,8 +21,6 @@ export class RegisterComponent extends NbRegisterComponent implements OnInit {
     this.errors = this.messages = [];
     this.submitted = true;
 
-    console.log(this.user)
-
     let response = await this.authService.register(this.user);
     this.submitted = false;
       
