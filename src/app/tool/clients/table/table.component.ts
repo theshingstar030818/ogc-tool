@@ -28,6 +28,10 @@ export class ClientTableComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
+      id: {
+        title: 'ID',
+        type: 'string',
+      },
       name: {
         title: 'Name',
         type: 'string',
@@ -46,11 +50,11 @@ export class ClientTableComponent implements OnInit {
       },
       projects: {
         title: 'Projects',
-        type: 'number',
+        type: 'string',
       },
       created: {
         title: 'Created',
-        type: 'number',
+        type: 'string',
       },
     },
   };
@@ -74,6 +78,7 @@ export class ClientTableComponent implements OnInit {
   }
 
   onDelete(event): void {
+    console.log(event);
     this.service.removeClient(event);
   }
 
