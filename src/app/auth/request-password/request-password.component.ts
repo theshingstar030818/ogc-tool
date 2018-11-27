@@ -22,22 +22,14 @@ export class RequestPasswordComponent extends NbRequestPasswordComponent impleme
 
     console.log(this.user);
 
-    this.authService.requestPassword(this.user)
-      this.submitted = false;
-    //   if (result.isSuccess()) {
-    //     this.messages = result.getMessages();
-    //   } else {
-    //     this.errors = result.getErrors();
-    //   }
-
-    //   const redirect = result.getRedirect();
-    //   if (redirect) {
-    //     setTimeout(() => {
-    //       return this.router.navigateByUrl(redirect);
-    //     }, this.redirectDelay);
-    //   }
-    //   this.cd.detectChanges();
-    // });
+    this.authService.requestPassword(this.user).then(()=> {
+      this.messages = ['Password reset email was sent. Please check your mailbox.'];
+    }).catch((error) => {
+      this.errors = [error]
+    })
+    
+    this.submitted = false;
+    this.cd.detectChanges();
   }
 
 }
