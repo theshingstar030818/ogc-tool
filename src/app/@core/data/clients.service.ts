@@ -10,19 +10,10 @@ export class ClientsService {
   public clients: Array<any> = [];
   public observableClients: BehaviorSubject<any>;
 
-  public mockClient = {
-    name: 'John Smith',
-    email: 'john.smith@g.com',
-    phone: '+11322158256',
-    address: '201 Evergreen StVestal, NY 13850, USA',
-    projects: '1',
-    created: '2018/06/21',
-  };
-
   constructor() {
     this.observableClients = new BehaviorSubject<any[]>(this.clients);
-    this.getClientsParse();   
-    
+    this.getClientsParse();
+
   }
 
   async getClientsParse(){
@@ -31,9 +22,14 @@ export class ClientsService {
     const query = new Parse.Query(Clients);
     const results = await query.find();
     // Do something with the returned Parse.Object values
+
     for (let i = 0; i < results.length; i++) {
       var object = results[i];
 
+      this.clients.push(object);
+      // console.log(object);
+      this.observableClients.next(this.clients);
+/*
       var client: any = {
         id: object.id,
         name: object.get('firstName')+" "+object.get('lastName'),
@@ -43,9 +39,9 @@ export class ClientsService {
         projects: '1',
         created: object.get('createdAt'),
       };
-      
+
       this.clients.push(client);
-      this.observableClients.next(this.clients);
+      this.observableClients.next(this.clients);*/
     }
   }
 
@@ -62,10 +58,11 @@ export class ClientsService {
 
     clientData.save().then((clientData) => {
       // Execute any logic that should take place after the object is saved.
+      /* console.log(clientData);
       client.id = clientData.id;
       client.name = client.name.firstName + ' ' + client.name.lastName;
-      client.projects = '1';
-      this.clients.push(client);
+      client.projects = '1'; */
+      this.clients.push(clientData);
       this.observableClients.next(this.clients);
 
     }, (error) => {
@@ -83,9 +80,10 @@ export class ClientsService {
     clientData.id = event.data.id;
     clientData.destroy().then((results) => {
       // The object was deleted from the Parse Cloud.
+      // console.log(results);
       this.clients.splice(event.index, 1);
       this.observableClients.next(this.clients);
-      
+
     }, (error) => {
       // console.log(error);
     });

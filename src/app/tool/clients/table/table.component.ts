@@ -32,27 +32,42 @@ export class ClientTableComponent implements OnInit {
         title: 'ID',
         type: 'string',
       },
-      name: {
+      'attributes.name': {
         title: 'Name',
         type: 'string',
+        valuePrepareFunction: (cell,row) => {
+          return row.attributes.firstName +' '+ row.attributes.lastName;
+        }
       },
-      email: {
+      'attributes.email': {
         title: 'Email',
         type: 'string',
+        valuePrepareFunction: (cell,row) => {
+          return row.attributes.email;
+        }
       },
-      phone: {
+      'attributes.phone': {
         title: 'Phone Number',
         type: 'string',
+        valuePrepareFunction: (cell,row) => {
+          return row.attributes.phone;
+        }
       },
-      address: {
+      'attributes.address': {
         title: 'Address',
         type: 'string',
+        valuePrepareFunction: (cell,row) => {
+          return row.attributes.address;
+        }
       },
-      projects: {
+      'attributes.projects': {
         title: 'Projects',
         type: 'string',
+        valuePrepareFunction: (cell,row) => {
+          return row.attributes.projects;
+        }
       },
-      created: {
+      createdAt: {
         title: 'Created',
         type: 'string',
       },
