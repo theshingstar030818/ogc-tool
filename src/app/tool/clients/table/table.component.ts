@@ -35,37 +35,37 @@ export class ClientTableComponent implements OnInit {
       'attributes.name': {
         title: 'Name',
         type: 'string',
-        valuePrepareFunction: (cell,row) => {
-          return row.attributes.firstName +' '+ row.attributes.lastName;
-        }
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.firstName + ' ' + row.attributes.lastName;
+        },
       },
       'attributes.email': {
         title: 'Email',
         type: 'string',
-        valuePrepareFunction: (cell,row) => {
+        valuePrepareFunction: (cell, row) => {
           return row.attributes.email;
-        }
+        },
       },
       'attributes.phone': {
         title: 'Phone Number',
         type: 'string',
-        valuePrepareFunction: (cell,row) => {
+        valuePrepareFunction: (cell, row) => {
           return row.attributes.phone;
-        }
+        },
       },
       'attributes.address': {
         title: 'Address',
         type: 'string',
-        valuePrepareFunction: (cell,row) => {
+        valuePrepareFunction: (cell, row) => {
           return row.attributes.address;
-        }
+        },
       },
       'attributes.projects': {
         title: 'Projects',
         type: 'string',
-        valuePrepareFunction: (cell,row) => {
+        valuePrepareFunction: (cell, row) => {
           return row.attributes.projects;
-        }
+        },
       },
       createdAt: {
         title: 'Created',
@@ -93,7 +93,6 @@ export class ClientTableComponent implements OnInit {
   }
 
   onDelete(event): void {
-    console.log(event);
     this.service.removeClient(event);
   }
 

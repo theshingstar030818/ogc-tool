@@ -5,11 +5,11 @@ import { RouterModule } from '@angular/router';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { NbAuthModule } from '@nebular/auth';
-import { 
+import {
   NbAlertModule,
   NbButtonModule,
   NbCheckboxModule,
-  NbInputModule
+  NbInputModule,
 } from '@nebular/theme';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from '../@core/data/auth.service';
@@ -35,10 +35,10 @@ export let AppInjector: Injector;
     LogoutComponent,
   ],
   providers: [
-    AuthService
-  ]
+    AuthService,
+  ],
 })
-export class AuthModule { 
+export class AuthModule {
   constructor(private injector: Injector) {
     AppInjector = this.injector;
   }
