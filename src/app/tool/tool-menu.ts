@@ -18,4 +18,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-list',
     link: '/tools/clients',
   },
+  {
+    title: 'Logout',
+    icon: 'nb-angle-double-left',
+    link: '/auth/logout',
+  },
 ];
