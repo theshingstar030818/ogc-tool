@@ -7,6 +7,6 @@ export const environment = {
   production: true,
   backend: {
     serverURL: 'https://pacecouriers.com/ogcApp',
-    appId: 'ogcApp'
-  }
+    appId: 'ogcApp',
+  },
 };

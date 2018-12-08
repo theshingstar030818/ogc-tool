@@ -30,13 +30,13 @@ export class AuthService {
   }
 
   public async register(userData: any) {
-    
-    var user = new Parse.User();
-    user.set("password", userData.password);
-    user.set("email", userData.email);
-    user.set("username", userData.email);
-    user.set("emailVerified", false);
-    
+
+    let user = new Parse.User();
+    user.set('password', userData.password);
+    user.set('email', userData.email);
+    user.set('username', userData.email);
+    user.set('emailVerified', false);
+
     try {
       await user.signUp();
       return user;
@@ -48,10 +48,10 @@ export class AuthService {
   public async requestPassword(user: any) {
     Parse.User.requestPasswordReset(user.email).then(() => {
       // Password reset request was sent successfully
-      console.log('Password reset request was sent successfully')
+      // console.log('Password reset request was sent successfully');
     }).catch((error) => {
       // Show the error message somewhere
-      console.log("Error: " + error.code + " " + error.message);
+      // console.log('Error: ' + error.code + ' ' + error.message);
     });
   }
 

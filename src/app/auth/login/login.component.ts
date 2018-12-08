@@ -15,7 +15,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
   authService: AuthService = AppInjector.get(AuthService);
 
   ngOnInit() {
-    this.socialLinks = []
+    this.socialLinks = [];
   }
 
   async login() {
