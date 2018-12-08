@@ -6,23 +6,23 @@ import { Observable } from 'rxjs';
 import { Parse } from 'parse';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
 
   constructor(
-    private backendService: BackendService
-  ) { 
+    private backendService: BackendService,
+  ) {
     this.backendService.initialize();
   }
 
-  public isAuthenticated() : Observable<boolean>{
+  public isAuthenticated(): Observable<boolean> {
     return Parse.User.current();
   }
 
   public async authenticate(username: string, password: string) {
     try {
-      let user = await Parse.User.logIn(username, password);
+      const user = await Parse.User.logIn(username, password);
       return user;
     } catch (error) {
       return error;

@@ -8,10 +8,10 @@ import { Parse } from 'parse';
   selector: 'ngx-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [AuthService]
+  providers: [AuthService],
 })
 export class LoginComponent extends NbLoginComponent implements OnInit {
-  
+
   authService: AuthService = AppInjector.get(AuthService);
 
   ngOnInit() {
@@ -23,13 +23,13 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
     this.messages = [];
     this.submitted = true;
 
-    let response = await this.authService.authenticate(this.user.email, this.user.password);
+    const response = await this.authService.authenticate(this.user.email, this.user.password);
     this.submitted = false;
 
-    if(response instanceof Parse.Error) {
-      this.errors = ["Code : "+response.code, response.message];
+    if (response instanceof Parse.Error) {
+      this.errors = ['Code : ' + response.code, response.message];
     } else {
-      this.messages = ['Login Successful']
+      this.messages = ['Login Successful'];
       this.router.navigateByUrl('/');
     }
     this.cd.detectChanges();

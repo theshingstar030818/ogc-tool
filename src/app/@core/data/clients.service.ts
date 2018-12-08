@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Parse } from 'parse';
 
 @Injectable({
   providedIn: 'root',
@@ -9,26 +10,42 @@ export class ClientsService {
   public clients: Array<any> = [];
   public observableClients: BehaviorSubject<any>;
 
-  public mockClient = {
-    name: 'John Smith',
-    email: 'john.smith@g.com',
-    phone: '+11322158256',
-    address: '201 Evergreen StVestal, NY 13850, USA',
-    projects: '1',
-    created: '2018/06/21',
-  };
-
   constructor() {
     this.observableClients = new BehaviorSubject<any[]>(this.clients);
-    // this.addClient(this.mockClient);
-   }
+    this.getClientsParse();
+
+  }
+
+  async getClientsParse() {
+
+    const Clients = Parse.Object.extend('Client');
+    const query = new Parse.Query(Clients);
+    const results = await query.find();
+    // Do something with the returned Parse.Object values
+
+    this.clients = results;
+    this.observableClients.next(this.clients);
+  }
 
   addClient(client?) {
 
-    client.name = client.name.firstName + ' ' + client.name.lastName;
-    client.projects = '10';
-    this.clients.push(client);
-    this.observableClients.next(this.clients);
+    const Client = Parse.Object.extend('Client');
+    const clientData = new Client();
+
+    clientData.set('firstName', client.name.firstName);
+    clientData.set('lastName', client.name.lastName);
+    clientData.set('email', client.email);
+    clientData.set('phone', client.phone);
+    clientData.set('address', client.address);
+
+    clientData.save().then((result) => {
+      // Execute any logic that should take place after the object is saved.
+      this.clients.push(result);
+      this.observableClients.next(this.clients);
+
+    }, (error) => {
+      // console.log('Failed to create new object, with error code: ' + error.message);
+    });
   }
 
   getClients() {
@@ -36,7 +53,16 @@ export class ClientsService {
   }
 
   removeClient(event) {
-    this.clients.splice(event.index, 1);
-    this.observableClients.next(this.clients);
+    const Client = Parse.Object.extend('Client');
+    const clientData = new Client();
+    clientData.id = event.data.id;
+    clientData.destroy().then((results) => {
+      // The object was deleted from the Parse Cloud.
+      this.clients.splice(event.index, 1);
+      this.observableClients.next(this.clients);
+
+    }, (error) => {
+      // console.log(error);
+    });
   }
 }
