@@ -28,29 +28,47 @@ export class PriceBookTableComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      name: {
+      'attributes.title': {
         title: 'Line Item Name',
         type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.title;
+        },
       },
-      price: {
+      'attributes.price': {
         title: 'Price Per Unit',
         type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.material;
+        },
       },
-      type: {
+      'attributes.type': {
         title: 'Unit Type',
         type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.unitType;
+        },
       },
-      quantity: {
+      'attributes.quantity': {
         title: 'Qty',
         type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.qty;
+        },
       },
-      tax: {
+      'tax': {
         title: 'tax %',
         type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.tax;
+        },
       },
-      total: {
+      'total': {
         title: 'Total $',
         type: 'number',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.total;
+        },
       },
     },
   };

@@ -38,6 +38,8 @@ export class ClientsService {
     clientData.set('phone', client.phone);
     clientData.set('address', client.address);
 
+    clientData.setACL(new Parse.ACL(Parse.User.current()));
+
     clientData.save().then((result) => {
       // Execute any logic that should take place after the object is saved.
       this.clients.push(result);
