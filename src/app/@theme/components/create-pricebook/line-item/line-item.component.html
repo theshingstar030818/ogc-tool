@@ -57,7 +57,7 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label>Qty</label>
-              <input formControlName="quantity" type="number" class="form-control" placeholder="Quantity" 
+              <input formControlName="quantity" type="number" class="form-control" placeholder="Quantity"
               [ngClass]="{
                 'form-control-danger': quantity.invalid && quantity.dirty,
                 'form-control-success': quantity.valid && quantity.dirty
@@ -74,7 +74,7 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label>Tax %</label>
-              <input formControlName="tax" type="number" class="form-control" placeholder="Tax %" 
+              <input formControlName="tax" type="number" class="form-control" placeholder="Tax %"
               [ngClass]="{
                 'form-control-danger': tax.invalid && tax.dirty,
                 'form-control-success': tax.valid && tax.dirty
@@ -89,7 +89,7 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label>Total</label>
-              <input formControlName="total" type="number" class="form-control" placeholder="Total" 
+              <input formControlName="total" type="number" class="form-control" placeholder="Total"
               [ngClass]="{
                 'form-control-danger': total.invalid && total.dirty,
                 'form-control-success': total.valid && total.dirty
@@ -103,7 +103,7 @@
           </div>
         </div>
       </nb-card-body>
-      
+
       <nb-card-footer>
         <button nbButton class="btn btn-success" type="submit">Create Line Item</button>
       </nb-card-footer>

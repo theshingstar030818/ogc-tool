@@ -28,10 +28,6 @@ export class ClientTableComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'ID',
-        type: 'string',
-      },
       'attributes.name': {
         title: 'Name',
         type: 'string',

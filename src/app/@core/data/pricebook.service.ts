@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Parse } from 'parse';
 
 @Injectable({
   providedIn: 'root',
@@ -9,24 +10,44 @@ export class PriceBookService {
   public pricebooks: Array<any> = [];
   public observablePriceBook: BehaviorSubject<any>;
 
-  public mockPriceBook = {
-    name: 'sample line item',
-    price: '1.00',
-    type: 'Item',
-    quantity: '1',
-    tax: '1',
-    total: '1',
-  };
-
   constructor() {
     this.observablePriceBook = new BehaviorSubject<any[]>(this.pricebooks);
-    this.addPriceBookLineItem(this.mockPriceBook);
+    this.getLineItems();
    }
+
+   async getLineItems() {
+
+    const LineItem = Parse.Object.extend('LineItem');
+    const query = new Parse.Query(LineItem);
+    const results = await query.find();
+    // Do something with the returned Parse.Object values
+
+    this.pricebooks = results;
+    this.observablePriceBook.next(this.pricebooks);
+  }
 
    addPriceBookLineItem(lineItem?) {
 
-    this.pricebooks.push(lineItem);
-    this.observablePriceBook.next(this.pricebooks);
+    const LineItem = Parse.Object.extend('LineItem');
+    const LineItemData = new LineItem();
+
+    LineItemData.set('title', lineItem.name);
+    LineItemData.set('material', lineItem.price);
+    LineItemData.set('unitType', lineItem.type);
+    LineItemData.set('qty', lineItem.quantity);
+    LineItemData.set('tax', lineItem.tax);
+    LineItemData.set('total', lineItem.total);
+
+    LineItemData.setACL(new Parse.ACL(Parse.User.current()));
+
+    LineItemData.save().then((result) => {
+      // Execute any logic that should take place after the object is saved.
+      this.pricebooks.push(result);
+      this.observablePriceBook.next(this.pricebooks);
+
+    }, (error) => {
+      // console.log('Failed to create new object, with error code: ' + error.message);
+    });
   }
 
   addPriceBookGroup(group?) {
@@ -38,7 +59,17 @@ export class PriceBookService {
   }
 
   removePriceBook(event) {
-    this.pricebooks.splice(event.index, 1);
-    this.observablePriceBook.next(this.pricebooks);
+    const LineItem = Parse.Object.extend('LineItem');
+    const LineItemData = new LineItem();
+    LineItemData.id = event.data.id;
+    LineItemData.destroy().then((results) => {
+      // The object was deleted from the Parse Cloud.
+      this.pricebooks.splice(event.index, 1);
+      this.observablePriceBook.next(this.pricebooks);
+
+    }, (error) => {
+      // console.log(error);
+    });
+
   }
 }
