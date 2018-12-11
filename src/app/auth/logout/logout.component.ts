@@ -19,6 +19,7 @@ export class LogoutComponent extends NbLogoutComponent implements OnInit {
   async logout() {
     this.authService.logout().then(() => {
       this.router.navigateByUrl('/');
+      location.reload();
     });
   }
 
