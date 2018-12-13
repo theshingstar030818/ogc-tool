@@ -10,7 +10,8 @@ echo "isPullRequest : $isPullRequest"
 stage('Build') {
     milestone()
     lock("${branch} Workspace") {
-        node('tool:docker') {
+        node('master') {
+            // as before
             cleanWs()
             buildCommitHash = checkout(scm).GIT_COMMIT
             echo "buildCommitHash : $buildCommitHash"
