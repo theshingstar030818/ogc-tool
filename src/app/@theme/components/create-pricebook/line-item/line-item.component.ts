@@ -31,7 +31,7 @@ export class CreateLineItemComponent implements OnInit {
   constructor(
     protected ref: NbDialogRef<CreateLineItemComponent>,
     protected pricebookService: PriceBookService,
-  ) { 
+  ) {
   }
 
   createFormControls() {

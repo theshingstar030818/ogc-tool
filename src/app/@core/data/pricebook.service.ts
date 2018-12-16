@@ -28,14 +28,14 @@ export class PriceBookService {
 
    async addPriceBookLineItem(lineItem?) {
 
-    
+
     const LineItem = Parse.Object.extend('LineItem');
     const lineItemObject = new LineItem();
 
-    
+
     const SubDivisionObject = Parse.Object.extend('SubDivision');
-    var querySubDivision = new Parse.Query(SubDivisionObject);
-    var subDivision = await querySubDivision.get(lineItem.subDivisionsFC);
+    let querySubDivision = new Parse.Query(SubDivisionObject);
+    let subDivision = await querySubDivision.get(lineItem.subDivisionsFC);
 
     lineItemObject.set('title', lineItem.name);
     lineItemObject.set('material', lineItem.price);
@@ -46,14 +46,13 @@ export class PriceBookService {
     lineItemObject.set('subDivision', subDivision);
 
     lineItemObject.setACL(new Parse.ACL(Parse.User.current()));
-    lineItemObject.save().then((lineItem) => {
+    lineItemObject.save().then((saveLineItem) => {
       // Execute any logic that should take place after the object is saved.
-      var relation = subDivision.relation("lineItems");
-      relation.add(lineItem);
+      let relation = subDivision.relation('lineItems');
+      relation.add(saveLineItem);
       subDivision.save();
-      this.pricebooks.push(lineItem);
+      this.pricebooks.push(saveLineItem);
       this.observablePriceBook.next(this.pricebooks);
-
     }, (error) => {
       // console.log('Failed to create new object, with error code: ' + error.message);
     });
