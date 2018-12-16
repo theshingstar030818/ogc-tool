@@ -102,6 +102,26 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="Divisions">Divisions</label>
+              <select class="form-control" (change)='getSubDivision($event,divisions.value)' #divisions><!-- formControlName="divisions" -->
+                  <option value="">Select Division</option>
+                  <option  *ngFor="let item of division"  value="{{item.id}}">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="SubDivisions">Sub Divisions</label>
+              <select class="form-control" ><!-- formControlName="subDivisions" -->
+                <option value="">Select Sub Division</option>
+                <option *ngFor="let item of subDivision"  value="{{item.id}}">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </nb-card-body>
 
       <nb-card-footer>

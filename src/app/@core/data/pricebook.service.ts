@@ -70,6 +70,45 @@ export class PriceBookService {
     }, (error) => {
       // console.log(error);
     });
+  }
 
+  async getDivisions() {
+    const Division = Parse.Object.extend('Division');
+    const query = new Parse.Query(Division);
+    const results = await query.find();
+    let divisions: Array<any> = [];
+    for (let i = 0; i < results.length; i++) {
+      let object = results[i];
+
+      let eachDivision = {
+          'id': object.id,
+          'name': object.get('name'),
+      };
+      divisions.push(eachDivision);
+    }
+    return divisions;
+  }
+
+  async getSubDivisions(division?) {
+
+    const Division = Parse.Object.extend('Division');
+    let divisionObject = new Division();
+    divisionObject.id = division;
+
+    const SubDivision = Parse.Object.extend('SubDivision');
+    const query = new Parse.Query(SubDivision);
+    query.equalTo('division', divisionObject);
+    const results = await query.find();
+    let subDivisions: Array<any> = [];
+    for (let i = 0; i < results.length; i++) {
+      let object = results[i];
+
+      let eachSubDivision = {
+          'id': object.id,
+          'name': object.get('name'),
+      };
+      subDivisions.push(eachSubDivision);
+    }
+    return subDivisions;
   }
 }
