@@ -67,17 +67,20 @@ export class PriceBookService {
   }
 
   removePriceBook(event) {
-    const LineItem = Parse.Object.extend('LineItem');
-    const lineItemObject = new LineItem();
-    lineItemObject.id = event.data.id;
-    lineItemObject.destroy().then((results) => {
-      // The object was deleted from the Parse Cloud.
-      this.pricebooks.splice(event.index, 1);
-      this.observablePriceBook.next(this.pricebooks);
+    var r = confirm("Are You Sure You Want to Delete This Line Item?");
+    if (r == true) {
+      const LineItem = Parse.Object.extend('LineItem');
+      const lineItemObject = new LineItem();
+      lineItemObject.id = event.data.id;
+      lineItemObject.destroy().then((results) => {
+        // The object was deleted from the Parse Cloud.
+        this.pricebooks.splice(event.index, 1);
+        this.observablePriceBook.next(this.pricebooks);
 
-    }, (error) => {
-      // console.log(error);
-    });
+      }, (error) => {
+        // console.log(error);
+      });
+    }
   }
 
   async getDivisions() {
