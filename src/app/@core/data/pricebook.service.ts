@@ -26,27 +26,32 @@ export class PriceBookService {
     this.observablePriceBook.next(this.pricebooks);
   }
 
-   addPriceBookLineItem(lineItem?) {
+   async addPriceBookLineItem(lineItem?) {
 
-    const SubDivision = Parse.Object.extend('SubDivision');
+    
     const LineItem = Parse.Object.extend('LineItem');
-    const LineItemData = new LineItem();
+    const lineItemObject = new LineItem();
 
-    var pointer = SubDivision.createWithoutData(lineItem.subDivisionsFC);
+    
+    const SubDivisionObject = Parse.Object.extend('SubDivision');
+    var querySubDivision = new Parse.Query(SubDivisionObject);
+    var subDivision = await querySubDivision.get(lineItem.subDivisionsFC);
 
-    LineItemData.set('title', lineItem.name);
-    LineItemData.set('material', lineItem.price);
-    LineItemData.set('unitType', lineItem.type);
-    LineItemData.set('qty', lineItem.quantity);
-    LineItemData.set('tax', lineItem.tax);
-    LineItemData.set('total', lineItem.total);
-    LineItemData.set('subDivision', pointer);
+    lineItemObject.set('title', lineItem.name);
+    lineItemObject.set('material', lineItem.price);
+    lineItemObject.set('unitType', lineItem.type);
+    lineItemObject.set('qty', lineItem.quantity);
+    lineItemObject.set('tax', lineItem.tax);
+    lineItemObject.set('total', lineItem.total);
+    lineItemObject.set('subDivision', subDivision);
 
-    LineItemData.setACL(new Parse.ACL(Parse.User.current()));
-
-    LineItemData.save().then((result) => {
+    lineItemObject.setACL(new Parse.ACL(Parse.User.current()));
+    lineItemObject.save().then((lineItem) => {
       // Execute any logic that should take place after the object is saved.
-      this.pricebooks.push(result);
+      var relation = subDivision.relation("lineItems");
+      relation.add(lineItem);
+      subDivision.save();
+      this.pricebooks.push(lineItem);
       this.observablePriceBook.next(this.pricebooks);
 
     }, (error) => {
@@ -64,9 +69,9 @@ export class PriceBookService {
 
   removePriceBook(event) {
     const LineItem = Parse.Object.extend('LineItem');
-    const LineItemData = new LineItem();
-    LineItemData.id = event.data.id;
-    LineItemData.destroy().then((results) => {
+    const lineItemObject = new LineItem();
+    lineItemObject.id = event.data.id;
+    lineItemObject.destroy().then((results) => {
       // The object was deleted from the Parse Cloud.
       this.pricebooks.splice(event.index, 1);
       this.observablePriceBook.next(this.pricebooks);

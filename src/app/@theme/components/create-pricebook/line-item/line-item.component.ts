@@ -13,11 +13,6 @@ export class CreateLineItemComponent implements OnInit {
 
   @Input() title: string;
 
-  constructor(
-    protected ref: NbDialogRef<CreateLineItemComponent>,
-    protected pricebookService: PriceBookService,
-  ) { }
-
   emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   units: string[] = ['Item1', 'Item2', 'Item3'];
   division: any;
@@ -32,6 +27,12 @@ export class CreateLineItemComponent implements OnInit {
   total: FormControl;
   divisionsFC: FormControl;
   subDivisionsFC: FormControl;
+
+  constructor(
+    protected ref: NbDialogRef<CreateLineItemComponent>,
+    protected pricebookService: PriceBookService,
+  ) { 
+  }
 
   createFormControls() {
     this.name = new FormControl('', Validators.required);
@@ -61,9 +62,7 @@ export class CreateLineItemComponent implements OnInit {
     this.createFormControls();
     this.createForm();
     this.pricebookService.getDivisions().then((results) => {
-
       this.division = results;
-
     }, (error) => {
       // console.log(error);
     });
@@ -85,6 +84,7 @@ export class CreateLineItemComponent implements OnInit {
   }
 
   getSubDivision($event, division) {
+    this.subDivisionsFC.reset();
     if (division !== '') {
       this.pricebookService.getSubDivisions(division).then((results) => {
 
