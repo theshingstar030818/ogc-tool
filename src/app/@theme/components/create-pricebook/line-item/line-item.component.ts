@@ -13,13 +13,10 @@ export class CreateLineItemComponent implements OnInit {
 
   @Input() title: string;
 
-  constructor(
-    protected ref: NbDialogRef<CreateLineItemComponent>,
-    protected pricebookService: PriceBookService,
-  ) { }
-
   emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   units: string[] = ['Item1', 'Item2', 'Item3'];
+  division: any;
+  subDivision: any;
 
   lineitemForm: FormGroup;
   name: FormControl;
@@ -28,6 +25,14 @@ export class CreateLineItemComponent implements OnInit {
   quantity: FormControl;
   tax: FormControl;
   total: FormControl;
+  divisionsFC: FormControl;
+  subDivisionsFC: FormControl;
+
+  constructor(
+    protected ref: NbDialogRef<CreateLineItemComponent>,
+    protected pricebookService: PriceBookService,
+  ) {
+  }
 
   createFormControls() {
     this.name = new FormControl('', Validators.required);
@@ -36,6 +41,8 @@ export class CreateLineItemComponent implements OnInit {
     this.quantity = new FormControl('', Validators.required);
     this.tax = new FormControl('', Validators.required);
     this.total = new FormControl('', Validators.required);
+    this.divisionsFC = new FormControl('', Validators.required);
+    this.subDivisionsFC = new FormControl('', Validators.required);
   }
 
   createForm() {
@@ -46,12 +53,19 @@ export class CreateLineItemComponent implements OnInit {
       quantity: this.quantity,
       tax: this.tax,
       total: this.total,
+      divisionsFC: this.divisionsFC,
+      subDivisionsFC: this.subDivisionsFC,
     });
   }
 
   ngOnInit() {
     this.createFormControls();
     this.createForm();
+    this.pricebookService.getDivisions().then((results) => {
+      this.division = results;
+    }, (error) => {
+      // console.log(error);
+    });
   }
 
   onSubmit() {
@@ -67,5 +81,18 @@ export class CreateLineItemComponent implements OnInit {
 
   dismiss() {
     this.ref.close();
+  }
+
+  getSubDivision($event, division) {
+    this.subDivisionsFC.reset();
+    if (division !== '') {
+      this.pricebookService.getSubDivisions(division).then((results) => {
+
+        this.subDivision = results;
+
+      }, (error) => {
+        // console.log(error);
+      });
+    }
   }
 }
