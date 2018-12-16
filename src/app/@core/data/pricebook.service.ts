@@ -67,8 +67,8 @@ export class PriceBookService {
   }
 
   removePriceBook(event) {
-    var r = confirm("Are You Sure You Want to Delete This Line Item?");
-    if (r == true) {
+    let r = confirm('Are You Sure You Want to Delete This Line Item?');
+    if (r === true) {
       const LineItem = Parse.Object.extend('LineItem');
       const lineItemObject = new LineItem();
       lineItemObject.id = event.data.id;
