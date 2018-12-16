@@ -30,6 +30,8 @@ export class CreateLineItemComponent implements OnInit {
   quantity: FormControl;
   tax: FormControl;
   total: FormControl;
+  divisionsFC: FormControl;
+  subDivisionsFC: FormControl;
 
   createFormControls() {
     this.name = new FormControl('', Validators.required);
@@ -38,6 +40,8 @@ export class CreateLineItemComponent implements OnInit {
     this.quantity = new FormControl('', Validators.required);
     this.tax = new FormControl('', Validators.required);
     this.total = new FormControl('', Validators.required);
+    this.divisionsFC = new FormControl('', Validators.required);
+    this.subDivisionsFC = new FormControl('', Validators.required);
   }
 
   createForm() {
@@ -48,6 +52,8 @@ export class CreateLineItemComponent implements OnInit {
       quantity: this.quantity,
       tax: this.tax,
       total: this.total,
+      divisionsFC: this.divisionsFC,
+      subDivisionsFC: this.subDivisionsFC,
     });
   }
 

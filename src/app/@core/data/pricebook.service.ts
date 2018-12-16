@@ -28,8 +28,11 @@ export class PriceBookService {
 
    addPriceBookLineItem(lineItem?) {
 
+    const SubDivision = Parse.Object.extend('SubDivision');
     const LineItem = Parse.Object.extend('LineItem');
     const LineItemData = new LineItem();
+
+    var pointer = SubDivision.createWithoutData(lineItem.subDivisionsFC);
 
     LineItemData.set('title', lineItem.name);
     LineItemData.set('material', lineItem.price);
@@ -37,6 +40,7 @@ export class PriceBookService {
     LineItemData.set('qty', lineItem.quantity);
     LineItemData.set('tax', lineItem.tax);
     LineItemData.set('total', lineItem.total);
+    LineItemData.set('subDivision', pointer);
 
     LineItemData.setACL(new Parse.ACL(Parse.User.current()));
 
