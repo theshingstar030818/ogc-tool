@@ -27,6 +27,8 @@ export class CreateLineItemComponent implements OnInit {
   total: FormControl;
   divisionsFC: FormControl;
   subDivisionsFC: FormControl;
+  description: FormControl;
+  ogcNotes: FormControl;
 
   constructor(
     protected ref: NbDialogRef<CreateLineItemComponent>,
@@ -43,6 +45,8 @@ export class CreateLineItemComponent implements OnInit {
     this.total = new FormControl('', Validators.required);
     this.divisionsFC = new FormControl('', Validators.required);
     this.subDivisionsFC = new FormControl('', Validators.required);
+    this.description = new FormControl('');
+    this.ogcNotes = new FormControl('');
   }
 
   createForm() {
@@ -55,6 +59,8 @@ export class CreateLineItemComponent implements OnInit {
       total: this.total,
       divisionsFC: this.divisionsFC,
       subDivisionsFC: this.subDivisionsFC,
+      description: this.description,
+      ogcNotes: this.ogcNotes,
     });
   }
 
