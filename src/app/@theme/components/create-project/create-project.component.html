@@ -42,8 +42,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="projectTemplate">Project Template</label>
-            <select class="form-control">
-              <option value="">Select Template</option>
+            <select class="form-control" multiple>
               <option *ngFor="let item of template" value="{{item.id}}">{{item.name}}</option>
             </select>
           </div>
