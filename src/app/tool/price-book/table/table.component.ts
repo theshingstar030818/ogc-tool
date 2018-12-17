@@ -70,6 +70,20 @@ export class PriceBookTableComponent implements OnInit {
           return row.attributes.total;
         },
       },
+      'description': {
+        title: 'Description',
+        type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.description;
+        },
+      },
+      'ogcNotes': {
+        title: 'OGC Notes',
+        type: 'number',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.ogcNotes;
+        },
+      },
     },
   };
 

@@ -44,6 +44,8 @@ export class PriceBookService {
     lineItemObject.set('tax', lineItem.tax);
     lineItemObject.set('total', lineItem.total);
     lineItemObject.set('subDivision', subDivision);
+    lineItemObject.set('description', lineItem.description);
+    lineItemObject.set('ogcNotes', lineItem.ogcNotes);
 
     lineItemObject.setACL(new Parse.ACL(Parse.User.current()));
     lineItemObject.save().then((saveLineItem) => {
