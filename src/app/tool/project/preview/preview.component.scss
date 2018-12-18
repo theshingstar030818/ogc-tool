@@ -4,6 +4,11 @@
 
 @include nb-install-component() {
 
+  .job-detail-card {
+    background: lightgray;
+    font-weight: nb-theme(font-weight-bold);
+  }
+
   .preview-card-header {
     display: flex;
 
@@ -11,6 +16,4 @@
       flex: 1;
     }
   }
-
-
 }
