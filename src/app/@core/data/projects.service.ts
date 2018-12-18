@@ -47,16 +47,7 @@ export class ProjectsService {
     const ProjectTemplate = Parse.Object.extend('ProjectTemplate');
     const queryProjectTemplate = new Parse.Query(ProjectTemplate);
     const resultsProjectTemplate = await queryProjectTemplate.find();
-    let templates: Array<any> = [];
-    for (let i = 0; i < resultsProjectTemplate.length; i++) {
-      let object = resultsProjectTemplate[i];
-
-      let eachTemplate = {
-          'id': object.id,
-          'name': object.get('name'),
-      };
-      templates.push(eachTemplate);
-    }
+    let templates: Array<any> = resultsProjectTemplate;
     return templates;
   }
 }
