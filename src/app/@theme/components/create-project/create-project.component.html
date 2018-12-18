@@ -43,7 +43,7 @@
           <div class="form-group">
             <label for="projectTemplate">Project Template</label>
             <select class="form-control" multiple>
-              <option *ngFor="let item of template" value="{{item.id}}">{{item.name}}</option>
+              <option *ngFor="let item of template" value="{{item}}">{{item.attributes.name}}</option>
             </select>
           </div>
         </div>
