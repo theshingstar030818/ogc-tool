@@ -1,0 +1,16 @@
+@import '../../../@theme/styles/themes';
+@import '~@nebular/theme/styles/global/breakpoints';
+@import '~bootstrap/scss/mixins/breakpoints';
+
+@include nb-install-component() {
+
+  .preview-card-header {
+    display: flex;
+
+    .preview-card-title {
+      flex: 1;
+    }
+  }
+
+
+}
