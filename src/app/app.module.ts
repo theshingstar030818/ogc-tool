@@ -30,7 +30,7 @@ export let AppInjector: Injector;
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-    NbButtonModule
+    NbButtonModule,
   ],
   bootstrap: [AppComponent],
   providers: [
