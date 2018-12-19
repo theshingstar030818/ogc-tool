@@ -1,3 +1,66 @@
-<h1>
-  share works!
-</h1>
+<div class="row share-container">
+  <div class="col-sm-8">
+    <nb-card>
+      <nb-card-body>
+        <div class="row" *ngIf="!shared">
+          <div class="col-sm-6">
+            <form [formGroup]= "shareProjectForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label>Share With</label>
+                <input formControlName="emails" type="text" class="form-control" placeholder="Enter Emails To Share With"
+                [ngClass]="{
+                  'form-control-danger': emails.invalid && emails.dirty,
+                  'form-control-success': emails.valid && emails.dirty
+                }">
+                <div class="form-control-feedback" *ngIf="emails.errors && (emails.dirty || emails.touched)">
+                  <p *ngIf="emails.errors.required">At least one email is equired.</p>
+                </div>
+                <p>Comma "," seperate multiple addresses</p>
+              </div>
+              <div class="form-group">
+                <button nbButton class="btn btn-success" type="submit">Confirm and Share</button>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-6">
+            <p class="shareInfo" >
+              Share your work with clients to gain feedback via comments.
+              They will only be able to see what is shown in the "preview" section.
+              While sharing,editing is locked to prevent changes the client may not be aware of.
+            </p>
+          </div>
+        </div>
+        <div class="row" *ngIf="shared">
+          <div class="col-sm-6">
+            <div>
+              <h6>Your document is curently being shared with:</h6>
+              <ul>
+                <li *ngFor="let email of sharedEmail" >{{email}}</li>
+              </ul>
+            </div>
+            <button nbButton class="btn btn-danger" type="button" (click)="stopSharing()">Stop Sharing</button>
+          </div>
+          <div class="col-sm-6">
+            <p class="shareInfo" >
+              While shared, you can't edit your documment. Stop sharing in order to do so.
+            </p>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-sm-4">
+    <p *ngIf="!comment">There are currently no comments. Type one below to get started..</p>
+    <div *ngIf="comment">
+        <div class="comment-group">
+          <h5>{{comment.email}}</h5>
+          <h6>{{comment.time}}</h6>
+          <p>{{comment.text}}</p>
+        </div>
+        <hr>
+    </div>
+    <div class="comment-input form-group">
+      <input type="text" class="form-control" placeholder="Type a Comment.." >
+    </div>
+  </div>
+</div>
