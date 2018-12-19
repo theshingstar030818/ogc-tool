@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { share } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +42,7 @@ export class ProjectsService {
     return this.projects;
   }
 
-  shareProject(emails?){
+  shareProject(emails?) {
 
   }
 

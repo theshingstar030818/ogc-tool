@@ -10,11 +10,11 @@ import { NbCardModule, NbThemeModule, NbLayoutModule, NbListModule } from '@nebu
 })
 
 @NgModule({
-  imports:[
+  imports: [
     NbThemeModule,
     NbCardModule,
     NbLayoutModule,
-    NbListModule
+    NbListModule,
   ],
 })
 export class ShareComponent implements OnInit {
@@ -24,9 +24,9 @@ export class ShareComponent implements OnInit {
   shared: boolean;
   sharedEmail: Array<any>;
   comment = {
-    "email" : "jane.doe@gmail.com",
-    "time" : "4min",
-    "text" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    'email' : 'jane.doe@gmail.com',
+    'time' : '4min',
+    'text' : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
   };
   multipleEmailPattern = /^(\s?[^\s,]+@[^\s,]+\.[^\s,]+\s?,)*(\s?[^\s,]+@[^\s,]+\.[^\s,]+)$/g;
 
@@ -40,7 +40,7 @@ export class ShareComponent implements OnInit {
     });
   }
   createFormControls() {
-    this.emails = new FormControl('',[
+    this.emails = new FormControl('', [
       Validators.required,
       Validators.pattern(this.multipleEmailPattern),
     ]);
@@ -59,8 +59,8 @@ export class ShareComponent implements OnInit {
 
   onSubmit() {
     if (this.shareProjectForm.valid) {
-      var sharedEmails = this.shareProjectForm.value.emails;
-      this.sharedEmail = sharedEmails.split(",");
+      let sharedEmails = this.shareProjectForm.value.emails;
+      this.sharedEmail = sharedEmails.split(',');
       this.shared = true;
       this.shareProjectForm.reset();
 
@@ -69,7 +69,7 @@ export class ShareComponent implements OnInit {
     }
   }
 
-  stopSharing(){
+  stopSharing() {
     this.shared = false;
   }
 
