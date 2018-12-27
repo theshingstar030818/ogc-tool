@@ -8,11 +8,14 @@ import { EditComponent } from './edit/edit.component';
 import { PreviewComponent } from './preview/preview.component';
 import { ShareComponent } from './share/share.component';
 import { ProjectComponent } from './project.component';
+import { NbAccordionModule, NbListModule } from '@nebular/theme';
 
 @NgModule({
   imports: [
     CommonModule,
     ThemeModule,
+    NbAccordionModule,
+    NbListModule,
     ProjectRoutingModule,
   ],
   declarations: [
