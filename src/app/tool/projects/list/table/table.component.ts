@@ -29,37 +29,62 @@ export class TableComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      projectName: {
+      'name': {
         title: 'Project Name',
         type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.current.attributes.name;
+        },
       },
       projectAddress: {
         title: 'Address of Project',
         type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.current.attributes.address;
+        },
       },
       client: {
         title: 'Client',
         type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          let client = row.attributes.current.attributes.client.attributes;
+          return client.firstName + ' ' + client.lastName;
+        },
       },
       budget: {
         title: 'Budget',
         type: 'string',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.current.attributes.budget;
+        },
       },
       cost: {
         title: 'Cost',
         type: 'number',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.current.attributes.cost;
+        },
       },
       status: {
         title: 'Status',
         type: 'number',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.current.attributes.status;
+        },
       },
       dueDate: {
         title: 'Due Date',
         type: 'number',
+        valuePrepareFunction: (cell, row) => {
+          return row.attributes.current.attributes.dueDate;
+        },
       },
       created: {
         title: 'Created',
         type: 'number',
+        valuePrepareFunction: (cell, row) => {
+          return row.createdAt;
+        },
       },
     },
   };

@@ -24,7 +24,19 @@ export class ProjectsService {
 
   constructor() {
     this.observableProjects = new BehaviorSubject<any[]>(this.projects);
-    this.addProject(this.mockProject);
+    this.getProjectsParse();
+  }
+
+  async getProjectsParse() {
+
+    const Project = Parse.Object.extend('Project');
+    const query = new Parse.Query(Project);
+    query.include('current');
+    query.include('current.client');
+    const results = await query.find();
+
+    this.projects = results;
+    this.observableProjects.next(this.projects);
   }
 
   //  TODO
