@@ -43,6 +43,10 @@ export class ProjectsService {
     return this.projects;
   }
 
+  shareProject(emails?) {
+
+  }
+
   async getTemplates() {
     const ProjectTemplate = Parse.Object.extend('ProjectTemplate');
     const queryProjectTemplate = new Parse.Query(ProjectTemplate);
@@ -50,4 +54,5 @@ export class ProjectsService {
     let templates: Array<any> = resultsProjectTemplate;
     return templates;
   }
+
 }
