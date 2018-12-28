@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Parse } from 'parse';
 
 @Injectable({
   providedIn: 'root',
@@ -41,4 +42,17 @@ export class ProjectsService {
   getProjects() {
     return this.projects;
   }
+
+  shareProject(emails?) {
+
+  }
+
+  async getTemplates() {
+    const ProjectTemplate = Parse.Object.extend('ProjectTemplate');
+    const queryProjectTemplate = new Parse.Query(ProjectTemplate);
+    const resultsProjectTemplate = await queryProjectTemplate.find();
+    let templates: Array<any> = resultsProjectTemplate;
+    return templates;
+  }
+
 }

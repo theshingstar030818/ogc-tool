@@ -1,3 +1,97 @@
-<h1>
-  info works!
-</h1>
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]= "projectInfoForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="projectName">Project Name</label>
+            <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name"
+            [ngClass]="{
+              'form-control-danger': projectName.invalid && projectName.dirty,
+              'form-control-success': projectName.valid && projectName.dirty
+              }">
+            <div class="form-control-feedback" *ngIf="projectName.errors && (projectName.dirty || projectName.touched)">
+              <p *ngIf="projectName.errors.required">Project Name is required</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="projectAddress">Address Of Project</label>
+            <input formControlName="projectAddress" type="text" class="form-control" placeholder="Address Of Project"
+            [ngClass]="{
+              'form-control-danger': projectAddress.invalid && projectAddress.dirty,
+              'form-control-success': projectAddress.valid && projectAddress.dirty
+              }">
+            <div class="form-control-feedback" *ngIf="projectAddress.errors && (projectAddress.dirty || projectAddress.touched)">
+              <p *ngIf="projectAddress.errors.required">Address is required</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="client">Client</label>
+            <input formControlName="client" type="text" class="form-control" placeholder="Client"
+            [ngClass]="{
+              'form-control-danger': client.invalid && client.dirty,
+              'form-control-success': client.valid && client.dirty
+              }">
+            <div class="form-control-feedback" *ngIf="client.errors && (client.dirty || client.touched)">
+              <p *ngIf="client.errors.required">Client is required</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="dueDate">Due Date</label>
+            <input class="form-control" [nbDatepicker]="duedate" formControlName="dueDate">
+            <nb-datepicker #duedate></nb-datepicker>
+            <div class="form-control-feedback" *ngIf="dueDate.errors && (dueDate.dirty || dueDate.touched)">
+              <p *ngIf="dueDate.errors.required">Due Date is required</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="created">Created</label>
+            <input class="form-control" [nbDatepicker]="createdDate" formControlName="created">
+            <nb-datepicker #createdDate></nb-datepicker>
+            <div class="form-control-feedback" *ngIf="created.errors && (created.dirty || created.touched)">
+              <p *ngIf="created.errors.required">Created Date is required</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="templates">Project Templates</label>
+            <select class="form-control" formControlName="templates" multiple>
+              <option *ngFor="let item of template"  value="{{item}}">{{item.attributes.name}}</option>
+            </select>
+            <div class="form-control-feedback" *ngIf="templates.errors && (templates.dirty || templates.touched)">
+              <p *ngIf="templates.errors.required">Template is required</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <button nbButton class="btn btn-success">Customize Pages And Elements In This Project</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <ngb-alert type='danger'>
+            We noticed you changed the templates in this project. By saving your changes,
+            a template will be added which will cause the project to be recalculated.
+          </ngb-alert>
+        </div>
+      </div>
+      <button nbButton class="btn btn-success" type="submit">Save Changes</button>
+    </form>
+
+  </nb-card-body>
+</nb-card>
