@@ -47,8 +47,20 @@ export class ProjectsService {
 
   // TODO
   removeProject(event) {
-    this.projects.splice(event.index, 1);
-    this.observableProjects.next(this.projects);
+    let r = confirm('Are You Sure You Want to Delete This Project?');
+    if (r === true) {
+      const Project = Parse.Object.extend('Project');
+      const ProjectObject = new Project();
+      ProjectObject.id = event.data.id;
+      ProjectObject.destroy().then((results) => {
+        // The object was deleted from the Parse Cloud.
+        this.projects.splice(event.index, 1);
+        this.observableProjects.next(this.projects);
+
+      }, (error) => {
+        // console.log(error);
+      });
+    }
   }
 
   getProjects() {
