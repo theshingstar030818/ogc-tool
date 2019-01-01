@@ -54,24 +54,35 @@ export class ProjectsService {
     projectHistoryObject.set('dueDate', project.duedate);
     projectHistoryObject.set('status', project.status);
     projectHistoryObject.set('client', client);
-
     projectHistoryObject.setACL(new Parse.ACL(Parse.User.current()));
 
     projectHistoryObject.save().then((result) => {
 
-      const Project = Parse.Object.extend('Project');
-      const projectObject = new Project();
+      let relation = result.relation('templates');
+      for (let template of project.template) {
 
-      projectObject.set('current', result);
-      projectObject.setACL(new Parse.ACL(Parse.User.current()));
+        relation.add(template);
+      }
+      result.save().then(() => {
+        const Project = Parse.Object.extend('Project');
+        const projectObject = new Project();
 
-      projectObject.save().then((newProject) => {
+        projectObject.set('current', result);
+        projectObject.setACL(new Parse.ACL(Parse.User.current()));
 
-        this.projects.push(newProject);
-        this.observableProjects.next(this.projects);
+        projectObject.save().then((newProject) => {
 
-      }, (error) => {
-        // console.log('Failed to create new object, with error code: ' + error.message);
+          let relationHistory = newProject.relation('history');
+          relationHistory.add(result);
+          newProject.save().then(() => {
+
+            this.projects.push(newProject);
+            this.observableProjects.next(this.projects);
+          });
+
+        }, (error) => {
+           // console.log('Failed to create new object, with error code: ' + error.message);
+        });
       });
 
     }, (error) => {

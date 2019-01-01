@@ -71,7 +71,7 @@
               <div class="form-group">
                 <label for="projectTemplate">Project Template</label>
                 <select formControlName="template" class="form-control" multiple>
-                  <option *ngFor="let item of templates" value="{{item.id}}">{{item.attributes.name}}</option>
+                  <option *ngFor="let item of templates" [value]="item">{{item.attributes.name}}</option>
                 </select>
                 <div class="form-control-feedback"
                   *ngIf="template.errors && (template.dirty || template.touched)">
