@@ -40,9 +40,44 @@ export class ProjectsService {
   }
 
   //  TODO
-  addProject(project?) {
-    this.projects.push(this.mockProject);
-    this.observableProjects.next(this.projects);
+  async addProject(project?) {
+
+    const ProjectHistory = Parse.Object.extend('ProjectHistory');
+    const projectHistoryObject = new ProjectHistory();
+
+    const Client = Parse.Object.extend('Client');
+    let ClientObject = new Parse.Query(Client);
+    let client = await ClientObject.get(project.client);
+
+    projectHistoryObject.set('name', project.name);
+    projectHistoryObject.set('address', project.address);
+    projectHistoryObject.set('dueDate', project.duedate);
+    projectHistoryObject.set('status', project.status);
+    projectHistoryObject.set('client', client);
+
+    projectHistoryObject.setACL(new Parse.ACL(Parse.User.current()));
+
+    projectHistoryObject.save().then((result) => {
+
+      const Project = Parse.Object.extend('Project');
+      const projectObject = new Project();
+
+      projectObject.set('current', result);
+      projectObject.setACL(new Parse.ACL(Parse.User.current()));
+
+      projectObject.save().then((newProject) => {
+
+        this.projects.push(newProject);
+        this.observableProjects.next(this.projects);
+
+      }, (error) => {
+        // console.log('Failed to create new object, with error code: ' + error.message);
+      });
+
+    }, (error) => {
+      // console.log('Failed to create new object, with error code: ' + error.message);
+    });
+
   }
 
   // TODO
