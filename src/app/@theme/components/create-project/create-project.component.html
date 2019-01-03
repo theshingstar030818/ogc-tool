@@ -8,50 +8,83 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </nb-card-header>
-      <nb-card-body>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="projectName">Project Name</label>
-              <input type="text" class="form-control" id="projectName" placeholder="Project Name">
+      <form [style.padding.px]="15" [formGroup]= "projectForm" (ngSubmit)="onSubmit()">
+        <nb-card-body>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="projectName">Project Name</label>
+                <input formControlName="name" type="text" class="form-control" id="projectName" placeholder="Project Name"
+                [ngClass]="{
+                  'form-control-danger': name.invalid && name.dirty,
+                  'form-control-success': name.valid && name.dirty
+                }">
+                <div class="form-control-feedback"
+                  *ngIf="name.errors && (name.dirty || name.touched)">
+                  <p *ngIf="name.errors.required">Name is required</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="addressOfProject">Address of Project</label>
+                <input formControlName="address" type="text" class="form-control" id="addressOfProject" placeholder="Address of Project"
+                [ngClass]="{
+                  'form-control-danger': address.invalid && address.dirty,
+                  'form-control-success': address.valid && address.dirty
+                }">
+                <div class="form-control-feedback"
+                  *ngIf="address.errors && (address.dirty || address.touched)">
+                  <p *ngIf="address.errors.required">Address is required</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="addressOfProject">Address of Project</label>
-              <input type="text" class="form-control" id="addressOfProject" placeholder="Address of Project">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="client">Client</label>
+                <select class="form-control" formControlName="client">
+                  <option value="">Select Client</option>
+                  <option *ngFor="let client of clients" value="{{client.id}}">{{client.attributes.firstName}} {{client.attributes.lastName}}</option>
+                </select>
+                <div class="form-control-feedback"
+                  *ngIf="client.errors && (client.dirty || client.touched)">
+                  <p *ngIf="client.errors.required">Client is required</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="dueDate">Due Date</label>
+                <input formControlName="duedate" class="form-control" nbInput placeholder="Due Date" [nbDatepicker]="dueDate">
+                <nb-datepicker #dueDate></nb-datepicker>
+                <div class="form-control-feedback"
+                  *ngIf="duedate.errors && (duedate.dirty || duedate.touched)">
+                  <p *ngIf="duedate.errors.required">Due Date is required</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="client">Client</label>
-              <input type="text" class="form-control" id="client" placeholder="Client">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="projectTemplate">Project Template</label>
+                <select formControlName="template" class="form-control" multiple>
+                  <option *ngFor="let item of templates" [value]="item">{{item.attributes.name}}</option>
+                </select>
+                <div class="form-control-feedback"
+                  *ngIf="template.errors && (template.dirty || template.touched)">
+                  <p *ngIf="template.errors.required">Template is required</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="dueDate">Due Date</label>
-              <input class="form-control" nbInput placeholder="Due Date" [nbDatepicker]="dueDate">
-              <nb-datepicker #dueDate></nb-datepicker>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label for="projectTemplate">Project Template</label>
-            <select class="form-control" multiple>
-              <option *ngFor="let item of template" value="{{item}}">{{item.attributes.name}}</option>
-            </select>
-          </div>
-        </div>
-        </div>
-      </nb-card-body>
-      <nb-card-footer>
-        <button nbButton class="btn btn-success" (click)="dismiss()">Create Project</button>
-      </nb-card-footer>
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton class="btn btn-success" type="submit">Create Project</button>
+        </nb-card-footer>
+      </form>
     </nb-card>
   </div>
 </div>
