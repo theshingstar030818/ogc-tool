@@ -115,7 +115,7 @@ export class TableComponent implements OnInit {
   }
 
   onDelete(event): void {
-    this.service.removeProject(event);
+    //this.service.removeProject(event);
   }
 
   ngOnInit() {

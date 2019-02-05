@@ -58,6 +58,7 @@ export class CreateProjectComponent implements OnInit {
     this.createFormControls();
     this.createForm();
     this.projectsService.getTemplates().then((results) => {
+      //console.log(results);
       this.templates = results;
     }, (error) => {
       // console.log(error);
@@ -65,15 +66,93 @@ export class CreateProjectComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.projectForm.valid) {
-      this.projectForm.controls['status'].setValue('New');
-      this.projectsService.addProject(this.projectForm.value);
-      this.projectForm.reset();
-      this.dismiss();
+    //console.log(this.projectForm);
+    this.fetchTemplateDivisions(this.template.value);
+    // if (this.projectForm.valid) {
+    //   this.projectForm.controls['status'].setValue('New');
+    //   this.projectsService.addProject(this.projectForm.value);
+    //   this.projectForm.reset();
+    //   this.dismiss();
 
-    } else {
-      window.alert('Form fields are not valid');
-    }
+    // } else {
+    //   window.alert('Form fields are not valid');
+    // }
+  }
+
+  async fetchTemplateDivisions(templates){
+    //console.log(templates);
+
+    var relation = templates[0].relation("divisions");
+    var query = relation.query();
+    await query.find().then((results) => {
+
+      for(var i=0;i<results.length;i++){
+
+        console.log(results[i].toJSON());
+
+        var subDivisions = this.fetchTemplateSubDivisions(results[i].relation("subDivisions"));
+        //.then((subDivisions) => {
+
+          //console.log(subDivisions);
+
+        //});
+      }
+
+    }, (error) => {
+      // console.log(error);
+    });
+
+  }
+
+  async fetchTemplateSubDivisions(relationSubDivisions){
+
+    var query2 = relationSubDivisions.query();
+    await query2.find().then((resultSubDivisions) => {
+
+      //console.log("Division: ");
+      //console.log(results[i].toJSON());
+
+      for(var j=0;j<resultSubDivisions.length;j++){
+        //console.log("subDivisions: ");
+        console.log(resultSubDivisions[j].toJSON());
+
+        this.fetchTemplateLineItems(resultSubDivisions[j].relation("lineItems")).then((lineItems)=>{
+
+          resultSubDivisions[j] = {
+            "parseObject": resultSubDivisions[j],
+            "lineItems" :lineItems
+          }
+            //console.log(lineItems);
+
+          //return lineItems;
+        });
+
+      }
+
+      console.log("resultSubDivisions: "+ resultSubDivisions);
+
+    }, (error) =>{
+
+    });
+
+  }
+
+  async fetchTemplateLineItems(relationLineItems){
+
+    var query3 = relationLineItems.query();
+    return await query3.find();
+    //.then((results3) => {
+
+      //return results3;
+
+      // for(var k=0;k<results3.length;k++){
+         //console.log("lineItems: ");
+         //console.log(results3[k].toJSON());
+      // }
+
+    //}, (error) =>{
+
+    //});
   }
 
   dismiss() {
