@@ -58,7 +58,7 @@ export class CreateProjectComponent implements OnInit {
     this.createFormControls();
     this.createForm();
     this.projectsService.getTemplates().then((results) => {
-      //console.log(results);
+      // console.log(results);
       this.templates = results;
     }, (error) => {
       // console.log(error);
@@ -66,7 +66,7 @@ export class CreateProjectComponent implements OnInit {
   }
 
   onSubmit() {
-    //console.log(this.projectForm);
+    // console.log(this.projectForm);
     this.fetchTemplateDivisions(this.template.value);
     // if (this.projectForm.valid) {
     //   this.projectForm.controls['status'].setValue('New');
@@ -79,23 +79,23 @@ export class CreateProjectComponent implements OnInit {
     // }
   }
 
-  async fetchTemplateDivisions(templates){
-    //console.log(templates);
+  async fetchTemplateDivisions(templates) {
+    // console.log(templates);
 
-    var relation = templates[0].relation("divisions");
-    var query = relation.query();
-    await query.find().then((results) => {
+    let relationdivisions = templates[0].relation('divisions');
+    let querydivisions = relationdivisions.query();
+    await querydivisions.find().then((division) => {
 
-      for(var i=0;i<results.length;i++){
+      for (let i = 0; i < division.length; i++) {
 
-        console.log(results[i].toJSON());
+        // console.log(division[i].toJSON());
 
-        var subDivisions = this.fetchTemplateSubDivisions(results[i].relation("subDivisions"));
-        //.then((subDivisions) => {
+        this.fetchTemplateSubDivisions(division[i].relation('subDivisions'));
+        // .then((subDivisions) => {
 
-          //console.log(subDivisions);
+          // console.log(subDivisions);
 
-        //});
+        // });
       }
 
     }, (error) => {
@@ -104,55 +104,44 @@ export class CreateProjectComponent implements OnInit {
 
   }
 
-  async fetchTemplateSubDivisions(relationSubDivisions){
+  async fetchTemplateSubDivisions(relationSubDivisions) {
 
-    var query2 = relationSubDivisions.query();
-    await query2.find().then((resultSubDivisions) => {
+    let querySubDivisions = relationSubDivisions.query();
+    await querySubDivisions.find().then((resultSubDivisions) => {
 
-      //console.log("Division: ");
-      //console.log(results[i].toJSON());
+      // console.log("Division: ");
+      // console.log(results[i].toJSON());
 
-      for(var j=0;j<resultSubDivisions.length;j++){
-        //console.log("subDivisions: ");
-        console.log(resultSubDivisions[j].toJSON());
+      for (let j = 0; j < resultSubDivisions.length; j++) {
+        // console.log("subDivisions: ");
+        // console.log(resultSubDivisions[j].toJSON());
 
-        this.fetchTemplateLineItems(resultSubDivisions[j].relation("lineItems")).then((lineItems)=>{
+        this.fetchTemplateLineItems(resultSubDivisions[j].relation('lineItems')).then((lineItems) => {
 
           resultSubDivisions[j] = {
-            "parseObject": resultSubDivisions[j],
-            "lineItems" :lineItems
-          }
-            //console.log(lineItems);
+            'parseObject': resultSubDivisions[j],
+            'lineItems' : lineItems,
+          };
+            // console.log(lineItems);
 
-          //return lineItems;
+          // return lineItems;
         });
 
       }
 
-      console.log("resultSubDivisions: "+ resultSubDivisions);
+      // console.log('resultSubDivisions: ' + resultSubDivisions);
 
-    }, (error) =>{
+    }, (error) => {
 
     });
 
   }
 
-  async fetchTemplateLineItems(relationLineItems){
+  async fetchTemplateLineItems(relationLineItems) {
 
-    var query3 = relationLineItems.query();
-    return await query3.find();
-    //.then((results3) => {
+    let queryLineItems = relationLineItems.query();
+    return await queryLineItems.find();
 
-      //return results3;
-
-      // for(var k=0;k<results3.length;k++){
-         //console.log("lineItems: ");
-         //console.log(results3[k].toJSON());
-      // }
-
-    //}, (error) =>{
-
-    //});
   }
 
   dismiss() {
