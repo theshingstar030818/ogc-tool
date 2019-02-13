@@ -6,11 +6,14 @@
     </div>
     <nb-tabset>
       <nb-tab tabTitle="Budget Breakdown">
-        
         <br>
-        
         <img src="assets/images/ogc-your-renovation-specialist.png">
-        
+      </nb-tab>
+
+      <!-- Scope Tab -->
+      <nb-tab tabTitle="Scope">
+        <br>
+        <img src="assets/images/ogc-your-renovation-specialist.png">
         <h3><strong>Scope of work</strong></h3>
         <br>
         <h4><strong>Appendix 2</strong></h4>
@@ -125,7 +128,7 @@
           <nb-card-body>
             <nb-list>
               <nb-list-item>
-                1.	All alternate prices are valid only during the signing process.  Once involved on the construction site many factors may change, including our understanding of the work, related other work and redoing work.  For these and other reasons prices may change.  
+                1.	All alternate prices are valid only during the signing process.  Once involved on the construction site many factors may change, including our understanding of the work, related other work and redoing work.  For these and other reasons prices may change.
               </nb-list-item>
               <nb-list-item>
                 2.	All installed quantities do not show volumes including waste, however they do include for waste cost
@@ -193,19 +196,221 @@
 
         <nb-card>
             <nb-card-header><h4>PROJECT DETAILS</h4></nb-card-header>
-            <nb-list>
-              <nb-list-item *ngFor="let user of users">
-                <nb-user [name]="user.name" [title]=" user.phone + ' &nbsp; ' + user.email"></nb-user>
-              </nb-list-item>
+            <nb-list *ngFor="let division of divisions">
+              <nb-list-item><h5>{{division.name}}</h5></nb-list-item>
+                <nb-list-item *ngFor="let subDivision of division.subDivisions">
+                  <h6>{{subDivision.name}}</h6>
+                  <table  class="table table-responsive-md btn-table">
+                    <tbody>
+                      <tr *ngFor="let lineItem of subDivision.lineItems">
+                        <td>{{ lineItem.description }}</td>
+                        <td>{{ lineItem.qty }}</td>
+                        <td>{{ lineItem.unitType }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </nb-list-item>
             </nb-list>
         </nb-card>
 
-      </nb-tab>
-      
-      <!-- Scope Tab -->
-      <nb-tab tabTitle="Scope">
-        <br>
-        <img src="assets/images/ogc-your-renovation-specialist.png">
+        <nb-card>
+          <nb-card-body>
+              <table  class="table table-responsive-md btn-table">
+                  <tbody>
+                    <tr>
+                      <th>SOW Sub-total:</th>
+                      <td>$ 0.00</td>
+                    </tr>
+                    <tr>
+                      <th>Design Credit:</th>
+                      <td>$ 0.00</td>
+                    </tr>
+                    <tr>
+                      <th>SOW Total Price:</th>
+                      <td>$ 0.00 HST</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>+ Client Supplied Finishes</p>
+          </nb-card-body>
+        </nb-card>
+
+        <nb-card>
+            <nb-list>
+              <nb-list-item><h5>SOW Payment Schedule  (APPENDIX 1)</h5></nb-list-item>
+                <nb-list-item>
+                  <h6>The following is the project payment schedule (including HST):</h6>
+                  <table  class="table table-responsive-md btn-table">
+                    <tbody>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>First payment is due upon signing of contract</td>
+                        <td>30%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Second payment is due upon first day of construction</td>
+                        <td>25%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Third payment is due upon start of plumbing or electrical (whichever comes first)</td>
+                        <td>20%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Fourth payment is due upon start of drywall work, or finish carpentry (whichever comes first)</td>
+                        <td>20%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Final payment is due upon completion of punchlist**</td>
+                        <td>5%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </nb-list-item>
+                <nb-list-item>
+                  <h6>Jobs from 100'000 to 500'000</h6>
+                  <table  class="table table-responsive-md btn-table">
+                    <tbody>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>First payment is due upon signing of contract</td>
+                        <td>30%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Second payment is due upon first day of construction</td>
+                        <td>25%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Third payment is due upon start of plumbing or electrical (whichever comes first)</td>
+                        <td>20%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Fourth payment is due upon start of drywall work, or finish carpentry (whichever comes first)</td>
+                        <td>20%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Final payment is due upon completion of punchlist**</td>
+                        <td>5%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </nb-list-item>
+                <nb-list-item>
+                  <h6>Jobs over 500'000</h6>
+                    <table  class="table table-responsive-md btn-table">
+                      <tbody>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>First payment is due upon signing of contract</td>
+                        <td>30%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Second payment is due upon first day of construction</td>
+                        <td>25%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Third payment is due upon start of plumbing or electrical (whichever comes first)</td>
+                        <td>20%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Fourth payment is due upon start of drywall work, or finish carpentry (whichever comes first)</td>
+                        <td>20%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Final payment is due upon completion of punchlist**</td>
+                        <td>5%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </nb-list-item>
+                <nb-list-item>
+                  <h6>authorized for a modified payment schedule (authorized approval by GM only)</h6>
+                    <table  class="table table-responsive-md btn-table">
+                      <tbody>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>First payment is due upon signing of contract</td>
+                        <td>30%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Second payment is due upon first appointment with materials selection coordinator,<br> or two months before the tentative start date (whichever comes first)</td>
+                        <td>25%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Third payment is due upon first day of construction</td>
+                        <td>20%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Fourth payment is due upon start of plumbing or electrical (whichever comes first)</td>
+                        <td>20%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Fifth payment is due upon City acceptance of the rough-in inspection</td>
+                        <td>5%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Sixth payment is due upon start of drywall work, or finish carpentry (whichever comes first)</td>
+                        <td>5%</td>
+                      </tr>
+                      <tr>
+                        <td>$0.00</td>
+                        <td>Final payment is due upon completion of punchlist**</td>
+                        <td>5%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </nb-list-item>
+                <nb-list-item>
+                  <p>
+                    Acceptable methods of payment are by cheque, certified cheque, money order.<br>
+                    **if completion of the punchlist is delayed, the value of the outstanding items as budgeted by OGC will be credited<br>
+                    back to the client until completed, and the difference will be due.<br>
+                    <br>
+                    ** See Client Supply Sheet for estimated amount NOT included in this SOW and above payment schedule
+                  </p>
+                </nb-list-item>
+                <nb-list-item>
+                  <h6>SCOPE OF WORK</h6>
+                  <p>
+                    This proposal is not binding until signed. Once signed by both parties this becomes binding, to which both parties will be held accountable for. The Client (for) agrees to pay the total price with the noted terms listed above, to the Contractor (OGC LTD), for the services stated herein, under summary of work and project details. The Contractor is responsible for all labour, materials, and installation of said work to be done in a professional and timely manner.
+                    <br>
+                    Should any dispute arise relative to the performance of this Scope of Work that the parties cannot resolve, the dispute shall be referred to a single arbitrator acceptable to the Contractor and the Client. All attorney fees that shall be incurred in the resolution of disputes shall be the responsibility of the party not prevailing in the dispute. This Scope of Work will be construed, interpreted, and applied according to the law/s of Ontario. This Scope of Work shall not be assigned without the written consent of all parties.
+                  </p>
+                </nb-list-item>
+                <nb-list-item>
+                  <h6>EFFECTIVE DATE OF SIGNATURE</h6>
+                  <p>
+                    This Scope of Work shall become effective on the date it is signed by both parties. The undersigned have read, understood, and agree to each of the provisions of this scope of work and hereby acknowledge this as a receipt of this Scope of Work.
+                  </p>
+                </nb-list-item>
+                <nb-list-item>
+                  Date:
+                </nb-list-item>
+                <nb-list-item>
+                  Client Name:
+                </nb-list-item>
+                <nb-list-item>
+                  OGC LTD Agent:
+                </nb-list-item>
+            </nb-list>
+        </nb-card>
+
       </nb-tab>
     </nb-tabset>
   </nb-card-body>

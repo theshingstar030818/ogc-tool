@@ -92,13 +92,78 @@ export class PreviewComponent implements OnInit {
       name: '1. General Requirements',
       subDivisions: [
         {
-          name: 'Plans and Permits',
+          name: 'Plans And Permits',
           lineItems: [
             {
               unitType: 'lot',
               material: 0,
               qty: 0,
-              description: '',
+              description: 'Provide design drawings that meet with the approval of the client.',
+              title: '',
+              ogcNotes: '',
+              tax: 1.13,
+              total: 1,
+            },
+            {
+              unitType: 'credit',
+              material: 0,
+              qty: 0,
+              description: 'Provide design credit, equal to the design fee.',
+              title: '',
+              ogcNotes: '',
+              tax: 1.13,
+              total: 1,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: '2. Site Work',
+      subDivisions: [
+        {
+          name: 'Site Pre-Construction Work',
+          lineItems: [
+            {
+              unitType: 'lot',
+              material: 0,
+              qty: 0,
+              description: 'If the construction site is difficult to access for contractors, or subtrade equipment, there may be an additional charge for site access.',
+              title: '',
+              ogcNotes: '',
+              tax: 1.13,
+              total: 1,
+            },
+            {
+              unitType: 'day',
+              material: 0,
+              qty: 0,
+              description: 'Provide job site security officer, to ensure against trespassers during non working hours.',
+              title: '',
+              ogcNotes: '',
+              tax: 1.13,
+              total: 1,
+            },
+          ],
+        },
+        {
+          name: 'Waste bins',
+          lineItems: [
+            {
+              unitType: 'ea',
+              material: 0,
+              qty: 0,
+              description: 'Provide 20 CY or 14 CY bin for masonry and concrete construction debris. Additional charges may apply if bin type or usage become outside of the expectation noted here.',
+              title: '',
+              ogcNotes: '',
+              tax: 1.13,
+              total: 1,
+            },
+            {
+              unitType: 'ea',
+              material: 0,
+              qty: 0,
+              description: 'Provide 30 CY bin for construction debris. Additional charges may apply if bin type or usage become outside of the expectation noted here.',
               title: '',
               ogcNotes: '',
               tax: 1.13,
