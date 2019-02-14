@@ -23,6 +23,19 @@
     }
   }
 
+  .text-align-right {
+    text-align: right;
+  }
+  .text-align-center {
+    text-align: center;
+  }
+
+  .p-05 {
+    nb-list-item {
+      padding: 0.5rem;
+    }
+  }
+
   .division {
     width: 300%;
     padding: 6px;
