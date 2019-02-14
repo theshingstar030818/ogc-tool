@@ -7,7 +7,60 @@
     <nb-tabset>
       <nb-tab tabTitle="Budget Breakdown">
         <br>
-        <img src="assets/images/ogc-your-renovation-specialist.png">
+        <nb-card>
+          <nb-card-body>
+            <div class="row">
+              <div class="col-md-6">
+                <h4>Project: </h4>
+                <h4>Revision No: </h4>
+                <h6>Drawing No: </h6>
+                <h6>Revision Date: </h6>
+                <h6>Estimate By: </h6>
+              </div>
+              <div class="col-md-6">
+                <h4>Total OGC Cost: </h4>
+                <h4>Client Price: </h4>
+              </div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+        <nb-card>
+          <table  class="table table-responsive-md btn-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>QTY</th>
+                <th>Unit</th>
+                <th>Material</th>
+                <th>Trade</th>
+                <th>Description</th>
+                <th>OGC Notes</th>
+                <th>Total</th>
+                <th>Client Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let division of divisions">
+                <tr><h5 class="division">{{division.name}}</h5></tr>
+                <ng-container *ngFor="let subDivision of division.subDivisions">
+                  <tr><h6 class="subDivision">{{subDivision.name}}</h6></tr>
+
+                    <tr *ngFor="let lineItem of subDivision.lineItems">
+                      <td>{{lineItem.title}}</td>
+                      <td>{{lineItem.qty}}</td>
+                      <td>{{lineItem.unitType}}</td>
+                      <td>{{lineItem.material}}</td>
+                      <td>{{lineItem.trade}}</td>
+                      <td>{{lineItem.description}}</td>
+                      <td>{{lineItem.ogcNotes}}</td>
+                      <td>{{lineItem.total}}</td>
+                      <td>{{lineItem.clientTotal}}</td>
+                    </tr>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
+        </nb-card>
       </nb-tab>
 
       <!-- Scope Tab -->
