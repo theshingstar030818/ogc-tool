@@ -90,7 +90,7 @@ export class PreviewComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public projectsService: ProjectsService
+    public projectsService: ProjectsService,
     // private router: Router,
   ) {
     this.route.parent.params.subscribe( params => {
