@@ -66,10 +66,10 @@ export class CreateProjectComponent implements OnInit {
   }
 
   async onSubmit() {
-    
+
     let devisions = await this.fetchTemplateDivisions(this.template.value);
-    console.log(devisions);
-    
+    // console.log(devisions);
+
     if (this.projectForm.valid) {
       this.projectForm.controls['status'].setValue('New');
       this.projectsService.addProject(this.projectForm.value);
@@ -99,7 +99,7 @@ export class CreateProjectComponent implements OnInit {
   async fetchTemplateSubDivisions(relationSubDivisions) {
 
     let querySubDivisions = relationSubDivisions.query();
-    let resultSubDivisions = await querySubDivisions.find()
+    let resultSubDivisions = await querySubDivisions.find();
 
     for (let i = 0; i < resultSubDivisions.length; i++) {
       let lineItems = await this.fetchTemplateLineItems(resultSubDivisions[i].relation('lineItems'));
@@ -110,7 +110,7 @@ export class CreateProjectComponent implements OnInit {
       };
     }
 
-    console.log(resultSubDivisions);
+    // console.log(resultSubDivisions);
     return resultSubDivisions;
   }
 
