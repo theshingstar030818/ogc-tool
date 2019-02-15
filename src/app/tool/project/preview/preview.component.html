@@ -40,16 +40,16 @@
               </tr>
             </thead>
             <tbody>
-              <ng-container *ngFor="let division of divisions">
+              <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
                 <tr>
                   <td colspan="9">
-                    <h5 class="division">{{division.name}}</h5>
+                    <h5 class="division">{{division.parseObject.name}}</h5>
                     <h5 class="divisionTotal">Division Sub Total: $0.00</h5>
                   </td>
                 </tr>
                 <ng-container *ngFor="let subDivision of division.subDivisions">
                   <tr>
-                    <td colspan="9"><h6>{{subDivision.name}}</h6></td>
+                    <td colspan="9"><h6>{{subDivision.parseObject.name}}</h6></td>
                   </tr>
                   <tr *ngFor="let lineItem of subDivision.lineItems">
                     <td>{{lineItem.title}}</td>

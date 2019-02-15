@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ProjectsService } from '../../../@core/data/projects.service';
 
 @Component({
   selector: 'ngx-preview',
@@ -87,131 +88,9 @@ export class PreviewComponent implements OnInit {
     },
   ];
 
-  divisions = [
-    {
-      name: '1. General Requirements',
-      subDivisions: [
-        {
-          name: 'Plans And Permits',
-          lineItems: [
-            {
-              title: 'Design',
-              unitType: 'lot',
-              material: 0,
-              qty: 0,
-              trade: 'Dsgn -',
-              description: 'Provide design drawings that meet with the approval of the client.',
-              ogcNotes: '',
-              tax: 1.13,
-              total: 1.00,
-              clientTotal: 0.00,
-              notes: '',
-              allowance: '',
-              value: 0,
-            },
-            {
-              title: 'Design Credit',
-              unitType: 'credit',
-              material: 0,
-              qty: 0,
-              trade: '',
-              description: 'Provide design credit, equal to the design fee.',
-              ogcNotes: '',
-              tax: 1.13,
-              total: 1.00,
-              clientTotal: 0.00,
-              notes: '',
-              allowance: '',
-              value: 0,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: '2. Site Work',
-      subDivisions: [
-        {
-          name: 'Site Pre-Construction Work',
-          lineItems: [
-            {
-              title: 'Site Access Assessment',
-              unitType: 'lot',
-              material: 0,
-              qty: 0,
-              trade: 'OGC -',
-              description: `If the construction site is difficult
-              to access for contractors, or subtrade equipment,
-              there may be an additional charge for site access.`,
-              ogcNotes: '',
-              tax: 1.13,
-              total: 1.00,
-              clientTotal: 0.00,
-              notes: '',
-              allowance: '',
-              value: 0,
-            },
-            {
-              title: 'Job Site Security',
-              unitType: 'day',
-              material: 0,
-              qty: 0,
-              trade: 'Other -',
-              description: `Provide job site security officer,
-              to ensure against trespassers during non working hours.`,
-              ogcNotes: '',
-              tax: 1.13,
-              total: 1.00,
-              clientTotal: 0.00,
-              notes: '',
-              allowance: '',
-              value: 0,
-            },
-          ],
-        },
-        {
-          name: 'Waste bins',
-          lineItems: [
-            {
-              title: '20 CY Waste Bin',
-              unitType: 'ea',
-              material: 0,
-              qty: 0,
-              trade: 'OGC -',
-              description: `Provide 20 CY or 14 CY bin for masonry and concrete construction debris.
-               Additional charges may apply if bin type or usage become outside of the expectation noted here.`,
-              ogcNotes: '',
-              tax: 1.13,
-              total: 1.00,
-              clientTotal: 0.00,
-              notes: '',
-              allowance: '',
-              value: 0,
-            },
-            {
-              title: '30 CY Solid Waste Bin',
-              unitType: 'ea',
-              material: 0,
-              qty: 0,
-              trade: 'OGC -',
-              description: `Provide 30 CY bin for construction debris.
-              Additional charges may apply if bin type or usage become outside of the expectation noted here.`,
-              ogcNotes: '',
-              tax: 1.13,
-              total: 1.00,
-              clientTotal: 0.00,
-              notes: '',
-              allowance: '',
-              value: 0,
-            },
-          ],
-        },
-      ],
-    },
-  ];
-
   constructor(
     private route: ActivatedRoute,
+    public projectsService: ProjectsService
     // private router: Router,
   ) {
     this.route.parent.params.subscribe( params => {

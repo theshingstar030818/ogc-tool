@@ -27,6 +27,7 @@ export class InfoComponent implements OnInit {
     this.route.parent.params.subscribe( params => {
       // console.log(params);
     });
+    // console.log(projectsService.activeProject);
   }
 
   createFormControls() {
