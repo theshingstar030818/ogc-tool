@@ -5,7 +5,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="projectName">Project Name</label>
-            <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name"
+            <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" value="{{projectsService.activeProject.get('current').get('name')}}"
             [ngClass]="{
               'form-control-danger': projectName.invalid && projectName.dirty,
               'form-control-success': projectName.valid && projectName.dirty
@@ -18,7 +18,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="projectAddress">Address Of Project</label>
-            <input formControlName="projectAddress" type="text" class="form-control" placeholder="Address Of Project"
+            <input formControlName="projectAddress" type="text" class="form-control" placeholder="Address Of Project" value="{{projectsService.activeProject.get('current').get('address')}}"
             [ngClass]="{
               'form-control-danger': projectAddress.invalid && projectAddress.dirty,
               'form-control-success': projectAddress.valid && projectAddress.dirty
@@ -33,7 +33,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="client">Client</label>
-            <input formControlName="client" type="text" class="form-control" placeholder="Client"
+            <input formControlName="client" type="text" class="form-control" placeholder="Client" value="{{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}"
             [ngClass]="{
               'form-control-danger': client.invalid && client.dirty,
               'form-control-success': client.valid && client.dirty
@@ -46,7 +46,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="dueDate">Due Date</label>
-            <input class="form-control" [nbDatepicker]="duedate" formControlName="dueDate">
+            <input class="form-control" [nbDatepicker]="duedate" formControlName="dueDate" value="{{projectsService.activeProject.get('current').get('dueDate')}}">
             <nb-datepicker #duedate></nb-datepicker>
             <div class="form-control-feedback" *ngIf="dueDate.errors && (dueDate.dirty || dueDate.touched)">
               <p *ngIf="dueDate.errors.required">Due Date is required</p>
@@ -58,7 +58,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="created">Created</label>
-            <input class="form-control" [nbDatepicker]="createdDate" formControlName="created">
+            <input class="form-control" [nbDatepicker]="createdDate" formControlName="created" value="{{projectsService.activeProject.createdAt}}">
             <nb-datepicker #createdDate></nb-datepicker>
             <div class="form-control-feedback" *ngIf="created.errors && (created.dirty || created.touched)">
               <p *ngIf="created.errors.required">Created Date is required</p>

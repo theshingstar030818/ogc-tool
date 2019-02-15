@@ -111,11 +111,13 @@ export class TableComponent implements OnInit {
   }
 
   onRowSelect(event): void {
+
+    this.service.activeProject = event.data;
     this.router.navigate(['/tools/project', event.data.id]);
   }
 
   onDelete(event): void {
-    // this.service.removeProject(event);
+    this.service.removeProject(event);
   }
 
   ngOnInit() {

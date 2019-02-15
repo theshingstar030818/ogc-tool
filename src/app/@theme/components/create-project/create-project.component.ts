@@ -67,12 +67,15 @@ export class CreateProjectComponent implements OnInit {
 
   async onSubmit() {
 
-    // let devisions = await this.fetchTemplateDivisions(this.template.value);
-    // console.log(devisions);
+    let divisions: any = {
+      'divisions': await this.fetchTemplateDivisions(this.template.value),
+    };
+
+    divisions = JSON.parse(JSON.stringify(divisions));
 
     if (this.projectForm.valid) {
       this.projectForm.controls['status'].setValue('New');
-      this.projectsService.addProject(this.projectForm.value);
+      this.projectsService.addProject(this.projectForm.value, divisions);
       this.projectForm.reset();
       this.dismiss();
 
