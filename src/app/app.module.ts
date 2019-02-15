@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuard } from './auth-guard.service';
+import { NbButtonModule } from '@nebular/theme';
 
 export let AppInjector: Injector;
 
@@ -29,6 +30,7 @@ export let AppInjector: Injector;
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
+    NbButtonModule,
   ],
   bootstrap: [AppComponent],
   providers: [

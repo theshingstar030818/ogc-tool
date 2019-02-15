@@ -1,0 +1,45 @@
+@import '../../../@theme/styles/themes';
+@import '~@nebular/theme/styles/global/breakpoints';
+@import '~bootstrap/scss/mixins/breakpoints';
+
+@include nb-install-component() {
+
+  .preview-card {
+    width: 100%;
+    height: nb-theme(card-height-xlarge);
+    background-color: rgb(248, 248, 248);
+  }
+
+  .job-detail-card {
+    background: lightgray;
+    font-weight: nb-theme(font-weight-bold);
+  }
+
+  .preview-card-header {
+    display: flex;
+
+    .preview-card-title {
+      flex: 1;
+    }
+  }
+
+  .text-align-right {
+    text-align: right;
+  }
+  .text-align-center {
+    text-align: center;
+  }
+
+  .p-05 {
+    nb-list-item {
+      padding: 0.5rem;
+    }
+  }
+
+  .division {
+    float: left;
+  }
+  .divisionTotal {
+    float: right;
+  }
+}
