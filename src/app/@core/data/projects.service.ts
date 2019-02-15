@@ -71,14 +71,14 @@ export class ProjectsService {
           });
 
         }, (error) => {
-           console.log('Failed to create new object, with error code: ' + error.message);
-           console.log(error);
+          //  console.log('Failed to create new object, with error code: ' + error.message);
+          //  console.log(error);
         });
       });
 
     }, (error) => {
-      console.log('Failed to create new object, with error code: ' + error.message);
-      console.log(error);
+      // console.log('Failed to create new object, with error code: ' + error.message);
+      // console.log(error);
     });
 
   }
