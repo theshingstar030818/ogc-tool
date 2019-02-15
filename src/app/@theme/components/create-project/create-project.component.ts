@@ -67,7 +67,7 @@ export class CreateProjectComponent implements OnInit {
 
   async onSubmit() {
 
-    let devisions = await this.fetchTemplateDivisions(this.template.value);
+    // let devisions = await this.fetchTemplateDivisions(this.template.value);
     // console.log(devisions);
 
     if (this.projectForm.valid) {
