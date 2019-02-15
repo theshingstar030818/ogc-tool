@@ -37,11 +37,9 @@
   }
 
   .division {
-    width: 300%;
-    padding: 6px;
+    float: left;
   }
-  .subDivision {
-    width: 300%;
-    padding: 10px;
+  .divisionTotal {
+    float: right;
   }
 }
