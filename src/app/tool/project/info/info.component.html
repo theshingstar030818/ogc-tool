@@ -46,7 +46,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="dueDate">Due Date</label>
-            <input class="form-control" [nbDatepicker]="duedate" formControlName="dueDate" value="{{projectsService.activeProject.get('current').get('dueDate')}}">
+            <input class="form-control" [nbDatepicker]="duedate" formControlName="dueDate" value="{{projectsService.activeProject.get('current').get('dueDate') | date :  'longDate' }}">
             <nb-datepicker #duedate></nb-datepicker>
             <div class="form-control-feedback" *ngIf="dueDate.errors && (dueDate.dirty || dueDate.touched)">
               <p *ngIf="dueDate.errors.required">Due Date is required</p>
@@ -58,7 +58,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="created">Created</label>
-            <input class="form-control" [nbDatepicker]="createdDate" formControlName="created" value="{{projectsService.activeProject.createdAt}}">
+            <input class="form-control" [nbDatepicker]="createdDate" formControlName="created" value="{{projectsService.activeProject.createdAt | date :  'medium'}}">
             <nb-datepicker #createdDate></nb-datepicker>
             <div class="form-control-feedback" *ngIf="created.errors && (created.dirty || created.touched)">
               <p *ngIf="created.errors.required">Created Date is required</p>
