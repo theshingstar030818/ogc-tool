@@ -17,7 +17,7 @@ export class EditComponent implements OnInit {
   drawingNo: FormControl;
   projectName: FormControl;
   revisionDate: FormControl;
-  estimatedBy: FormControl; 
+  estimatedBy: FormControl;
   jobName: FormControl;
 
   lineItemTitle: FormControl;
@@ -54,7 +54,7 @@ export class EditComponent implements OnInit {
     this.lineItemDescription = new FormControl('', Validators.required);
     this.lineItemOgcNotes = new FormControl('', Validators.required);
     this.lineItemTotal = new FormControl('', Validators.required);
-    this.lineItemClientTotal = new FormControl('', Validators.required); 
+    this.lineItemClientTotal = new FormControl('', Validators.required);
     this.jobName = new FormControl('', Validators.required);
   }
 
