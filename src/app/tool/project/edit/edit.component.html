@@ -4,6 +4,7 @@
           <span class="preview-card-title"></span>
           <button nbButton status="info" class="alert-info">Print</button>
       </div>
+      <form [formGroup]= "projectEditForm" (ngSubmit)="onSubmit()">
       <nb-tabset>
         <nb-tab tabTitle="Budget Breakdown">
           <br>
@@ -11,15 +12,50 @@
             <nb-card-body>
               <div class="row">
                 <div class="col-md-6">
-                  <h4>Project: {{projectsService.activeProject.get('current').get('name')}}</h4>
-                  <h4>Revision No: Rev_0</h4>
-                  <h6>Drawing No: Concept Ver  </h6>
-                  <h6>Revision Date: {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h6>
-                  <h6>Estimate By: {{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}} {{projectsService.activeProject.get('current').get('estimatedBy').get('lastName')}}</h6>
-                </div>
-                <div class="col-md-6 text-align-right">
-                  <h4>Total OGC Cost: $0.00</h4>
-                  <h4>Client Price: $0.00</h4>
+                  <div class="form-group">
+                      <label for="projectName">Project:</label>
+                      <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" [(value)] ="{{projectsService.activeProject.get('current').get('name')}}"
+                      [ngClass]="{
+                        'form-control-danger': projectName.invalid && projectName.dirty,
+                        'form-control-success': projectName.valid && projectName.dirty
+                        }">
+                      <div class="form-control-feedback" *ngIf="projectName.errors && (projectName.dirty || projectName.touched)">
+                        <p *ngIf="projectName.errors.required">Project Name is required</p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label>Revision No: Rev_0</label>
+                  </div>
+                  <div class="form-group">
+                      <label for="drawingNo">Drawing No:</label>
+                      <input formControlName="drawingNo" type="text" class="form-control" placeholder="Drawing No" [(value)]="{{projectsService.activeProject.get('current').get('drawingNo')}}"
+                      [ngClass]="{
+                        'form-control-danger': drawingNo.invalid && drawingNo.dirty,
+                        'form-control-success': drawingNo.valid && drawingNo.dirty
+                        }">
+                      <div class="form-control-feedback" *ngIf="drawingNo.errors && (drawingNo.dirty || drawingNo.touched)">
+                        <p *ngIf="drawingNo.errors.required">Drawing No is required</p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="revisionDate">Revision Date:</label>
+                      <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate" [(value)]="{{projectsService.activeProject.get('current').get('createdAt') | date :  'longDate' }}">
+                      <nb-datepicker #revisionDate></nb-datepicker>
+                      <div class="form-control-feedback" *ngIf="revisionDate.errors && (revisionDate.dirty || revisionDate.touched)">
+                        <p *ngIf="revisionDate.errors.required">Revision Date is required</p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="estimatedBy">Estimated By:</label>
+                      <input formControlName="estimatedBy" type="text" class="form-control" placeholder="Estimated By" [(value)]="{{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}}"
+                      [ngClass]="{
+                        'form-control-danger': estimatedBy.invalid && estimatedBy.dirty,
+                        'form-control-success': estimatedBy.valid && estimatedBy.dirty
+                        }">
+                      <div class="form-control-feedback" *ngIf="estimatedBy.errors && (estimatedBy.dirty || estimatedBy.touched)">
+                        <p *ngIf="estimatedBy.errors.required">Estimated By is required</p>
+                      </div>
+                  </div>
                 </div>
               </div>
             </nb-card-body>
@@ -52,15 +88,70 @@
                       <td colspan="9"><h6>{{subDivision.parseObject.name}}</h6></td>
                     </tr>
                     <tr *ngFor="let lineItem of subDivision.lineItems">
-                      <td>{{lineItem.title}}</td>
-                      <td>{{lineItem.qty}}</td>
-                      <td>{{lineItem.unitType}}</td>
-                      <td>{{lineItem.material}}</td>
-                      <td>{{lineItem.trade}}</td>
-                      <td>{{lineItem.description}}</td>
-                      <td>{{lineItem.ogcNotes}}</td>
-                      <td>{{lineItem.total}}</td>
-                      <td>{{lineItem.clientTotal}}</td>
+
+                      <td>
+                        <input formControlName="lineItemTitle" type="text" class="form-control" placeholder="Title" [(value)]="{{lineItem.title}}"
+                        [ngClass]="{
+                          'form-control-danger': lineItemTitle.invalid && lineItemTitle.dirty,
+                          'form-control-success': lineItemTitle.valid && lineItemTitle.dirty
+                          }">
+                      </td>
+                      <td>
+                        <input formControlName="lineItemQty" type="text" class="form-control" placeholder="Qty" [(value)]="{{lineItem.qty}}"
+                        [ngClass]="{
+                          'form-control-danger': lineItemQty.invalid && lineItemQty.dirty,
+                          'form-control-success': lineItemQty.valid && lineItemQty.dirty
+                        }">
+                      </td>
+                      <td>
+                        <input formControlName="lineItemUnitType" type="text" class="form-control" placeholder="Unit Type" [(value)]="{{lineItem.unitType}}"
+                        [ngClass]="{
+                          'form-control-danger': lineItemUnitType.invalid && lineItemUnitType.dirty,
+                          'form-control-success': lineItemUnitType.valid && lineItemUnitType.dirty
+                        }">
+                      </td>
+                      <td>
+                        <input formControlName="lineItemMaterial" type="text" class="form-control" placeholder="Material" [(value)] ="{{lineItem.material}}"
+                        [ngClass]="{
+                          'form-control-danger': lineItemMaterial.invalid && lineItemMaterial.dirty,
+                          'form-control-success': lineItemMaterial.valid && lineItemMaterial.dirty
+                        }">
+                      </td>
+                      <td>
+                        <input formControlName="lineItemTrade" type="text" class="form-control" placeholder="Trade" [(value)]="{{lineItem.trade}}"
+                        [ngClass]="{
+                          'form-control-danger': lineItemTrade.invalid && lineItemTrade.dirty,
+                          'form-control-success': lineItemTrade.valid && lineItemTrade.dirty
+                        }">
+                      </td>
+                      <td>
+                        <textarea formControlName="lineItemDescription" class="form-control"
+                        [ngClass]="{
+                          'form-control-danger': lineItemDescription.invalid && lineItemDescription.dirty,
+                          'form-control-success': lineItemDescription.valid && lineItemDescription.dirty
+                        }">{{lineItem.description}}</textarea>
+                      </td>
+                      <td>
+                        <textarea formControlName="lineItemOgcNotes" class="form-control"
+                        [ngClass]="{
+                          'form-control-danger': lineItemOgcNotes.invalid && lineItemOgcNotes.dirty,
+                          'form-control-success': lineItemOgcNotes.valid && lineItemOgcNotes.dirty
+                        }">{{lineItem.ogcNotes}}</textarea>
+                      </td>
+                      <td>
+                        <input formControlName="lineItemTotal" type="text" class="form-control" placeholder="Title" [(value)]="{{lineItem.total}}"
+                        [ngClass]="{
+                          'form-control-danger': lineItemTotal.invalid && lineItemTotal.dirty,
+                          'form-control-success': lineItemTotal.valid && lineItemTotal.dirty
+                        }">
+                      </td>
+                      <td>
+                        <input formControlName="lineItemClientTotal" type="text" class="form-control" placeholder="Client Total" [(value)]="{{lineItem.clientTotal}}"
+                        [ngClass]="{
+                          'form-control-danger': lineItemClientTotal.invalid && lineItemClientTotal.dirty,
+                          'form-control-success': lineItemClientTotal.valid && lineItemClientTotal.dirty
+                        }">
+                      </td>
                     </tr>
                   </ng-container>
                 </ng-container>
@@ -90,21 +181,57 @@
           <br>
           <h4><strong>Appendix 2</strong></h4>
           <br>
-          <h5><strong>Client: </strong> {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h5>
+          <div class="form-group">
+            <label for="client">Client:</label>
+            <select class="form-control" formControlName="client">
+              <option value="">Select Client</option>
+              <option *ngFor="let client of clients" value="{{client}}">{{client.attributes.firstName}} {{client.attributes.lastName}}</option>
+            </select>
+            <div class="form-control-feedback"
+              *ngIf="client.errors && (client.dirty || client.touched)">
+              <p *ngIf="client.errors.required">Client is required</p>
+            </div>
+          </div>
+          <!-- <h5><strong>Client: </strong> {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h5> -->
           <h5><strong>Job Type: </strong> General Renovation</h5>
           <br>
           <nb-card class="job-detail-card">
             <nb-card-body>
-              <h5><strong>Job Name: </strong> Slater 1123</h5>
-              <h5><strong>Revision No: </strong> Rev_0.2</h5>
-              <h5><strong>Drawing No: </strong> Concept Ver 1.0</h5>
-              <h5><strong>Rev. Date: </strong> {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h5>
+                <div class="form-group">
+                    <label for="jobName">Job Name:</label>
+                    <input formControlName="jobName" type="text" class="form-control" placeholder="Job Name" [(value)]="{{projectsService.activeProject.get('jobName')}}"
+                    [ngClass]="{
+                      'form-control-danger': jobName.invalid && jobName.dirty,
+                      'form-control-success': jobName.valid && jobName.dirty
+                      }">
+                    <div class="form-control-feedback" *ngIf="jobName.errors && (jobName.dirty || jobName.touched)">
+                      <p *ngIf="jobName.errors.required">Job Name is required</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Revision No: Rev_0</label>
+                </div>
+                <div class="form-group">
+                    <label for="drawingNo">Drawing No:</label>
+                    <input formControlName="drawingNo" type="text" class="form-control" placeholder="Drawing No" [(value)]="{{projectsService.activeProject.get('current').get('drawingNo')}}"
+                    [ngClass]="{
+                      'form-control-danger': drawingNo.invalid && drawingNo.dirty,
+                      'form-control-success': drawingNo.valid && drawingNo.dirty
+                      }">
+                    <div class="form-control-feedback" *ngIf="drawingNo.errors && (drawingNo.dirty || drawingNo.touched)">
+                      <p *ngIf="drawingNo.errors.required">Drawing No is required</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="revisionDate">Revision Date:</label>
+                    <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate" [(value)]="{{projectsService.activeProject.get('current').get('createdAt') | date :  'longDate' }}">
+                    <nb-datepicker #revisionDate></nb-datepicker>
+                    <div class="form-control-feedback" *ngIf="revisionDate.errors && (revisionDate.dirty || revisionDate.touched)">
+                      <p *ngIf="revisionDate.errors.required">Revision Date is required</p>
+                    </div>
+                </div>
             </nb-card-body>
           </nb-card>
-          <!-- <p>OGC LTD</p>
-          <p>1886 Merivale Rd, Suite 200</p>
-          <p>Ottawa, Ontario K2G 1E6</p>
-          <p>613-225-9991</p> -->
           OGC LTD<br>
           1886 Merivale Rd, Suite 200<br>
           Ottawa, Ontario K2G 1E6<br>
@@ -699,5 +826,6 @@
           </nb-card>
         </nb-tab>
       </nb-tabset>
+    </form>
     </nb-card-body>
   </nb-card>
