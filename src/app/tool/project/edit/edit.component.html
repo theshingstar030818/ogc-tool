@@ -14,7 +14,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                       <label for="projectName">Project:</label>
-                      <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" [(value)] ="{{projectsService.activeProject.get('current').get('name')}}"
+                      <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" value ="{{projectsService.activeProject.get('current').get('name')}}"
                       [ngClass]="{
                         'form-control-danger': projectName.invalid && projectName.dirty,
                         'form-control-success': projectName.valid && projectName.dirty
@@ -28,7 +28,7 @@
                   </div>
                   <div class="form-group">
                       <label for="drawingNo">Drawing No:</label>
-                      <input formControlName="drawingNo" type="text" class="form-control" placeholder="Drawing No" [(value)]="{{projectsService.activeProject.get('current').get('drawingNo')}}"
+                      <input formControlName="drawingNo" type="text" class="form-control" placeholder="Drawing No" value="{{projectsService.activeProject.get('current').get('drawingNo')}}"
                       [ngClass]="{
                         'form-control-danger': drawingNo.invalid && drawingNo.dirty,
                         'form-control-success': drawingNo.valid && drawingNo.dirty
@@ -39,7 +39,7 @@
                   </div>
                   <div class="form-group">
                       <label for="revisionDate">Revision Date:</label>
-                      <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate" [(value)]="{{projectsService.activeProject.get('current').get('createdAt') | date :  'longDate' }}">
+                      <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate" value="{{projectsService.activeProject.get('current').get('createdAt') | date :  'longDate' }}">
                       <nb-datepicker #revisionDate></nb-datepicker>
                       <div class="form-control-feedback" *ngIf="revisionDate.errors && (revisionDate.dirty || revisionDate.touched)">
                         <p *ngIf="revisionDate.errors.required">Revision Date is required</p>
@@ -47,7 +47,7 @@
                   </div>
                   <div class="form-group">
                       <label for="estimatedBy">Estimated By:</label>
-                      <input formControlName="estimatedBy" type="text" class="form-control" placeholder="Estimated By" [(value)]="{{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}}"
+                      <input formControlName="estimatedBy" type="text" class="form-control" placeholder="Estimated By" value="{{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}}"
                       [ngClass]="{
                         'form-control-danger': estimatedBy.invalid && estimatedBy.dirty,
                         'form-control-success': estimatedBy.valid && estimatedBy.dirty
@@ -90,35 +90,35 @@
                     <tr *ngFor="let lineItem of subDivision.lineItems">
 
                       <td>
-                        <input formControlName="lineItemTitle" type="text" class="form-control" placeholder="Title" [(value)]="{{lineItem.title}}"
+                        <input formControlName="lineItemTitle" type="text" class="form-control" placeholder="Title" value="{{lineItem.title}}"
                         [ngClass]="{
                           'form-control-danger': lineItemTitle.invalid && lineItemTitle.dirty,
                           'form-control-success': lineItemTitle.valid && lineItemTitle.dirty
                           }">
                       </td>
                       <td>
-                        <input formControlName="lineItemQty" type="text" class="form-control" placeholder="Qty" [(value)]="{{lineItem.qty}}"
+                        <input formControlName="lineItemQty" type="text" class="form-control" placeholder="Qty" value="{{lineItem.qty}}"
                         [ngClass]="{
                           'form-control-danger': lineItemQty.invalid && lineItemQty.dirty,
                           'form-control-success': lineItemQty.valid && lineItemQty.dirty
                         }">
                       </td>
                       <td>
-                        <input formControlName="lineItemUnitType" type="text" class="form-control" placeholder="Unit Type" [(value)]="{{lineItem.unitType}}"
+                        <input formControlName="lineItemUnitType" type="text" class="form-control" placeholder="Unit Type" value="{{lineItem.unitType}}"
                         [ngClass]="{
                           'form-control-danger': lineItemUnitType.invalid && lineItemUnitType.dirty,
                           'form-control-success': lineItemUnitType.valid && lineItemUnitType.dirty
                         }">
                       </td>
                       <td>
-                        <input formControlName="lineItemMaterial" type="text" class="form-control" placeholder="Material" [(value)] ="{{lineItem.material}}"
+                        <input formControlName="lineItemMaterial" type="text" class="form-control" placeholder="Material" value ="{{lineItem.material}}"
                         [ngClass]="{
                           'form-control-danger': lineItemMaterial.invalid && lineItemMaterial.dirty,
                           'form-control-success': lineItemMaterial.valid && lineItemMaterial.dirty
                         }">
                       </td>
                       <td>
-                        <input formControlName="lineItemTrade" type="text" class="form-control" placeholder="Trade" [(value)]="{{lineItem.trade}}"
+                        <input formControlName="lineItemTrade" type="text" class="form-control" placeholder="Trade" value="{{lineItem.trade}}"
                         [ngClass]="{
                           'form-control-danger': lineItemTrade.invalid && lineItemTrade.dirty,
                           'form-control-success': lineItemTrade.valid && lineItemTrade.dirty
@@ -139,14 +139,14 @@
                         }">{{lineItem.ogcNotes}}</textarea>
                       </td>
                       <td>
-                        <input formControlName="lineItemTotal" type="text" class="form-control" placeholder="Title" [(value)]="{{lineItem.total}}"
+                        <input formControlName="lineItemTotal" type="text" class="form-control" placeholder="Title" value="{{lineItem.total}}"
                         [ngClass]="{
                           'form-control-danger': lineItemTotal.invalid && lineItemTotal.dirty,
                           'form-control-success': lineItemTotal.valid && lineItemTotal.dirty
                         }">
                       </td>
                       <td>
-                        <input formControlName="lineItemClientTotal" type="text" class="form-control" placeholder="Client Total" [(value)]="{{lineItem.clientTotal}}"
+                        <input formControlName="lineItemClientTotal" type="text" class="form-control" placeholder="Client Total" value="{{lineItem.clientTotal}}"
                         [ngClass]="{
                           'form-control-danger': lineItemClientTotal.invalid && lineItemClientTotal.dirty,
                           'form-control-success': lineItemClientTotal.valid && lineItemClientTotal.dirty
@@ -182,15 +182,15 @@
           <h4><strong>Appendix 2</strong></h4>
           <br>
           <div class="form-group">
-            <label for="client">Client:</label>
-            <select class="form-control" formControlName="client">
-              <option value="">Select Client</option>
-              <option *ngFor="let client of clients" value="{{client}}">{{client.attributes.firstName}} {{client.attributes.lastName}}</option>
-            </select>
-            <div class="form-control-feedback"
-              *ngIf="client.errors && (client.dirty || client.touched)">
-              <p *ngIf="client.errors.required">Client is required</p>
-            </div>
+              <label for="client">Client:</label>
+              <select class="form-control" formControlName="client">
+                <option value="">Select Client</option>
+                <option *ngFor="let ogcClient of clients" value="{{ogcClient}}" >{{ogcClient.attributes.firstName}} {{ogcClient.attributes.lastName}}</option>
+              </select>
+              <div class="form-control-feedback"
+                *ngIf="client.errors && (client.dirty || client.touched)">
+                <p *ngIf="client.errors.required">Client is required</p>
+              </div>
           </div>
           <!-- <h5><strong>Client: </strong> {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h5> -->
           <h5><strong>Job Type: </strong> General Renovation</h5>
@@ -199,7 +199,7 @@
             <nb-card-body>
                 <div class="form-group">
                     <label for="jobName">Job Name:</label>
-                    <input formControlName="jobName" type="text" class="form-control" placeholder="Job Name" [(value)]="{{projectsService.activeProject.get('jobName')}}"
+                    <input formControlName="jobName" type="text" class="form-control" placeholder="Job Name" value="{{projectsService.activeProject.get('jobName')}}"
                     [ngClass]="{
                       'form-control-danger': jobName.invalid && jobName.dirty,
                       'form-control-success': jobName.valid && jobName.dirty
@@ -213,7 +213,7 @@
                 </div>
                 <div class="form-group">
                     <label for="drawingNo">Drawing No:</label>
-                    <input formControlName="drawingNo" type="text" class="form-control" placeholder="Drawing No" [(value)]="{{projectsService.activeProject.get('current').get('drawingNo')}}"
+                    <input formControlName="drawingNo" type="text" class="form-control" placeholder="Drawing No" value="{{projectsService.activeProject.get('current').get('drawingNo')}}"
                     [ngClass]="{
                       'form-control-danger': drawingNo.invalid && drawingNo.dirty,
                       'form-control-success': drawingNo.valid && drawingNo.dirty
@@ -224,7 +224,7 @@
                 </div>
                 <div class="form-group">
                     <label for="revisionDate">Revision Date:</label>
-                    <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate" [(value)]="{{projectsService.activeProject.get('current').get('createdAt') | date :  'longDate' }}">
+                    <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate" value="{{projectsService.activeProject.get('current').get('createdAt') | date :  'longDate' }}">
                     <nb-datepicker #revisionDate></nb-datepicker>
                     <div class="form-control-feedback" *ngIf="revisionDate.errors && (revisionDate.dirty || revisionDate.touched)">
                       <p *ngIf="revisionDate.errors.required">Revision Date is required</p>
@@ -603,226 +603,32 @@
                     </p>
                   </nb-list-item>
                   <nb-list-item>
-                    Date:
+                    <div class="form-group">
+                      <label for="signatureDate">Date:</label>
+                      <input class="form-control" [nbDatepicker]="signatureDate" formControlName="signatureDate" value="{{projectsService.activeProject.get('current').get('createdAt') | date :  'longDate' }}">
+                      <nb-datepicker #signatureDate></nb-datepicker>
+                      <div class="form-control-feedback" *ngIf="signatureDate.errors && (signatureDate.dirty || signatureDate.touched)">
+                        <p *ngIf="signatureDate.errors.required">Revision Date is required</p>
+                      </div>
+                    </div>
                   </nb-list-item>
                   <nb-list-item>
-                    Client Name:
+                    Client Name: {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}
                   </nb-list-item>
                   <nb-list-item>
-                    OGC LTD Agent:
+                    <div class="form-group">
+                        <label for="agent">OGC LTD Agent:</label>
+                        <input formControlName="agent" type="text" class="form-control" placeholder="Agent" value=""
+                        [ngClass]="{
+                          'form-control-danger': agent.invalid && agent.dirty,
+                          'form-control-success': agent.valid && agent.dirty
+                          }">
+                        <div class="form-control-feedback" *ngIf="agent.errors && (agent.dirty || agent.touched)">
+                          <p *ngIf="agent.errors.required">Agent is required</p>
+                        </div>
+                    </div>
                   </nb-list-item>
               </nb-list>
-          </nb-card>
-
-        </nb-tab>
-        <nb-tab tabTitle="OGC Allowances">
-          <nb-card>
-            <nb-card-header><h2 class="text-align-center">Allowance Sheet</h2></nb-card-header>
-            <nb-card-body>
-              <div class="row">
-                <div class="col-md-6">
-                  <h4>Project: {{projectsService.activeProject.get('current').get('name')}}</h4>
-                  <h4>Client: {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h4>
-                  <h6>Job Type: </h6>
-                  <h6>Revision: Rev_0</h6>
-                  <h6>Date: {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h6>
-                  <h6>Estimate By: {{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}} {{projectsService.activeProject.get('current').get('estimatedBy').get('lastName')}}</h6>
-                </div>
-              </div>
-            </nb-card-body>
-          </nb-card>
-          <nb-card>
-            <table  class="table table-responsive-md btn-table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Description</th>
-                    <th>QTY</th>
-                    <th>Unit</th>
-                    <th>Allowance</th>
-                    <th>Total</th>
-                    <th>Notes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
-                      <ng-container *ngFor="let subDivision of division.subDivisions">
-                          <tr *ngFor="let lineItem of subDivision.lineItems">
-                            <ng-container *ngIf="lineItem.description !=''" >
-                              <td>{{lineItem.description}}</td>
-                              <td>{{lineItem.qty}}</td>
-                              <td>{{lineItem.unitType}}</td>
-                              <td>{{lineItem.allowance}}</td>
-                              <td>{{lineItem.total}}</td>
-                              <td>{{lineItem.notes}}</td>
-                            </ng-container>
-                          </tr>
-                      </ng-container>
-                  </ng-container>
-                </tbody>
-                <tfoot>
-                  <tr>
-                      <th></th>
-                      <th></th>
-                      <th colspan="2">Grand Total:</th>
-                      <th>$0.00</th>
-                      <th></th>
-                  </tr>
-                </tfoot>
-            </table>
-          </nb-card>
-        </nb-tab>
-        <nb-tab tabTitle="Client Supply- Quality">
-          <nb-card>
-            <nb-card-header><h2 class="text-align-center">Client Supply Sheet- Quality</h2></nb-card-header>
-            <nb-card-body>
-              <div class="row">
-                <div class="col-md-6">
-                  <h4>Project: {{projectsService.activeProject.get('current').get('name')}}</h4>
-                  <h4>Client: {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h4>
-                  <h6>Job Type: </h6>
-                  <h6>Revision: Rev_0</h6>
-                  <h6>Date: {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h6>
-                  <h6>Estimate By: {{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}} {{projectsService.activeProject.get('current').get('estimatedBy').get('lastName')}}</h6>
-                </div>
-              </div>
-            </nb-card-body>
-            <nb-card-footer>
-              <p>
-                Amounts herein are not included in the Contract. With OGC's help these items can be purchased at
-                OGC's supplier. Any applicable discounts will be offered to our clients direct.
-                Client's are not restricted to using OGC suppliers.
-              </p>
-              <nb-list class="text-align-center">
-                <nb-list-item><h6>Estimated Total Cost of Client Supplied Materials: $0.00 </h6></nb-list-item>
-              </nb-list>
-            </nb-card-footer>
-          </nb-card>
-          <nb-card>
-            <table  class="table table-responsive-md btn-table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Description</th>
-                    <th>QTY</th>
-                    <th>Unit</th>
-                    <th>Value</th>
-                    <th>Total</th>
-                    <th>Notes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
-                      <ng-container *ngFor="let subDivision of division.subDivisions">
-                          <tr *ngFor="let lineItem of subDivision.lineItems">
-                            <ng-container *ngIf="lineItem.description !=''" >
-                              <td>{{lineItem.description}}</td>
-                              <td>{{lineItem.qty}}</td>
-                              <td>{{lineItem.unitType}}</td>
-                              <td>{{lineItem.value}}</td>
-                              <td>{{lineItem.total}}</td>
-                              <td>{{lineItem.notes}}</td>
-                            </ng-container>
-                          </tr>
-                      </ng-container>
-                  </ng-container>
-                </tbody>
-            </table>
-          </nb-card>
-        </nb-tab>
-        <nb-tab tabTitle="Client Supply- Premium">
-          <nb-card>
-            <nb-card-header><h2 class="text-align-center">Client Supply Sheet- Premium</h2></nb-card-header>
-            <nb-card-body>
-              <div class="row">
-                <div class="col-md-6">
-                  <h4>Project: {{projectsService.activeProject.get('current').get('name')}}</h4>
-                  <h4>Client: {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h4>
-                  <h6>Job Type: </h6>
-                  <h6>Revision: Rev_0</h6>
-                  <h6>Date: {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h6>
-                  <h6>Estimate By: {{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}} {{projectsService.activeProject.get('current').get('estimatedBy').get('lastName')}}</h6>
-                </div>
-              </div>
-            </nb-card-body>
-            <nb-card-footer>
-              <p>
-                Amounts herein are not included in the Contract. With OGC's help these items can be purchased at
-                OGC's supplier. Any applicable discounts will be offered to our clients direct.
-                Client's are not restricted to using OGC suppliers.
-              </p>
-              <nb-list class="text-align-center">
-                <nb-list-item><h6>Estimated Total Cost of Client Supplied Materials: $0.00 </h6></nb-list-item>
-              </nb-list>
-            </nb-card-footer>
-          </nb-card>
-          <nb-card>
-            <table  class="table table-responsive-md btn-table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Description</th>
-                    <th>QTY</th>
-                    <th>Unit</th>
-                    <th>Value</th>
-                    <th>Total</th>
-                    <th>Notes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
-                      <ng-container *ngFor="let subDivision of division.subDivisions">
-                          <tr *ngFor="let lineItem of subDivision.lineItems">
-                            <ng-container *ngIf="lineItem.description !=''" >
-                              <td>{{lineItem.description}}</td>
-                              <td>{{lineItem.qty}}</td>
-                              <td>{{lineItem.unitType}}</td>
-                              <td>{{lineItem.value}}</td>
-                              <td>{{lineItem.total}}</td>
-                              <td>{{lineItem.notes}}</td>
-                            </ng-container>
-                          </tr>
-                      </ng-container>
-                  </ng-container>
-                </tbody>
-            </table>
-          </nb-card>
-        </nb-tab>
-        <nb-tab tabTitle="Division Client Breakdown">
-          <br>
-          <nb-card>
-            <nb-card-body>
-              <div class="row">
-                <div class="col-md-8">
-                  <h4>Project: {{projectsService.activeProject.get('current').get('name')}}</h4>
-                  <h4>Revision No: Rev_0</h4>
-                  <h6>Revision Date: {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h6>
-                  <h6>Estimate By: {{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}} {{projectsService.activeProject.get('current').get('estimatedBy').get('lastName')}}</h6>
-                </div>
-                <div class="col-md-4 text-align-right">
-                  <h6>Note: Division subtotals are shown to the client only if approved by your manager</h6>
-                </div>
-              </div>
-            </nb-card-body>
-          </nb-card>
-          <nb-card>
-            <table  class="table table-responsive-md btn-table">
-              <thead class="fixed_headers">
-                <tr>
-                  <th>DIVISION NAME</th>
-                  <th>DIVISION SUB-TOTAL</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
-                  <td>{{division.parseObject.name}}</td>
-                  <td>0.00</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th>TOTAL CLIENT COST:</th>
-                  <th>0.00</th>
-                </tr>
-              </tfoot>
-            </table>
           </nb-card>
         </nb-tab>
       </nb-tabset>

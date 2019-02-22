@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { ProjectsService } from '../../../@core/data/projects.service';
 import { ClientsService } from '../../../@core/data/clients.service';
 
@@ -8,6 +8,14 @@ import { ClientsService } from '../../../@core/data/clients.service';
   selector: 'ngx-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
+})
+
+@NgModule({
+  imports: [
+    FormsModule,
+  ],
+  declarations: [
+  ],
 })
 export class EditComponent implements OnInit {
 
@@ -19,6 +27,9 @@ export class EditComponent implements OnInit {
   revisionDate: FormControl;
   estimatedBy: FormControl;
   jobName: FormControl;
+  client: FormControl;
+  signatureDate: FormControl;
+  agent: FormControl;
 
   lineItemTitle: FormControl;
   lineItemQty: FormControl;
@@ -36,6 +47,9 @@ export class EditComponent implements OnInit {
     private clientsService: ClientsService,
     // private router: Router,
   ) {
+    this.clientsService.observableClients.subscribe(newClients => {
+      this.clients = newClients;
+    });
     this.route.parent.params.subscribe( params => {
       // console.log(params);
     });
@@ -56,6 +70,9 @@ export class EditComponent implements OnInit {
     this.lineItemTotal = new FormControl('', Validators.required);
     this.lineItemClientTotal = new FormControl('', Validators.required);
     this.jobName = new FormControl('', Validators.required);
+    this.client = new FormControl('', Validators.required);
+    this.signatureDate = new FormControl('', Validators.required);
+    this.agent = new FormControl('', Validators.required);
   }
 
   createForm() {
@@ -74,15 +91,15 @@ export class EditComponent implements OnInit {
       lineItemTotal: this.lineItemTotal,
       lineItemClientTotal: this.lineItemClientTotal,
       jobName: this.jobName,
+      client: this.client,
+      signatureDate: this.signatureDate,
+      agent: this.agent,
     });
   }
 
   ngOnInit() {
     this.createFormControls();
     this.createForm();
-    this.clientsService.observableClients.subscribe(newClients => {
-      this.clients = newClients;
-    });
   }
 
   onSubmit() {
