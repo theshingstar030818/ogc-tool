@@ -90,67 +90,31 @@
                     <tr *ngFor="let lineItem of subDivision.lineItems">
 
                       <td>
-                        <input formControlName="lineItemTitle" type="text" class="form-control" placeholder="Title" value="{{lineItem.title}}"
-                        [ngClass]="{
-                          'form-control-danger': lineItemTitle.invalid && lineItemTitle.dirty,
-                          'form-control-success': lineItemTitle.valid && lineItemTitle.dirty
-                          }">
+                        {{lineItem.title}}
                       </td>
                       <td>
-                        <input formControlName="lineItemQty" type="text" class="form-control" placeholder="Qty" value="{{lineItem.qty}}"
-                        [ngClass]="{
-                          'form-control-danger': lineItemQty.invalid && lineItemQty.dirty,
-                          'form-control-success': lineItemQty.valid && lineItemQty.dirty
-                        }">
+                        <input nbInput formControlName="lineItemQty" type="number" placeholder="Qty" [value]="lineItem.qty" (input)="lineItem.qty = $event.target.value; updateTotal(lineItem, subDivision);">
                       </td>
                       <td>
-                        <input formControlName="lineItemUnitType" type="text" class="form-control" placeholder="Unit Type" value="{{lineItem.unitType}}"
-                        [ngClass]="{
-                          'form-control-danger': lineItemUnitType.invalid && lineItemUnitType.dirty,
-                          'form-control-success': lineItemUnitType.valid && lineItemUnitType.dirty
-                        }">
+                        {{lineItem.unitType}}
                       </td>
                       <td>
-                        <input formControlName="lineItemMaterial" type="text" class="form-control" placeholder="Material" value ="{{lineItem.material}}"
-                        [ngClass]="{
-                          'form-control-danger': lineItemMaterial.invalid && lineItemMaterial.dirty,
-                          'form-control-success': lineItemMaterial.valid && lineItemMaterial.dirty
-                        }">
+                        <input nbInput formControlName="lineItemMaterial" type="number" placeholder="Material" [value]="lineItem.material" (input)="lineItem.material = $event.target.value; updateTotal(lineItem, subDivision);">
                       </td>
                       <td>
-                        <input formControlName="lineItemTrade" type="text" class="form-control" placeholder="Trade" value="{{lineItem.trade}}"
-                        [ngClass]="{
-                          'form-control-danger': lineItemTrade.invalid && lineItemTrade.dirty,
-                          'form-control-success': lineItemTrade.valid && lineItemTrade.dirty
-                        }">
+                        {{lineItem.trade}}
                       </td>
                       <td>
-                        <textarea formControlName="lineItemDescription" class="form-control"
-                        [ngClass]="{
-                          'form-control-danger': lineItemDescription.invalid && lineItemDescription.dirty,
-                          'form-control-success': lineItemDescription.valid && lineItemDescription.dirty
-                        }">{{lineItem.description}}</textarea>
+                        {{lineItem.description}}
                       </td>
                       <td>
-                        <textarea formControlName="lineItemOgcNotes" class="form-control"
-                        [ngClass]="{
-                          'form-control-danger': lineItemOgcNotes.invalid && lineItemOgcNotes.dirty,
-                          'form-control-success': lineItemOgcNotes.valid && lineItemOgcNotes.dirty
-                        }">{{lineItem.ogcNotes}}</textarea>
+                        {{lineItem.ogcNotes}}
                       </td>
                       <td>
-                        <input formControlName="lineItemTotal" type="text" class="form-control" placeholder="Title" value="{{lineItem.total}}"
-                        [ngClass]="{
-                          'form-control-danger': lineItemTotal.invalid && lineItemTotal.dirty,
-                          'form-control-success': lineItemTotal.valid && lineItemTotal.dirty
-                        }">
+                        {{lineItem.total}}
                       </td>
                       <td>
-                        <input formControlName="lineItemClientTotal" type="text" class="form-control" placeholder="Client Total" value="{{lineItem.clientTotal}}"
-                        [ngClass]="{
-                          'form-control-danger': lineItemClientTotal.invalid && lineItemClientTotal.dirty,
-                          'form-control-success': lineItemClientTotal.valid && lineItemClientTotal.dirty
-                        }">
+                        {{lineItem.clientTotal}}
                       </td>
                     </tr>
                   </ng-container>
@@ -632,6 +596,10 @@
           </nb-card>
         </nb-tab>
       </nb-tabset>
+      <button (click)="printActiveProject()"></button>
     </form>
+    <button (click)="printActiveProject()"></button>
     </nb-card-body>
   </nb-card>
+
+  <button (click)="printActiveProject()"></button>

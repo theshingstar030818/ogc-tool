@@ -111,4 +111,15 @@ export class EditComponent implements OnInit {
     }
   }
 
+  updateTotal(lineItem, subDivision) {
+    lineItem['total'] = lineItem.material * lineItem.qty;
+    subDivision['total'] = 0;
+    console.log(subDivision)
+    console.log(lineItem)
+  }
+
+  public printActiveProject() {
+    console.log(this.projectsService.activeProject);
+  }
+
 }
