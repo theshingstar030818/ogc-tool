@@ -45,7 +45,6 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute,
     public projectsService: ProjectsService,
     private clientsService: ClientsService,
-    // private router: Router,
   ) {
     this.clientsService.observableClients.subscribe(newClients => {
       this.clients = newClients;
@@ -56,10 +55,14 @@ export class EditComponent implements OnInit {
   }
 
   createFormControls() {
-    this.drawingNo = new FormControl('', Validators.required);
-    this.projectName = new FormControl('', Validators.required);
-    this.revisionDate = new FormControl('', Validators.required);
-    this.estimatedBy = new FormControl('', Validators.required);
+    this.drawingNo = new FormControl(
+      this.projectsService.activeProject.get('current').get('drawingNo'), Validators.required);
+    this.projectName = new FormControl(
+      this.projectsService.activeProject.get('current').get('name'), Validators.required);
+    this.revisionDate = new FormControl(
+      this.projectsService.activeProject.get('current').get('updatedAt'), Validators.required);
+    this.estimatedBy = new FormControl(
+      this.projectsService.activeProject.get('current').get('estimatedBy').get('firstName'), Validators.required);
     this.lineItemTitle = new FormControl('', Validators.required);
     this.lineItemQty = new FormControl('', Validators.required);
     this.lineItemUnitType = new FormControl('', Validators.required);
@@ -95,6 +98,7 @@ export class EditComponent implements OnInit {
       signatureDate: this.signatureDate,
       agent: this.agent,
     });
+    // console.log(this.projectEditForm);
   }
 
   ngOnInit() {
@@ -111,11 +115,35 @@ export class EditComponent implements OnInit {
     }
   }
 
-  updateTotal(lineItem, subDivision) {
+  updateTotal(lineItem, subDivision, division) {
     lineItem['total'] = lineItem.material * lineItem.qty;
-    subDivision['total'] = 0;
+    subDivision['total'] = this.calculateSubDivisionTotal(subDivision);
+    division['total'] = this.calculateDivisionTotal(division);
+    // console.log(division);
     // console.log(subDivision);
     // console.log(lineItem);
+  }
+
+  calculateSubDivisionTotal(subDivision) {
+    let total = 0;
+    subDivision['lineItems'].forEach(function (lineItem) {
+      // console.log(lineItem['total']);
+      total += lineItem['total'];
+    });
+    // console.log('subdivison total : ' + total);
+    return total;
+  }
+
+  calculateDivisionTotal(division) {
+    let total = 0;
+    division['subDivisions'].forEach(function (subDivision) {
+      // console.log(subDivision['total']);
+      if (subDivision['total']) {
+        total += subDivision['total'];
+      }
+    });
+    // console.log('divison total : ' + total);
+    return total;
   }
 
   public printActiveProject() {

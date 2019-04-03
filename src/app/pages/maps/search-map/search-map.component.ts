@@ -7,9 +7,9 @@ import { Location } from './entity/Location';
 })
 export class SearchMapComponent {
 
-  searchedLocation: Location = new Location();
+  // searchedLocation: Location = new Location();
 
   updateLocation(event: Location) {
-    this.searchedLocation = new Location(event.latitude, event.longitude);
+    // this.searchedLocation = new Location(event.latitude, event.longitude);
   }
 }

@@ -14,7 +14,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                       <label for="projectName">Project:</label>
-                      <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" value ="{{projectsService.activeProject.get('current').get('name')}}"
+                      <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" value="{{projectsService.activeProject.get('current').get('name')}}"
                       [ngClass]="{
                         'form-control-danger': projectName.invalid && projectName.dirty,
                         'form-control-success': projectName.valid && projectName.dirty
@@ -39,7 +39,7 @@
                   </div>
                   <div class="form-group">
                       <label for="revisionDate">Revision Date:</label>
-                      <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate" value="{{projectsService.activeProject.get('current').get('createdAt') | date :  'longDate' }}">
+                      <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate">
                       <nb-datepicker #revisionDate></nb-datepicker>
                       <div class="form-control-feedback" *ngIf="revisionDate.errors && (revisionDate.dirty || revisionDate.touched)">
                         <p *ngIf="revisionDate.errors.required">Revision Date is required</p>
@@ -80,7 +80,7 @@
                   <tr>
                     <td colspan="9">
                       <h5 class="division">{{division.parseObject.name}}</h5>
-                      <h5 class="divisionTotal">Division Sub Total: $0.00</h5>
+                      <h5 class="divisionTotal">Division Sub Total: ${{division.total}}</h5>
                     </td>
                   </tr>
                   <ng-container *ngFor="let subDivision of division.subDivisions">
@@ -93,13 +93,13 @@
                         {{lineItem.title}}
                       </td>
                       <td>
-                        <input nbInput formControlName="lineItemQty" type="number" placeholder="Qty" [value]="lineItem.qty" (input)="lineItem.qty = $event.target.value; updateTotal(lineItem, subDivision);">
+                        <input nbInput formControlName="lineItemQty" type="number" placeholder="Qty" [value]="lineItem.qty" (input)="lineItem.qty = $event.target.value; updateTotal(lineItem, subDivision, division);">
                       </td>
                       <td>
                         {{lineItem.unitType}}
                       </td>
                       <td>
-                        <input nbInput formControlName="lineItemMaterial" type="number" placeholder="Material" [value]="lineItem.material" (input)="lineItem.material = $event.target.value; updateTotal(lineItem, subDivision);">
+                        <input nbInput formControlName="lineItemMaterial" type="number" placeholder="Material" [value]="lineItem.material" (input)="lineItem.material = $event.target.value; updateTotal(lineItem, subDivision, division);">
                       </td>
                       <td>
                         {{lineItem.trade}}

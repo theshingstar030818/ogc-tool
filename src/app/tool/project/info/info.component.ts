@@ -31,11 +31,17 @@ export class InfoComponent implements OnInit {
   }
 
   createFormControls() {
-    this.projectName = new FormControl('', Validators.required);
-    this.projectAddress = new FormControl('', Validators.required);
-    this.client = new FormControl('', Validators.required);
-    this.dueDate = new FormControl('', Validators.required);
-    this.created = new FormControl('', Validators.required);
+    this.projectName = new FormControl(
+      this.projectsService.activeProject.get('current').get('name'), Validators.required);
+    this.projectAddress = new FormControl(
+      this.projectsService.activeProject.get('current').get('address'), Validators.required);
+    this.client = new FormControl(
+      this.projectsService.activeProject.get('current').get('client').get('firstName') +
+      this.projectsService.activeProject.get('current').get('client').get('lastName'), Validators.required);
+    this.dueDate = new FormControl(
+      this.projectsService.activeProject.get('current').get('dueDate'), Validators.required);
+    this.created = new FormControl(
+      this.projectsService.activeProject.createdAt, Validators.required);
     this.templates = new FormControl('', Validators.required);
   }
 
@@ -67,6 +73,10 @@ export class InfoComponent implements OnInit {
     } else {
       window.alert('Form fields are not valid');
     }
+  }
+
+  doNothing() {
+
   }
 
 }
