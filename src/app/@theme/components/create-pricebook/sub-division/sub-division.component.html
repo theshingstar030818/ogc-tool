@@ -1,0 +1,45 @@
+
+<div class="row" [style.width.px]="600" >
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        Create Sub Division
+        <button class="close" aria-label="Close" (click)="dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+      <form [style.padding.px]="15" [formGroup]= "subDivision" (ngSubmit)="onSubmit()">
+      <nb-card-body>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="Divisions">Divisions</label>
+              <select class="form-control" formControlName="division">
+                  <option value="">Select Division</option>
+                  <option  *ngFor="let item of divisionsService.divisions"  [value]="item.id">{{item.attributes.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6" *ngIf="division.value">
+            <div class="form-group">
+              <label for="SubDivisions">New Sub Division Name</label>
+              <input formControlName="name" type="text" class="form-control" placeholder="New Sub Division Name"
+                [ngClass]="{
+                  'form-control-danger': name.invalid && name.dirty,
+                  'form-control-success': name.valid && name.dirty
+              }">
+              <div class="form-control-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+                <p *ngIf="name.errors.required">Sub Division Name is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+
+      <nb-card-footer>
+        <button nbButton class="btn btn-success" type="submit">Create Sub Division</button>
+      </nb-card-footer>
+    </form>
+    </nb-card>
+  </div>
+</div>

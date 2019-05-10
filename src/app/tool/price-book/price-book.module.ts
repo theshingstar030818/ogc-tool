@@ -5,6 +5,7 @@ import { PriceBookRoutingModule } from './price-book-routing.module';
 import { PriceBookComponent } from './price-book.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { PriceBookTableComponent } from './table/table.component';
+import { SubDivisionsComponent } from './subDivisions/sub-division.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,10 @@ import { PriceBookTableComponent } from './table/table.component';
   declarations: [
     PriceBookComponent,
     PriceBookTableComponent,
+    SubDivisionsComponent,
   ],
+  entryComponents: [
+
+  ]
 })
 export class PriceBookModule { }

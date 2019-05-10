@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-
+import { NbDialogService } from '@nebular/theme';
 import { PriceBookService } from '../../../@core/data/pricebook.service';
+import { CreateLineItemComponent } from '../../../@theme/components/create-pricebook/line-item/line-item.component';
 
 
 @Component({
@@ -35,13 +36,13 @@ export class PriceBookTableComponent implements OnInit {
           return row.attributes.title;
         },
       },
-      'attributes.price': {
-        title: 'Price Per Unit',
-        type: 'string',
-        valuePrepareFunction: (cell, row) => {
-          return row.attributes.material;
-        },
-      },
+      // 'attributes.price': {
+      //   title: 'Price Per Unit',
+      //   type: 'string',
+      //   valuePrepareFunction: (cell, row) => {
+      //     return row.attributes.material;
+      //   },
+      // },
       'attributes.type': {
         title: 'Unit Type',
         type: 'string',
@@ -49,27 +50,27 @@ export class PriceBookTableComponent implements OnInit {
           return row.attributes.unitType;
         },
       },
-      'attributes.quantity': {
-        title: 'Qty',
-        type: 'string',
-        valuePrepareFunction: (cell, row) => {
-          return row.attributes.qty;
-        },
-      },
-      'tax': {
-        title: 'tax %',
-        type: 'string',
-        valuePrepareFunction: (cell, row) => {
-          return row.attributes.tax;
-        },
-      },
-      'total': {
-        title: 'Total $',
-        type: 'number',
-        valuePrepareFunction: (cell, row) => {
-          return row.attributes.total;
-        },
-      },
+      // 'attributes.quantity': {
+      //   title: 'Qty',
+      //   type: 'string',
+      //   valuePrepareFunction: (cell, row) => {
+      //     return row.attributes.qty;
+      //   },
+      // },
+      // 'tax': {
+      //   title: 'tax %',
+      //   type: 'string',
+      //   valuePrepareFunction: (cell, row) => {
+      //     return row.attributes.tax;
+      //   },
+      // },
+      // 'total': {
+      //   title: 'Total $',
+      //   type: 'number',
+      //   valuePrepareFunction: (cell, row) => {
+      //     return row.attributes.total;
+      //   },
+      // },
       'description': {
         title: 'Description',
         type: 'string',
@@ -89,7 +90,10 @@ export class PriceBookTableComponent implements OnInit {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private service: PriceBookService) {
+  constructor(
+    private dialogService: NbDialogService,
+    private service: PriceBookService
+  ) {
     const data = this.service.getPriceBook();
     this.source.load(data);
     service.observablePriceBook.subscribe(newData => {
@@ -110,6 +114,16 @@ export class PriceBookTableComponent implements OnInit {
   }
 
   ngOnInit() {
+  
+  }
+
+  createLineItem() {
+    this.dialogService.open(CreateLineItemComponent, {
+      context: {
+        title: 'Create Line Item',
+      },
+      closeOnBackdropClick: false,
+    });
   }
 
 }

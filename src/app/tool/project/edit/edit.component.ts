@@ -98,7 +98,7 @@ export class EditComponent implements OnInit {
       signatureDate: this.signatureDate,
       agent: this.agent,
     });
-    // console.log(this.projectEditForm);
+    console.log(this.projectEditForm);
   }
 
   ngOnInit() {
@@ -119,35 +119,35 @@ export class EditComponent implements OnInit {
     lineItem['total'] = lineItem.material * lineItem.qty;
     subDivision['total'] = this.calculateSubDivisionTotal(subDivision);
     division['total'] = this.calculateDivisionTotal(division);
-    // console.log(division);
-    // console.log(subDivision);
-    // console.log(lineItem);
+    console.log(division);
+    console.log(subDivision);
+    console.log(lineItem);
   }
 
   calculateSubDivisionTotal(subDivision) {
     let total = 0;
     subDivision['lineItems'].forEach(function (lineItem) {
-      // console.log(lineItem['total']);
+      console.log(lineItem['total']);
       total += lineItem['total'];
     });
-    // console.log('subdivison total : ' + total);
+    console.log('subdivison total : ' + total);
     return total;
   }
 
   calculateDivisionTotal(division) {
     let total = 0;
     division['subDivisions'].forEach(function (subDivision) {
-      // console.log(subDivision['total']);
+      console.log(subDivision['total']);
       if (subDivision['total']) {
         total += subDivision['total'];
       }
     });
-    // console.log('divison total : ' + total);
+    console.log('divison total : ' + total);
     return total;
   }
 
   public printActiveProject() {
-    // console.log(this.projectsService.activeProject);
+    console.log(this.projectsService.activeProject);
   }
 
 }

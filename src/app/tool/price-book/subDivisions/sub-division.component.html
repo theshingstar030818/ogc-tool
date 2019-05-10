@@ -1,13 +1,13 @@
 <nb-card>
   <nb-card-header>
-    <button nbButton status="success" (click)="createLineItem()">Create New Line Item</button>
+    <button nbButton status="success" (click)="createSubDivision()">Create New Sub Division</button>
   </nb-card-header>
   <nb-card-body>
     <ng2-smart-table 
     [settings]="settings" 
     [source]="source" 
-    (deleteConfirm)="onDeleteConfirm($event)"
-    (delete)="onDelete($event)">
+    (deleteConfirm)="deleteConfirm($event)"
+    (editConfirm)="editConfirm($event)">
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>

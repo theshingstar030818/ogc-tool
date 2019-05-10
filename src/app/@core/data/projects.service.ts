@@ -20,6 +20,7 @@ export class ProjectsService {
 
     const Project = Parse.Object.extend('Project');
     const query = new Parse.Query(Project);
+    query.limit(1000);
     query.include('current');
     query.include('current.client');
     const results = await query.find();
