@@ -33,16 +33,16 @@ export class SubDivisionsComponent implements OnInit {
           return row.id;
         },
       },
-      "attributes": {
+      'attributes': {
         title: 'Sub Division Name',
         type: 'string',
         valuePrepareFunction: (cell, row) => {
           return row.attributes.name;
         },
-        compareFunction:(direction: any, a: any, b: any) => {
+        compareFunction: (direction: any, a: any, b: any) => {
           return this.compareFunction(direction, a.name, b.name);
         },
-        filterFunction:(a?: any, search?: string) => {
+        filterFunction: (a?: any, search?: string) => {
           return this.filterFunction(a.name, search);
         },
       },
@@ -53,7 +53,7 @@ export class SubDivisionsComponent implements OnInit {
 
   constructor(
     private dialogService: NbDialogService,
-    private subDivisionsService: SubDivisionsService
+    private subDivisionsService: SubDivisionsService,
   ) {
     const data = this.subDivisionsService.getSubDivisions();
     this.source.load(data);
@@ -67,11 +67,11 @@ export class SubDivisionsComponent implements OnInit {
   }
 
   editConfirm(event): void {
-    console.log(event);
+    // console.log(event);
   }
 
   ngOnInit() {
-  
+
   }
 
   createSubDivision() {
@@ -100,7 +100,7 @@ export class SubDivisionsComponent implements OnInit {
   filterFunction(a?: any, search?: string): boolean {
     a = typeof a === 'string' ? a.toLowerCase() : a;
     search = typeof search === 'string' ? search.toLowerCase() : search;
-    let match = a.indexOf(search) > -1
+    let match = a.indexOf(search) > -1;
     if (match || search === '') {
       return true;
     } else {

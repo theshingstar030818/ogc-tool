@@ -20,12 +20,12 @@ export class DivisionsService {
         const Division = Parse.Object.extend('Division');
         const query = new Parse.Query(Division);
         query.limit(1000);
-        this.divisions = await query.find();  
+        this.divisions = await query.find();
         this.observableDivisions.next(this.divisions);
     }
 
     public add(division?) {
-        console.log(division);
+        // console.log(division);
     }
 
     public getDivisions() {

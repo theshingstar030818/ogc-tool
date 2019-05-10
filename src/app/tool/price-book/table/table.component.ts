@@ -92,7 +92,7 @@ export class PriceBookTableComponent implements OnInit {
 
   constructor(
     private dialogService: NbDialogService,
-    private service: PriceBookService
+    private service: PriceBookService,
   ) {
     const data = this.service.getPriceBook();
     this.source.load(data);
@@ -114,7 +114,7 @@ export class PriceBookTableComponent implements OnInit {
   }
 
   ngOnInit() {
-  
+
   }
 
   createLineItem() {

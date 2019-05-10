@@ -19,7 +19,7 @@ export class ProjectTemplatesService {
         const ProjectTemplates = Parse.Object.extend('ProjectTemplate');
         const query = new Parse.Query(ProjectTemplates);
         query.limit(1000);
-        this.projectTemplates = await query.find();        
+        this.projectTemplates = await query.find();
         return this.projectTemplates;
     }
 

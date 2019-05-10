@@ -20,6 +20,6 @@ import { SubDivisionsComponent } from './subDivisions/sub-division.component';
   ],
   entryComponents: [
 
-  ]
+  ],
 })
 export class PriceBookModule { }

@@ -61,7 +61,7 @@ export class InfoComponent implements OnInit {
     this.createForm();
     this.projectsService.getTemplates().then((results) => {
       this.template = results;
-      console.log(this.template);
+      // console.log(this.template);
     }, (error) => {
       // console.log(error);
     });
@@ -82,7 +82,7 @@ export class InfoComponent implements OnInit {
 
   saveProject() {
     // this.projectsService.activeProject.save();
-    console.log(this.projectsService.activeProject)
+    // console.log(this.projectsService.activeProject);
   }
 
 }

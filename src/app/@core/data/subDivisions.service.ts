@@ -8,7 +8,7 @@ import { DivisionsService } from './divisions.service';
 })
 
 export class SubDivisionsService {
-    
+
     private divisionsService: DivisionsService;
     public subDivisions: Array<any> = [];
     public observableSubDivisions: BehaviorSubject<any>;
@@ -28,10 +28,13 @@ export class SubDivisionsService {
     }
 
     public async add(subDivision?) {
-        if(this.subDivisions.filter(subDiv => (subDiv.attributes.name == subDivision.name) && subDiv.attributes.division.id  == subDivision.division).length) {
+        if (this.subDivisions.filter(subDiv =>
+            (subDiv.attributes.name === subDivision.name)
+            && subDiv.attributes.division.id  === subDivision.division).length) {
             alert('SubDivision: ' + subDivision.name + 'already exists under Division: ' + subDivision.division );
         } else {
-            this.createSubDivision(subDivision.name, this.divisionsService.divisions.find(division => subDivision.division == division.id));
+            this.createSubDivision(subDivision.name, this.divisionsService.divisions.find(division =>
+                subDivision.division === division.id));
         }
     }
 
@@ -44,7 +47,7 @@ export class SubDivisionsService {
         const subDivision = new SubDivision();
         subDivision.set('name', name);
         subDivision.set('division', division);
-    
+
         subDivision.setACL(new Parse.ACL(Parse.User.current()));
         await subDivision.save().then((savedSubDivision) => {
           this.subDivisions.push(savedSubDivision);
@@ -60,7 +63,8 @@ export class SubDivisionsService {
             await subDivision.destroy().then(() => {
                 event.confirm.resolve();
             }, (error) => {
-                alert('Failed to delete SubDivision: '+ subDivision.attributes.name +', error message: ' + error.message);
+                alert('Failed to delete SubDivision: ' + subDivision.attributes.name +
+                ', error message: ' + error.message);
                 event.confirm.reject();
             });
         } else {
