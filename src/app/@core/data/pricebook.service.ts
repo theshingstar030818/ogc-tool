@@ -7,11 +7,11 @@ import { Parse } from 'parse';
 })
 export class PriceBookService {
 
-  public pricebooks: Array<any> = [];
+  public lineItems: Array<any> = [];
   public observablePriceBook: BehaviorSubject<any>;
 
   constructor() {
-    this.observablePriceBook = new BehaviorSubject<any[]>(this.pricebooks);
+    this.observablePriceBook = new BehaviorSubject<any[]>(this.lineItems);
     this.getLineItems();
    }
 
@@ -19,20 +19,15 @@ export class PriceBookService {
 
     const LineItem = Parse.Object.extend('LineItem');
     const query = new Parse.Query(LineItem);
-    const results = await query.find();
-    // Do something with the returned Parse.Object values
-
-    this.pricebooks = results;
-    this.observablePriceBook.next(this.pricebooks);
+    query.limit(1000);
+    const lineItems = await query.find();
+    this.lineItems = lineItems;
+    this.observablePriceBook.next(this.lineItems);
   }
 
    async addPriceBookLineItem(lineItem?) {
-
-
     const LineItem = Parse.Object.extend('LineItem');
     const lineItemObject = new LineItem();
-
-
     const SubDivisionObject = Parse.Object.extend('SubDivision');
     let querySubDivision = new Parse.Query(SubDivisionObject);
     let subDivision = await querySubDivision.get(lineItem.subDivisionsFC);
@@ -53,32 +48,25 @@ export class PriceBookService {
       let relation = subDivision.relation('lineItems');
       relation.add(saveLineItem);
       subDivision.save();
-      this.pricebooks.push(saveLineItem);
-      this.observablePriceBook.next(this.pricebooks);
+      this.lineItems.push(saveLineItem);
+      this.observablePriceBook.next(this.lineItems);
     }, (error) => {
       // console.log('Failed to create new object, with error code: ' + error.message);
     });
   }
 
-  addPriceBookGroup(group?) {
-
-  }
-
   getPriceBook() {
-    return this.pricebooks;
+    return this.lineItems;
   }
 
   removePriceBook(event) {
-    let r = confirm('Are You Sure You Want to Delete This Line Item?');
-    if (r === true) {
+    if (confirm('Are You Sure You Want to Delete This Line Item?')) {
       const LineItem = Parse.Object.extend('LineItem');
       const lineItemObject = new LineItem();
       lineItemObject.id = event.data.id;
       lineItemObject.destroy().then((results) => {
-        // The object was deleted from the Parse Cloud.
-        this.pricebooks.splice(event.index, 1);
-        this.observablePriceBook.next(this.pricebooks);
-
+        this.lineItems.splice(event.index, 1);
+        this.observablePriceBook.next(this.lineItems);
       }, (error) => {
         // console.log(error);
       });
@@ -88,6 +76,7 @@ export class PriceBookService {
   async getDivisions() {
     const Division = Parse.Object.extend('Division');
     const query = new Parse.Query(Division);
+    query.limit(1000);
     const results = await query.find();
     let divisions: Array<any> = [];
     for (let i = 0; i < results.length; i++) {
@@ -110,6 +99,7 @@ export class PriceBookService {
 
     const SubDivision = Parse.Object.extend('SubDivision');
     const query = new Parse.Query(SubDivision);
+    query.limit(1000);
     query.equalTo('division', divisionObject);
     const results = await query.find();
     let subDivisions: Array<any> = [];

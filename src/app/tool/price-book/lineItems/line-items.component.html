@@ -1,0 +1,13 @@
+<nb-card>
+  <nb-card-header>
+    <button nbButton status="success" (click)="createLineItem()">Create New Line Item</button>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table 
+    [settings]="settings" 
+    [source]="source" 
+    (deleteConfirm)="onDeleteConfirm($event)"
+    (delete)="onDelete($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

@@ -15,4 +15,6 @@ export * from './theme-switcher/themes-switcher-list/themes-switcher-list.compon
 export * from './create-project/create-project.component';
 export * from './create-client/create-client.component';
 export * from './create-pricebook/line-item/line-item.component';
-export * from './create-pricebook/group/group.component';
+export * from './create-pricebook/sub-division/sub-division.component';
+export * from './create-pricebook/division/division.component';
+export * from './create-pricebook/project-template/project-template.component';

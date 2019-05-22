@@ -20,6 +20,7 @@ export class ClientsService {
 
     const Clients = Parse.Object.extend('Client');
     const query = new Parse.Query(Clients);
+    query.limit(1000);
     const results = await query.find();
     // Do something with the returned Parse.Object values
 

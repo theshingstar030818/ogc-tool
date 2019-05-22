@@ -11,11 +11,11 @@
           <nb-card-body>
             <div class="row">
               <div class="col-md-6">
-                <h4>Project: </h4>
+                <h4>Project: {{projectsService.activeProject.get('current').get('name')}}</h4>
                 <h4>Revision No: Rev_0</h4>
                 <h6>Drawing No: Concept Ver  </h6>
-                <h6>Revision Date: </h6>
-                <h6>Estimate By: Nick Karrandjas & Khaled</h6>
+                <h6>Revision Date: {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h6>
+                <h6>Estimate By: {{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}} {{projectsService.activeProject.get('current').get('estimatedBy').get('lastName')}}</h6>
               </div>
               <div class="col-md-6 text-align-right">
                 <h4>Total OGC Cost: $0.00</h4>
@@ -40,16 +40,16 @@
               </tr>
             </thead>
             <tbody>
-              <ng-container *ngFor="let division of divisions">
+              <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
                 <tr>
                   <td colspan="9">
-                    <h5 class="division">{{division.name}}</h5>
+                    <h5 class="division">{{division.parseObject.name}}</h5>
                     <h5 class="divisionTotal">Division Sub Total: $0.00</h5>
                   </td>
                 </tr>
                 <ng-container *ngFor="let subDivision of division.subDivisions">
                   <tr>
-                    <td colspan="9"><h6>{{subDivision.name}}</h6></td>
+                    <td colspan="9"><h6>{{subDivision.parseObject.name}}</h6></td>
                   </tr>
                   <tr *ngFor="let lineItem of subDivision.lineItems">
                     <td>{{lineItem.title}}</td>
@@ -90,7 +90,7 @@
         <br>
         <h4><strong>Appendix 2</strong></h4>
         <br>
-        <h5><strong>Client: </strong> John Smith</h5>
+        <h5><strong>Client: </strong> {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h5>
         <h5><strong>Job Type: </strong> General Renovation</h5>
         <br>
         <nb-card class="job-detail-card">
@@ -98,7 +98,7 @@
             <h5><strong>Job Name: </strong> Slater 1123</h5>
             <h5><strong>Revision No: </strong> Rev_0.2</h5>
             <h5><strong>Drawing No: </strong> Concept Ver 1.0</h5>
-            <h5><strong>Rev. Date: </strong> July 4, 2018</h5>
+            <h5><strong>Rev. Date: </strong> {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h5>
           </nb-card-body>
         </nb-card>
         <!-- <p>OGC LTD</p>
@@ -270,14 +270,17 @@
           <nb-card-header><h4>PROJECT DETAILS</h4></nb-card-header>
           <table  class="table table-responsive-md btn-table">
             <tbody>
-              <ng-container *ngFor="let division of divisions">
-                <tr><td colspan="3"><h5>{{division.name}}</h5></td></tr>
+              <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
+                <tr><td colspan="3"><h5>{{division.parseObject.name}}</h5></td></tr>
                 <ng-container *ngFor="let subDivision of division.subDivisions">
-                  <tr><td colspan="3"><h6>{{subDivision.name}}</h6></td></tr>
+                  <tr><td colspan="3"><h6>{{subDivision.parseObject.name}}</h6></td></tr>
                   <tr *ngFor="let lineItem of subDivision.lineItems">
-                    <td>{{ lineItem.description }}</td>
-                    <td>{{ lineItem.qty }}</td>
-                    <td>{{ lineItem.unitType }}</td>
+                    <ng-container *ngIf="lineItem.description != ''" >
+
+                      <td>{{ lineItem.description }}</td>
+                      <td>{{ lineItem.qty }}</td>
+                      <td>{{ lineItem.unitType }}</td>
+                    </ng-container>
                   </tr>
                 </ng-container>
               </ng-container>
@@ -491,12 +494,12 @@
           <nb-card-body>
             <div class="row">
               <div class="col-md-6">
-                <h4>Project: </h4>
-                <h4>Client: </h4>
+                <h4>Project: {{projectsService.activeProject.get('current').get('name')}}</h4>
+                <h4>Client: {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h4>
                 <h6>Job Type: </h6>
                 <h6>Revision: Rev_0</h6>
-                <h6>Date: </h6>
-                <h6>Estimate By: Nick Karrandjas & Khaled</h6>
+                <h6>Date: {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h6>
+                <h6>Estimate By: {{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}} {{projectsService.activeProject.get('current').get('estimatedBy').get('lastName')}}</h6>
               </div>
             </div>
           </nb-card-body>
@@ -514,15 +517,17 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let division of divisions">
+                <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
                     <ng-container *ngFor="let subDivision of division.subDivisions">
                         <tr *ngFor="let lineItem of subDivision.lineItems">
-                          <td>{{lineItem.description}}</td>
-                          <td>{{lineItem.qty}}</td>
-                          <td>{{lineItem.unitType}}</td>
-                          <td>{{lineItem.allowance}}</td>
-                          <td>{{lineItem.total}}</td>
-                          <td>{{lineItem.notes}}</td>
+                          <ng-container *ngIf="lineItem.description !=''" >
+                            <td>{{lineItem.description}}</td>
+                            <td>{{lineItem.qty}}</td>
+                            <td>{{lineItem.unitType}}</td>
+                            <td>{{lineItem.allowance}}</td>
+                            <td>{{lineItem.total}}</td>
+                            <td>{{lineItem.notes}}</td>
+                          </ng-container>
                         </tr>
                     </ng-container>
                 </ng-container>
@@ -545,12 +550,12 @@
           <nb-card-body>
             <div class="row">
               <div class="col-md-6">
-                <h4>Project: </h4>
-                <h4>Client: </h4>
+                <h4>Project: {{projectsService.activeProject.get('current').get('name')}}</h4>
+                <h4>Client: {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h4>
                 <h6>Job Type: </h6>
                 <h6>Revision: Rev_0</h6>
-                <h6>Date: </h6>
-                <h6>Estimate By: Nick Karrandjas & Khaled</h6>
+                <h6>Date: {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h6>
+                <h6>Estimate By: {{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}} {{projectsService.activeProject.get('current').get('estimatedBy').get('lastName')}}</h6>
               </div>
             </div>
           </nb-card-body>
@@ -578,15 +583,17 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let division of divisions">
+                <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
                     <ng-container *ngFor="let subDivision of division.subDivisions">
                         <tr *ngFor="let lineItem of subDivision.lineItems">
-                          <td>{{lineItem.description}}</td>
-                          <td>{{lineItem.qty}}</td>
-                          <td>{{lineItem.unitType}}</td>
-                          <td>{{lineItem.value}}</td>
-                          <td>{{lineItem.total}}</td>
-                          <td>{{lineItem.notes}}</td>
+                          <ng-container *ngIf="lineItem.description !=''" >
+                            <td>{{lineItem.description}}</td>
+                            <td>{{lineItem.qty}}</td>
+                            <td>{{lineItem.unitType}}</td>
+                            <td>{{lineItem.value}}</td>
+                            <td>{{lineItem.total}}</td>
+                            <td>{{lineItem.notes}}</td>
+                          </ng-container>
                         </tr>
                     </ng-container>
                 </ng-container>
@@ -600,12 +607,12 @@
           <nb-card-body>
             <div class="row">
               <div class="col-md-6">
-                <h4>Project: </h4>
-                <h4>Client: </h4>
+                <h4>Project: {{projectsService.activeProject.get('current').get('name')}}</h4>
+                <h4>Client: {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h4>
                 <h6>Job Type: </h6>
                 <h6>Revision: Rev_0</h6>
-                <h6>Date: </h6>
-                <h6>Estimate By: Nick Karrandjas & Khaled</h6>
+                <h6>Date: {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h6>
+                <h6>Estimate By: {{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}} {{projectsService.activeProject.get('current').get('estimatedBy').get('lastName')}}</h6>
               </div>
             </div>
           </nb-card-body>
@@ -633,15 +640,17 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let division of divisions">
+                <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
                     <ng-container *ngFor="let subDivision of division.subDivisions">
                         <tr *ngFor="let lineItem of subDivision.lineItems">
-                          <td>{{lineItem.description}}</td>
-                          <td>{{lineItem.qty}}</td>
-                          <td>{{lineItem.unitType}}</td>
-                          <td>{{lineItem.value}}</td>
-                          <td>{{lineItem.total}}</td>
-                          <td>{{lineItem.notes}}</td>
+                          <ng-container *ngIf="lineItem.description !=''" >
+                            <td>{{lineItem.description}}</td>
+                            <td>{{lineItem.qty}}</td>
+                            <td>{{lineItem.unitType}}</td>
+                            <td>{{lineItem.value}}</td>
+                            <td>{{lineItem.total}}</td>
+                            <td>{{lineItem.notes}}</td>
+                          </ng-container>
                         </tr>
                     </ng-container>
                 </ng-container>
@@ -655,10 +664,10 @@
           <nb-card-body>
             <div class="row">
               <div class="col-md-8">
-                <h4>Project: </h4>
+                <h4>Project: {{projectsService.activeProject.get('current').get('name')}}</h4>
                 <h4>Revision No: Rev_0</h4>
-                <h6>Revision Date: </h6>
-                <h6>Estimate By: Nick Karrandjas & Khaled</h6>
+                <h6>Revision Date: {{ projectsService.activeProject.get('current').get('createdAt') | date :  "longDate" }}</h6>
+                <h6>Estimate By: {{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}} {{projectsService.activeProject.get('current').get('estimatedBy').get('lastName')}}</h6>
               </div>
               <div class="col-md-4 text-align-right">
                 <h6>Note: Division subtotals are shown to the client only if approved by your manager</h6>
@@ -675,8 +684,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let division of divisions">
-                <td>{{division.name}}</td>
+              <tr *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
+                <td>{{division.parseObject.name}}</td>
                 <td>0.00</td>
               </tr>
             </tbody>

@@ -9,18 +9,7 @@ export class ProjectsService {
 
   public projects: Array<any> = [];
   public observableProjects: BehaviorSubject<any>;
-
-  public mockProject = {
-    id: '100',
-    projectName: '201 Evergreen Strrt ReRe',
-    projectAddress: '201 Evergreen StVestal, NY 13850, USA',
-    client: 'John Adams',
-    budget: '$0.00',
-    cost: '$0.00',
-    status: 'In-Progress',
-    dueDate: '21 Days (2018/09/21)',
-    created: '2017/06/21',
-  };
+  public activeProject: any;
 
   constructor() {
     this.observableProjects = new BehaviorSubject<any[]>(this.projects);
@@ -31,6 +20,7 @@ export class ProjectsService {
 
     const Project = Parse.Object.extend('Project');
     const query = new Parse.Query(Project);
+    query.limit(1000);
     query.include('current');
     query.include('current.client');
     const results = await query.find();
@@ -40,7 +30,7 @@ export class ProjectsService {
   }
 
   //  TODO
-  async addProject(project?) {
+  async addProject(project, divisions) {
 
     const ProjectHistory = Parse.Object.extend('ProjectHistory');
     const projectHistoryObject = new ProjectHistory();
@@ -54,6 +44,7 @@ export class ProjectsService {
     projectHistoryObject.set('dueDate', project.duedate);
     projectHistoryObject.set('status', project.status);
     projectHistoryObject.set('client', client);
+    projectHistoryObject.set('data', divisions);
     projectHistoryObject.setACL(new Parse.ACL(Parse.User.current()));
 
     projectHistoryObject.save().then((result) => {
@@ -81,12 +72,14 @@ export class ProjectsService {
           });
 
         }, (error) => {
-           // console.log('Failed to create new object, with error code: ' + error.message);
+          //  console.log('Failed to create new object, with error code: ' + error.message);
+          //  console.log(error);
         });
       });
 
     }, (error) => {
       // console.log('Failed to create new object, with error code: ' + error.message);
+      // console.log(error);
     });
 
   }
@@ -121,8 +114,7 @@ export class ProjectsService {
     const ProjectTemplate = Parse.Object.extend('ProjectTemplate');
     const queryProjectTemplate = new Parse.Query(ProjectTemplate);
     const resultsProjectTemplate = await queryProjectTemplate.find();
-    let templates: Array<any> = resultsProjectTemplate;
-    return templates;
+    return resultsProjectTemplate;
   }
 
 }

@@ -1,1 +1,605 @@
-<h1>edit works!</h1>
+<nb-card class="preview-card">
+    <nb-card-body>
+      <div class="preview-card-header">
+          <span class="preview-card-title"></span>
+          <button nbButton status="info" class="alert-info">Print</button>
+      </div>
+      <form [formGroup]= "projectEditForm" (ngSubmit)="onSubmit()">
+      <nb-tabset>
+        <nb-tab tabTitle="Budget Breakdown">
+          <br>
+          <nb-card>
+            <nb-card-body>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="projectName">Project:</label>
+                      <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" value="{{projectsService.activeProject.get('current').get('name')}}"
+                      [ngClass]="{
+                        'form-control-danger': projectName.invalid && projectName.dirty,
+                        'form-control-success': projectName.valid && projectName.dirty
+                        }">
+                      <div class="form-control-feedback" *ngIf="projectName.errors && (projectName.dirty || projectName.touched)">
+                        <p *ngIf="projectName.errors.required">Project Name is required</p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label>Revision No: Rev_0</label>
+                  </div>
+                  <div class="form-group">
+                      <label for="drawingNo">Drawing No:</label>
+                      <input formControlName="drawingNo" type="text" class="form-control" placeholder="Drawing No" value="{{projectsService.activeProject.get('current').get('drawingNo')}}"
+                      [ngClass]="{
+                        'form-control-danger': drawingNo.invalid && drawingNo.dirty,
+                        'form-control-success': drawingNo.valid && drawingNo.dirty
+                        }">
+                      <div class="form-control-feedback" *ngIf="drawingNo.errors && (drawingNo.dirty || drawingNo.touched)">
+                        <p *ngIf="drawingNo.errors.required">Drawing No is required</p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="revisionDate">Revision Date:</label>
+                      <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate">
+                      <nb-datepicker #revisionDate></nb-datepicker>
+                      <div class="form-control-feedback" *ngIf="revisionDate.errors && (revisionDate.dirty || revisionDate.touched)">
+                        <p *ngIf="revisionDate.errors.required">Revision Date is required</p>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="estimatedBy">Estimated By:</label>
+                      <input formControlName="estimatedBy" type="text" class="form-control" placeholder="Estimated By" value="{{projectsService.activeProject.get('current').get('estimatedBy').get('firstName')}}"
+                      [ngClass]="{
+                        'form-control-danger': estimatedBy.invalid && estimatedBy.dirty,
+                        'form-control-success': estimatedBy.valid && estimatedBy.dirty
+                        }">
+                      <div class="form-control-feedback" *ngIf="estimatedBy.errors && (estimatedBy.dirty || estimatedBy.touched)">
+                        <p *ngIf="estimatedBy.errors.required">Estimated By is required</p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+          <nb-card>
+            <table  class="table table-responsive-md btn-table">
+              <thead class="fixed_headers">
+                <tr>
+                  <th>Title</th>
+                  <th>QTY</th>
+                  <th>Unit</th>
+                  <th>Material</th>
+                  <th>Trade</th>
+                  <th>Description</th>
+                  <th>OGC Notes</th>
+                  <th>Total</th>
+                  <th>Client Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
+                  <tr>
+                    <td colspan="9">
+                      <h5 class="division">{{division.parseObject.name}}</h5>
+                      <h5 class="divisionTotal">Division Sub Total: ${{division.total}}</h5>
+                    </td>
+                  </tr>
+                  <ng-container *ngFor="let subDivision of division.subDivisions">
+                    <tr>
+                      <td colspan="9"><h6>{{subDivision.parseObject.name}}</h6></td>
+                    </tr>
+                    <tr *ngFor="let lineItem of subDivision.lineItems">
+
+                      <td>
+                        {{lineItem.title}}
+                      </td>
+                      <td>
+                        <input nbInput formControlName="lineItemQty" type="number" placeholder="Qty" [value]="lineItem.qty" (input)="lineItem.qty = $event.target.value; updateTotal(lineItem, subDivision, division);">
+                      </td>
+                      <td>
+                        {{lineItem.unitType}}
+                      </td>
+                      <td>
+                        <input nbInput formControlName="lineItemMaterial" type="number" placeholder="Material" [value]="lineItem.material" (input)="lineItem.material = $event.target.value; updateTotal(lineItem, subDivision, division);">
+                      </td>
+                      <td>
+                        {{lineItem.trade}}
+                      </td>
+                      <td>
+                        {{lineItem.description}}
+                      </td>
+                      <td>
+                        {{lineItem.ogcNotes}}
+                      </td>
+                      <td>
+                        {{lineItem.total}}
+                      </td>
+                      <td>
+                        {{lineItem.clientTotal}}
+                      </td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Totals:</th>
+                  <th>0</th>
+                  <th></th>
+                  <th>0</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th>0.00</th>
+                  <th>0.00</th>
+                </tr>
+              </tfoot>
+            </table>
+          </nb-card>
+        </nb-tab>
+
+        <!-- Scope Tab -->
+        <nb-tab tabTitle="Scope">
+          <br>
+          <img src="assets/images/ogc-your-renovation-specialist.png">
+          <h3><strong>Scope of work</strong></h3>
+          <br>
+          <h4><strong>Appendix 2</strong></h4>
+          <br>
+          <div class="form-group">
+              <label for="client">Client:</label>
+              <select class="form-control" formControlName="client">
+                <option value="">Select Client</option>
+                <option *ngFor="let ogcClient of clients" value="{{ogcClient}}" >{{ogcClient.attributes.firstName}} {{ogcClient.attributes.lastName}}</option>
+              </select>
+              <div class="form-control-feedback"
+                *ngIf="client.errors && (client.dirty || client.touched)">
+                <p *ngIf="client.errors.required">Client is required</p>
+              </div>
+          </div>
+          <!-- <h5><strong>Client: </strong> {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}</h5> -->
+          <h5><strong>Job Type: </strong> General Renovation</h5>
+          <br>
+          <nb-card class="job-detail-card">
+            <nb-card-body>
+                <div class="form-group">
+                    <label for="jobName">Job Name:</label>
+                    <input formControlName="jobName" type="text" class="form-control" placeholder="Job Name" value="{{projectsService.activeProject.get('jobName')}}"
+                    [ngClass]="{
+                      'form-control-danger': jobName.invalid && jobName.dirty,
+                      'form-control-success': jobName.valid && jobName.dirty
+                      }">
+                    <div class="form-control-feedback" *ngIf="jobName.errors && (jobName.dirty || jobName.touched)">
+                      <p *ngIf="jobName.errors.required">Job Name is required</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Revision No: Rev_0</label>
+                </div>
+                <div class="form-group">
+                    <label for="drawingNo">Drawing No:</label>
+                    <input formControlName="drawingNo" type="text" class="form-control" placeholder="Drawing No" value="{{projectsService.activeProject.get('current').get('drawingNo')}}"
+                    [ngClass]="{
+                      'form-control-danger': drawingNo.invalid && drawingNo.dirty,
+                      'form-control-success': drawingNo.valid && drawingNo.dirty
+                      }">
+                    <div class="form-control-feedback" *ngIf="drawingNo.errors && (drawingNo.dirty || drawingNo.touched)">
+                      <p *ngIf="drawingNo.errors.required">Drawing No is required</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="revisionDate">Revision Date:</label>
+                    <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate" value="{{projectsService.activeProject.get('current').get('createdAt') | date :  'longDate' }}">
+                    <nb-datepicker #revisionDate></nb-datepicker>
+                    <div class="form-control-feedback" *ngIf="revisionDate.errors && (revisionDate.dirty || revisionDate.touched)">
+                      <p *ngIf="revisionDate.errors.required">Revision Date is required</p>
+                    </div>
+                </div>
+            </nb-card-body>
+          </nb-card>
+          OGC LTD<br>
+          1886 Merivale Rd, Suite 200<br>
+          Ottawa, Ontario K2G 1E6<br>
+          613-225-9991<br>
+
+          <br>
+          <nb-card>
+            <nb-card-header><h3>Hello and welcometo the OGC family!</h3></nb-card-header>
+            <nb-card-body>
+              <p>Thank you for considering our company for your home renovations. The turmoil associated with construction can seam daunting on homeowners that are undertaking construction for the first time, and those continuing renovations. Rest assured that with your investment into our team we will walk you through the full process, keep you informed, and updated at every step of the way.  Key values this team possesses is our decades of work experience in construction, design and engineering.  Moreover, our detailed lists of recommendations are the production of our wealth of knowledge, understanding of local codes, and building standards.  This synergizes with our partners so you can embrace a greater, long-lasting, product from your imagination. Our cost points are based upon an up-to twenty-six section analysis of construction, broken down into headers identifying each facet of the project that we are undertaking together. These points are clear and detail how the total value is distributed amongst every item from the “Project Details” list.</p>
+            </nb-card-body>
+            <nb-card-footer>
+              <p>We thrive on precision and better practice performance throughout our construction process. With your investment you are not only purchasing the concept you want but also the peace-of-mind that this product will be done to a high standard, and with our warranty, a space that is made to last. Our method makes us such a successful company here in Ottawa and in Vancouver, therefore we will continue to hold up to our impeccable standards for construction.</p>
+            </nb-card-footer>
+          </nb-card>
+
+          <nb-card>
+            <nb-card-header><h4>THIS DOCUMENT</h4></nb-card-header>
+            <nb-card-body>
+              <p>This Scope of Work is also referenced in the contract documents as “the Work” and “Appendix 2”.  Here you will find the complete description of what work is to be performed, followed by the price, whereas the “Prime Contract” is the document that binds both parties to the Work.</p>
+            </nb-card-body>
+          </nb-card>
+
+          <nb-card>
+            <nb-card-header><h4>OGC TRUST</h4></nb-card-header>
+            <nb-card-body>
+              <p>OGC LTD owner Moe Abbas has served on the board of directors for the BBB of eastern Ontario for 4 years.  He has been awarded a certificate of recognition from Mayor Jim Watson and the City of Ottawa for his contributions to the renovation industry.  He sits on the Ottawa Renovators Council, Green Building Council, Reno Mark and is a featured expert in Mike Holmes magazine, CTV, CBC, OTTAWA CITIZEN, OTTAWA RENOVATES CFRA, among many other reputable media outlets.</p>
+            </nb-card-body>
+            <nb-card-footer>
+              <p>Your best business decision is an investment in the right team of people.  OGC LTD is one of the best renovators in the country!  We work hard every day to achieve this.</p>
+            </nb-card-footer>
+          </nb-card>
+
+          <nb-card>
+            <nb-card-header><h4>SUMMARY OF WORK</h4></nb-card-header>
+            <nb-card-body>
+              <nb-card size="small">
+                <nb-card-header><h5>Work Covered by Contractor</h5></nb-card-header>
+                <nb-card-body>
+                  <nb-list>
+                    <nb-list-item>
+                      1. All work described herein, except where noted otherwise
+                    </nb-list-item>
+                  </nb-list>
+                </nb-card-body>
+              </nb-card>
+              <nb-card size="small">
+                <nb-card-header><h5>Work Excluded (not covered by OGC)</h5></nb-card-header>
+                <nb-card-body>
+                  <nb-list>
+                    <nb-list-item>
+                        1.	Any exterior work or demolition not identified herein
+                    </nb-list-item>
+                    <nb-list-item>
+                        2.	Any unforeseen conditions discovered in concealed spaces such as:<br><br>
+                        <p>&nbsp;a.   Structural damage</p>
+                        <p>&nbsp;b.   Water damage</p>
+                        <p>&nbsp;c.   Disconnected services</p>
+                        <p>&nbsp;d.   Obstructions discovered while digging</p>
+                    </nb-list-item>
+                    <nb-list-item>3.	Asbestos abatement</nb-list-item>
+                    <nb-list-item>4.	Mold remediation</nb-list-item>
+                    <nb-list-item>5.	Phone, cable or network systems work</nb-list-item>
+                    <nb-list-item>6.	Supply light fixtures</nb-list-item>
+                    <nb-list-item>7.	Supply fireplace insert</nb-list-item>
+                    <nb-list-item>8.	Additional site protection for exterior construction based on weather conditions that may lead to water or cold infiltration (i.e tarps, temporary framing structures/ insulation barriers, frost protection ..etc)</nb-list-item>
+                    <nb-list-item>9.	The majority of the bulkheads we will be able to capture however with adding in HVAC vents, plumbing and other structural works some bulkhead are unpredictable so those will be a change order. </nb-list-item>
+                    <nb-list-item>10.	There might be an extra charge for Price change due to inflation or any other unpredictable scenario </nb-list-item>
+                    <nb-list-item>11.	There will be additional charges If Building code changes and engineering drawings differs from the concept design</nb-list-item>
+                    <nb-list-item>12.	Duct cleaning not included in Scope</nb-list-item>
+                    <nb-list-item>13.	HVAC balancing</nb-list-item>
+                    <nb-list-item>14.	Driveway paving</nb-list-item>
+                    <nb-list-item>15.	Landscaping</nb-list-item>
+                  </nb-list>
+                </nb-card-body>
+              </nb-card>
+            </nb-card-body>
+          </nb-card>
+
+          <nb-card>
+            <nb-card-header><h4>ALTERNATE PRICES</h4></nb-card-header>
+            <nb-card-body>
+              <nb-list>
+                <nb-list-item>
+                  1.
+                </nb-list-item>
+              </nb-list>
+            </nb-card-body>
+          </nb-card>
+
+          <nb-card>
+            <nb-card-header><h4>SPECIAL NOTES</h4></nb-card-header>
+            <nb-card-body>
+              <nb-list>
+                <nb-list-item>
+                  1.	All alternate prices are valid only during the signing process.  Once involved on the construction site many factors may change, including our understanding of the work, related other work and redoing work.  For these and other reasons prices may change.
+                </nb-list-item>
+                <nb-list-item>
+                  2.	All installed quantities do not show volumes including waste, however they do include for waste cost
+                </nb-list-item>
+              </nb-list>
+            </nb-card-body>
+          </nb-card>
+
+          <nb-card size="small">
+            <nb-card-header>
+              <h4>DEFINITIONS</h4>
+            </nb-card-header>
+            <nb-card-body>
+              <h5>The following are definitions of words found herein:</h5>
+              <nb-list>
+                <nb-list-item>"concealed" - means hidden from normal sight, in furred spaces, shafts, ceiling spaces, walls and partitions;</nb-list-item>
+                <nb-list-item>"provide" - means supply and install complete;</nb-list-item>
+                <nb-list-item>"install" - means secure in position and connect complete;</nb-list-item>
+                <nb-list-item>"supply" - means supply only.</nb-list-item>
+                <nb-list-item>"Alarm" - means alarm system Installer</nb-list-item>
+                <nb-list-item>"Alwnc" - means material allowance</nb-list-item>
+                <nb-list-item>"Arch" - means architect</nb-list-item>
+                <nb-list-item>"Case" - means casework installer</nb-list-item>
+                <nb-list-item>"City" - City of Ottawa or jurisdictional authority</nb-list-item>
+                <nb-list-item>"Clean" - means sub-trade cleaner</nb-list-item>
+                <nb-list-item>"Conc" - means concrete</nb-list-item>
+                <nb-list-item>"Core" - means sub-trade cutting and coring</nb-list-item>
+                <nb-list-item>"C-1" - means finish carpenter</nb-list-item>
+                <nb-list-item>"Dsgn" - means OGC in-house design</nb-list-item>
+                <nb-list-item>"DW" - means wallboard trade, boarding, taping and paster work</nb-list-item>
+                <nb-list-item>"Elec" or "R-1A" - means Electrical Trade</nb-list-item>
+                <nb-list-item>"Eng" - means engineer</nb-list-item>
+                <nb-list-item>"Exc" - means excavation</nb-list-item>
+                <nb-list-item>"FIr" - means flooring installer</nb-list-item>
+                <nb-list-item>"FireP" - means Fire Place installer</nb-list-item>
+                <nb-list-item>"GT" - General Trade and rough carpenter</nb-list-item>
+                <nb-list-item>"HWI" - means hardwood installer</nb-list-item>
+                <nb-list-item>"Hydro" - means Hydro Ottawa or other jurisdictional supplier</nb-list-item>
+                <nb-list-item>"Insul" - means sprayfoam insulator</nb-list-item>
+                <nb-list-item>"IT" - means information technology installer for phone, cable or network</nb-list-item>
+                <nb-list-item>"Lan" - means landscaper</nb-list-item>
+                <nb-list-item>"OGC" - means OGC LTD</nb-list-item>
+                <nb-list-item>"OGC/GT" - means OGC is to supply and General Trade to install (TYP)</nb-list-item>
+                <nb-list-item>"Plumb" or "Q-1 - means Plumber</nb-list-item>
+                <nb-list-item>"Q-5" - means Pipefitter, Gasfitter or Steamfitter</nb-list-item>
+                <nb-list-item>"SM" - means Sheet Metal Worker</nb-list-item>
+                <nb-list-item>"StGls" - means custom thermally tempered glass installer</nb-list-item>
+                <nb-list-item>"Stair" - means custom stair manufacturer/installer</nb-list-item>
+                <nb-list-item>"StrM" - means structural materials such as; beams, floor packages and truss packages</nb-list-item>
+                <nb-list-item>"Tiler" - means Tile Installer</nb-list-item>
+                <nb-list-item>"Win" - means window installer</nb-list-item>
+                <nb-list-item>"WP" - means wallpaper installer</nb-list-item>
+              </nb-list>
+            </nb-card-body>
+          </nb-card>
+
+          <nb-card size="small">
+            <nb-card-header><h4>PROJECT REPRESENTATIVES</h4></nb-card-header>
+            <nb-list>
+              <nb-list-item *ngFor="let user of users">
+                <nb-user [name]="user.name" [title]=" user.phone + ' &nbsp; ' + user.email"></nb-user>
+              </nb-list-item>
+            </nb-list>
+          </nb-card>
+
+          <nb-card>
+            <nb-card-header><h4>PROJECT DETAILS</h4></nb-card-header>
+            <table  class="table table-responsive-md btn-table">
+              <tbody>
+                <ng-container *ngFor="let division of projectsService.activeProject.get('current').get('data').divisions">
+                  <tr><td colspan="3"><h5>{{division.parseObject.name}}</h5></td></tr>
+                  <ng-container *ngFor="let subDivision of division.subDivisions">
+                    <tr><td colspan="3"><h6>{{subDivision.parseObject.name}}</h6></td></tr>
+                    <tr *ngFor="let lineItem of subDivision.lineItems">
+                      <ng-container *ngIf="lineItem.description != ''" >
+
+                        <td>{{ lineItem.description }}</td>
+                        <td>{{ lineItem.qty }}</td>
+                        <td>{{ lineItem.unitType }}</td>
+                      </ng-container>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+            </table>
+          </nb-card>
+
+          <nb-card>
+            <nb-card-header>End Of Document</nb-card-header>
+            <nb-card-body>
+                <table  class="table table-responsive-md btn-table">
+                    <tbody>
+                      <tr>
+                        <th>SOW Sub-total:</th>
+                        <td>$ 0.00</td>
+                      </tr>
+                      <tr>
+                        <th>Design Credit:</th>
+                        <td>$ 0.00</td>
+                      </tr>
+                      <tr>
+                        <th>SOW Total Price:</th>
+                        <td>$ 0.00 HST</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>+ Client Supplied Finishes</p>
+            </nb-card-body>
+          </nb-card>
+
+          <nb-card>
+              <nb-list>
+                <nb-list-item><h5>SOW Payment Schedule  (APPENDIX 1)</h5></nb-list-item>
+                  <nb-list-item>
+                    <h6>The following is the project payment schedule (including HST):</h6>
+                    <table  class="table table-responsive-md btn-table">
+                      <tbody>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>First payment is due upon signing of contract</td>
+                          <td>30%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Second payment is due upon first day of construction</td>
+                          <td>25%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Third payment is due upon start of plumbing or electrical (whichever comes first)</td>
+                          <td>20%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Fourth payment is due upon start of drywall work, or finish carpentry (whichever comes first)</td>
+                          <td>20%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Final payment is due upon completion of punchlist**</td>
+                          <td>5%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </nb-list-item>
+                  <nb-list-item>
+                    <h6>Jobs from 100'000 to 500'000</h6>
+                    <table  class="table table-responsive-md btn-table">
+                      <tbody>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>First payment is due upon signing of contract</td>
+                          <td>30%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Second payment is due upon first day of construction</td>
+                          <td>25%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Third payment is due upon start of plumbing or electrical (whichever comes first)</td>
+                          <td>20%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Fourth payment is due upon start of drywall work, or finish carpentry (whichever comes first)</td>
+                          <td>20%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Final payment is due upon completion of punchlist**</td>
+                          <td>5%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </nb-list-item>
+                  <nb-list-item>
+                    <h6>Jobs over 500'000</h6>
+                      <table  class="table table-responsive-md btn-table">
+                        <tbody>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>First payment is due upon signing of contract</td>
+                          <td>30%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Second payment is due upon first day of construction</td>
+                          <td>25%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Third payment is due upon start of plumbing or electrical (whichever comes first)</td>
+                          <td>20%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Fourth payment is due upon start of drywall work, or finish carpentry (whichever comes first)</td>
+                          <td>20%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Final payment is due upon completion of punchlist**</td>
+                          <td>5%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </nb-list-item>
+                  <nb-list-item>
+                    <h6>authorized for a modified payment schedule (authorized approval by GM only)</h6>
+                      <table  class="table table-responsive-md btn-table">
+                        <tbody>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>First payment is due upon signing of contract</td>
+                          <td>30%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Second payment is due upon first appointment with materials selection coordinator,<br> or two months before the tentative start date (whichever comes first)</td>
+                          <td>25%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Third payment is due upon first day of construction</td>
+                          <td>20%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Fourth payment is due upon start of plumbing or electrical (whichever comes first)</td>
+                          <td>20%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Fifth payment is due upon City acceptance of the rough-in inspection</td>
+                          <td>5%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Sixth payment is due upon start of drywall work, or finish carpentry (whichever comes first)</td>
+                          <td>5%</td>
+                        </tr>
+                        <tr>
+                          <td>$0.00</td>
+                          <td>Final payment is due upon completion of punchlist**</td>
+                          <td>5%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </nb-list-item>
+                  <nb-list-item>
+                    <p>
+                      Acceptable methods of payment are by cheque, certified cheque, money order.<br>
+                      **if completion of the punchlist is delayed, the value of the outstanding items as budgeted by OGC will be credited<br>
+                      back to the client until completed, and the difference will be due.<br>
+                      <br>
+                      ** See Client Supply Sheet for estimated amount NOT included in this SOW and above payment schedule
+                    </p>
+                  </nb-list-item>
+                  <nb-list-item>
+                    <h6>SCOPE OF WORK</h6>
+                    <p>
+                      This proposal is not binding until signed. Once signed by both parties this becomes binding, to which both parties will be held accountable for. The Client (for) agrees to pay the total price with the noted terms listed above, to the Contractor (OGC LTD), for the services stated herein, under summary of work and project details. The Contractor is responsible for all labour, materials, and installation of said work to be done in a professional and timely manner.
+                      <br>
+                      Should any dispute arise relative to the performance of this Scope of Work that the parties cannot resolve, the dispute shall be referred to a single arbitrator acceptable to the Contractor and the Client. All attorney fees that shall be incurred in the resolution of disputes shall be the responsibility of the party not prevailing in the dispute. This Scope of Work will be construed, interpreted, and applied according to the law/s of Ontario. This Scope of Work shall not be assigned without the written consent of all parties.
+                    </p>
+                  </nb-list-item>
+                  <nb-list-item>
+                    <h6>EFFECTIVE DATE OF SIGNATURE</h6>
+                    <p>
+                      This Scope of Work shall become effective on the date it is signed by both parties. The undersigned have read, understood, and agree to each of the provisions of this scope of work and hereby acknowledge this as a receipt of this Scope of Work.
+                    </p>
+                  </nb-list-item>
+                  <nb-list-item>
+                    <div class="form-group">
+                      <label for="signatureDate">Date:</label>
+                      <input class="form-control" [nbDatepicker]="signatureDate" formControlName="signatureDate" value="{{projectsService.activeProject.get('current').get('createdAt') | date :  'longDate' }}">
+                      <nb-datepicker #signatureDate></nb-datepicker>
+                      <div class="form-control-feedback" *ngIf="signatureDate.errors && (signatureDate.dirty || signatureDate.touched)">
+                        <p *ngIf="signatureDate.errors.required">Revision Date is required</p>
+                      </div>
+                    </div>
+                  </nb-list-item>
+                  <nb-list-item>
+                    Client Name: {{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}
+                  </nb-list-item>
+                  <nb-list-item>
+                    <div class="form-group">
+                        <label for="agent">OGC LTD Agent:</label>
+                        <input formControlName="agent" type="text" class="form-control" placeholder="Agent" value=""
+                        [ngClass]="{
+                          'form-control-danger': agent.invalid && agent.dirty,
+                          'form-control-success': agent.valid && agent.dirty
+                          }">
+                        <div class="form-control-feedback" *ngIf="agent.errors && (agent.dirty || agent.touched)">
+                          <p *ngIf="agent.errors.required">Agent is required</p>
+                        </div>
+                    </div>
+                  </nb-list-item>
+              </nb-list>
+          </nb-card>
+        </nb-tab>
+      </nb-tabset>
+      <button (click)="printActiveProject()"></button>
+    </form>
+    <button (click)="printActiveProject()"></button>
+    </nb-card-body>
+  </nb-card>
+
+  <button (click)="printActiveProject()"></button>

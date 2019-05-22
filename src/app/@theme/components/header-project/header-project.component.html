@@ -1,6 +1,6 @@
 <div class="header-container">
   <div class="logo-containter">
-    <div class="logo">21 Roblou Street Project</div>
+    <div class="logo">{{projectsService.activeProject.get("current").get("address")}}</div>
   </div>
 </div>
 
@@ -11,4 +11,4 @@
   <nb-tab tabTitle="Share"></nb-tab>
 </nb-tabset>
 
-<span><a>Version 3</a></span>
+<span><a>Version {{projectsService.activeProject.get("current").get("version")}}</a></span>

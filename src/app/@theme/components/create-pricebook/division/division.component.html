@@ -1,0 +1,36 @@
+
+<div class="row" [style.width.px]="600" >
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        Create Division
+        <button class="close" aria-label="Close" (click)="dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+      <form [style.padding.px]="15" [formGroup]= "division" (ngSubmit)="onSubmit()">
+      <nb-card-body>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="Divisions">New Division Name</label>
+              <input formControlName="name" type="text" class="form-control" placeholder="New Division Name"
+                [ngClass]="{
+                  'form-control-danger': name.invalid && name.dirty,
+                  'form-control-success': name.valid && name.dirty
+              }">
+              <div class="form-control-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+                <p *ngIf="name.errors.required">Division Name is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+
+      <nb-card-footer>
+        <button nbButton class="btn btn-success" type="submit">Create Division</button>
+      </nb-card-footer>
+    </form>
+    </nb-card>
+  </div>
+</div>

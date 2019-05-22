@@ -1,11 +1,11 @@
 <nb-card>
   <nb-card-body>
-    <form [formGroup]= "projectInfoForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]= "projectInfoForm">
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
             <label for="projectName">Project Name</label>
-            <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name"
+            <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" value="{{projectsService.activeProject.get('current').get('name')}}"
             [ngClass]="{
               'form-control-danger': projectName.invalid && projectName.dirty,
               'form-control-success': projectName.valid && projectName.dirty
@@ -18,7 +18,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="projectAddress">Address Of Project</label>
-            <input formControlName="projectAddress" type="text" class="form-control" placeholder="Address Of Project"
+            <input formControlName="projectAddress" type="text" class="form-control" placeholder="Address Of Project" value="{{projectsService.activeProject.get('current').get('address')}}"
             [ngClass]="{
               'form-control-danger': projectAddress.invalid && projectAddress.dirty,
               'form-control-success': projectAddress.valid && projectAddress.dirty
@@ -33,7 +33,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="client">Client</label>
-            <input formControlName="client" type="text" class="form-control" placeholder="Client"
+            <input disabled formControlName="client" type="text" class="form-control" placeholder="Client" value="{{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}"
             [ngClass]="{
               'form-control-danger': client.invalid && client.dirty,
               'form-control-success': client.valid && client.dirty
@@ -46,8 +46,8 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="dueDate">Due Date</label>
-            <input class="form-control" [nbDatepicker]="duedate" formControlName="dueDate">
-            <nb-datepicker #duedate></nb-datepicker>
+            <input class="form-control" [nbDatepicker]="dueDate" formControlName="dueDate">
+            <nb-datepicker #dueDate></nb-datepicker>
             <div class="form-control-feedback" *ngIf="dueDate.errors && (dueDate.dirty || dueDate.touched)">
               <p *ngIf="dueDate.errors.required">Due Date is required</p>
             </div>
@@ -58,8 +58,8 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="created">Created</label>
-            <input class="form-control" [nbDatepicker]="createdDate" formControlName="created">
-            <nb-datepicker #createdDate></nb-datepicker>
+            <input class="form-control" [nbDatepicker]="created" formControlName="created">
+            <nb-datepicker #created></nb-datepicker>
             <div class="form-control-feedback" *ngIf="created.errors && (created.dirty || created.touched)">
               <p *ngIf="created.errors.required">Created Date is required</p>
             </div>
@@ -79,7 +79,7 @@
       </div>
       <div class="row">
         <div class="col-sm-6 form-group">
-          <button nbButton class="btn btn-success">Customize Pages And Elements In This Project</button>
+          <button nbButton class="btn btn-success" (click)="doNothing()">Customize Pages And Elements In This Project</button>
         </div>
       </div>
       <div class="row">
@@ -90,7 +90,7 @@
           </ngb-alert>
         </div>
       </div>
-      <button nbButton class="btn btn-success" type="submit">Save Changes</button>
+      <button nbButton class="btn btn-success" (click)="saveProject()">Save Changes</button>
     </form>
 
   </nb-card-body>

@@ -7,6 +7,8 @@ String buildCommitHash
 echo "branch : $branch"
 echo "isPullRequest : $isPullRequest"
 
+sh 'ls -la .'
+
 stage('Build') {
     milestone()
     lock("${branch} Workspace") {

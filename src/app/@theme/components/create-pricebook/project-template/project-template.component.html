@@ -1,0 +1,36 @@
+
+<div class="row" [style.width.px]="600" >
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        Create Project Template
+        <button class="close" aria-label="Close" (click)="dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+      <form [style.padding.px]="15" [formGroup]= "projectTemplate" (ngSubmit)="onSubmit()">
+      <nb-card-body>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="ProjectTemplates">New Project Template Name</label>
+              <input formControlName="name" type="text" class="form-control" placeholder="New Project Template Name"
+                [ngClass]="{
+                  'form-control-danger': name.invalid && name.dirty,
+                  'form-control-success': name.valid && name.dirty
+              }">
+              <div class="form-control-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+                <p *ngIf="name.errors.required">Project Template Name is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+
+      <nb-card-footer>
+        <button nbButton class="btn btn-success" type="submit">Create Template</button>
+      </nb-card-footer>
+    </form>
+    </nb-card>
+  </div>
+</div>
