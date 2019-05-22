@@ -43,6 +43,8 @@ import {
   CreateClientComponent,
   CreateLineItemComponent,
   CreateSubDivisionComponent,
+  CreateDivisionComponent,
+  CreateProjectTemplateComponent,
 } from './components';
 import {
   CapitalizePipe,
@@ -122,6 +124,8 @@ const COMPONENTS = [
   TwoColumnsLayoutComponent,
   CreateLineItemComponent,
   CreateSubDivisionComponent,
+  CreateDivisionComponent,
+  CreateProjectTemplateComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -130,6 +134,8 @@ const ENTRY_COMPONENTS = [
   CreateClientComponent,
   CreateLineItemComponent,
   CreateSubDivisionComponent,
+  CreateDivisionComponent,
+  CreateProjectTemplateComponent,
 ];
 
 const PIPES = [

@@ -61,6 +61,8 @@ export class SubDivisionsService {
         let subDivision = event.data;
         if (confirm('Are You Sure You Want to Delete SubDivision: ' + subDivision.attributes.name + ' ?')) {
             await subDivision.destroy().then(() => {
+                this.subDivisions = this.subDivisions.filter( (value) => value.id !== subDivision.id );
+                this.observableSubDivisions.next(this.subDivisions);
                 event.confirm.resolve();
             }, (error) => {
                 alert('Failed to delete SubDivision: ' + subDivision.attributes.name +

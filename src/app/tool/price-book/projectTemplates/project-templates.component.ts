@@ -1,16 +1,18 @@
-import { SubDivisionsService } from '../../../@core/data/subDivisions.service';
+import {
+  CreateProjectTemplateComponent,
+} from '../../../@theme/components/create-pricebook/project-template/project-template.component';
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
-import { NbDialogService } from '@nebular/theme';
-import { CreateSubDivisionComponent } from '../../../@theme/components';
 import { SmartTableService } from '../../../@core/data/smart-table.service';
+import { NbDialogService } from '@nebular/theme';
+import { ProjectTemplatesService } from '../../../@core/data/project-templates.service';
 
 @Component({
-  selector: 'ngx-sub-division',
-  templateUrl: './sub-division.component.html',
-  styleUrls: ['./sub-division.component.scss'],
+  selector: 'ngx-project-templates',
+  templateUrl: './project-templates.component.html',
+  styleUrls: ['./project-templates.component.scss'],
 })
-export class SubDivisionsComponent implements OnInit {
+export class ProjectTemplatesComponent implements OnInit {
 
   settings = {
     mode: 'inline',
@@ -53,31 +55,26 @@ export class SubDivisionsComponent implements OnInit {
 
   constructor(
     private dialogService: NbDialogService,
-    private subDivisionsService: SubDivisionsService,
+    private projectTemplatesService: ProjectTemplatesService,
   ) {
-    const data = this.subDivisionsService.getSubDivisions();
+    const data = this.projectTemplatesService.getProjectTemplates();
     this.source.load(data);
-    subDivisionsService.observableSubDivisions.subscribe(newData => {
+    projectTemplatesService.observableProjectTemplates.subscribe(newData => {
       this.source.load(newData);
     });
   }
 
-  deleteConfirm(event): void {
-    this.subDivisionsService.deleteSubDivision(event);
-  }
-
-  editConfirm(event): void {
-    // console.log(event);
-  }
-
   ngOnInit() {
-
   }
 
-  createSubDivision() {
-    this.dialogService.open(CreateSubDivisionComponent, {
+  deleteConfirm(event): void {
+    this.projectTemplatesService.deleteProjectTemplate(event);
+  }
+
+  createProjectTemplate() {
+    this.dialogService.open(CreateProjectTemplateComponent, {
       context: {
-        title: 'Create Sub Division',
+        title: 'Create New Project Template',
       },
       closeOnBackdropClick: false,
     });

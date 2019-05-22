@@ -1,16 +1,16 @@
-import { SubDivisionsService } from '../../../@core/data/subDivisions.service';
 import { Component, OnInit } from '@angular/core';
+import { DivisionsService } from '../../../@core/data/divisions.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { NbDialogService } from '@nebular/theme';
-import { CreateSubDivisionComponent } from '../../../@theme/components';
 import { SmartTableService } from '../../../@core/data/smart-table.service';
+import { NbDialogService } from '@nebular/theme';
+import { CreateDivisionComponent } from '../../../@theme/components/create-pricebook/division/division.component';
 
 @Component({
-  selector: 'ngx-sub-division',
-  templateUrl: './sub-division.component.html',
-  styleUrls: ['./sub-division.component.scss'],
+  selector: 'ngx-divisions',
+  templateUrl: './divisions.component.html',
+  styleUrls: ['./divisions.component.scss'],
 })
-export class SubDivisionsComponent implements OnInit {
+export class DivisionsComponent implements OnInit {
 
   settings = {
     mode: 'inline',
@@ -53,31 +53,26 @@ export class SubDivisionsComponent implements OnInit {
 
   constructor(
     private dialogService: NbDialogService,
-    private subDivisionsService: SubDivisionsService,
+    private divisionsService: DivisionsService,
   ) {
-    const data = this.subDivisionsService.getSubDivisions();
+    const data = this.divisionsService.getDivisions();
     this.source.load(data);
-    subDivisionsService.observableSubDivisions.subscribe(newData => {
+    divisionsService.observableDivisions.subscribe(newData => {
       this.source.load(newData);
     });
   }
 
-  deleteConfirm(event): void {
-    this.subDivisionsService.deleteSubDivision(event);
-  }
-
-  editConfirm(event): void {
-    // console.log(event);
-  }
-
   ngOnInit() {
-
   }
 
-  createSubDivision() {
-    this.dialogService.open(CreateSubDivisionComponent, {
+  deleteConfirm(event): void {
+    this.divisionsService.deleteDivision(event);
+  }
+
+  createDivision() {
+    this.dialogService.open(CreateDivisionComponent, {
       context: {
-        title: 'Create Sub Division',
+        title: 'Create Division',
       },
       closeOnBackdropClick: false,
     });

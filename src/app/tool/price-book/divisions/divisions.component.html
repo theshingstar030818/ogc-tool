@@ -1,0 +1,13 @@
+<nb-card>
+  <nb-card-header>
+    <button nbButton status="success" (click)="createDivision()">Create New Division</button>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table 
+    [settings]="settings" 
+    [source]="source" 
+    (deleteConfirm)="deleteConfirm($event)"
+    (editConfirm)="editConfirm($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

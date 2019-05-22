@@ -24,12 +24,46 @@ export class DivisionsService {
         this.observableDivisions.next(this.divisions);
     }
 
-    public add(division?) {
-        // console.log(division);
+    public async add(division) {
+        if (this.divisions.filter(dev => (dev.attributes.name === division.name)).length) {
+            alert('Division with name: ' + division.name + ' already exists.');
+        } else {
+            this.createDivision(division.name);
+        }
     }
 
     public getDivisions() {
         return this.divisions;
+    }
+
+    private async createDivision(name: String) {
+        const Division = Parse.Object.extend('Division');
+        const division = new Division();
+        division.set('name', name);
+        division.setACL(new Parse.ACL(Parse.User.current()));
+        await division.save().then((savedDivision) => {
+          this.divisions.push(savedDivision);
+          this.observableDivisions.next(this.divisions);
+        }, (error) => {
+          alert('Failed to create new Division, with error code: ' + error.message);
+        });
+    }
+
+    public async deleteDivision(event: any) {
+        let division = event.data;
+        if (confirm('Are You Sure You Want to Delete Division: ' + division.attributes.name + ' ?')) {
+            await division.destroy().then(() => {
+                this.divisions = this.divisions.filter( (value) => value.id !== division.id );
+                this.observableDivisions.next(this.divisions);
+                event.confirm.resolve();
+            }, (error) => {
+                alert('Failed to delete Division: ' + division.attributes.name +
+                ', error message: ' + error.message);
+                event.confirm.reject();
+            });
+        } else {
+            event.confirm.reject();
+        }
     }
 
 }
