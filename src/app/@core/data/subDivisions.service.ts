@@ -38,8 +38,13 @@ export class SubDivisionsService {
         }
     }
 
-    public getSubDivisions() {
+    public getAllSubDivisions() {
         return this.subDivisions;
+    }
+
+    public getSubDivisions(divisionId) {
+        console.log("divisionId: " + divisionId)
+        return this.subDivisions.filter(value => value.attributes.division.id === divisionId);
     }
 
     private async createSubDivision(name: String, division: ParseObject) {

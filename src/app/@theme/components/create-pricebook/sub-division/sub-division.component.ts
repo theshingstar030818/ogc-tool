@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { PriceBookService } from '../../../../@core/data/pricebook.service';
+import { LineItemsService } from '../../../../@core/data/lint-tems.service';
 import { DivisionsService } from '../../../../@core/data/divisions.service';
 import { SubDivisionsService } from '../../../../@core/data/subDivisions.service';
 
@@ -22,7 +22,7 @@ export class CreateSubDivisionComponent implements OnInit {
 
   constructor(
     protected ref: NbDialogRef<CreateSubDivisionComponent>,
-    protected pricebookService: PriceBookService,
+    protected lineItemsService: LineItemsService,
     protected subDivisionsService: SubDivisionsService,
     protected divisionsService: DivisionsService,
   ) {

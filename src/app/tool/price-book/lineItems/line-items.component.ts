@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { NbDialogService } from '@nebular/theme';
-import { PriceBookService } from '../../../@core/data/pricebook.service';
+import { LineItemsService } from '../../../@core/data/lint-tems.service';
 import { CreateLineItemComponent } from '../../../@theme/components/create-pricebook/line-item/line-item.component';
 // import { SmartTableService } from '../../../@core/data/smart-table.service';
 
@@ -93,9 +93,9 @@ export class LineItemsTableComponent implements OnInit {
 
   constructor(
     private dialogService: NbDialogService,
-    private service: PriceBookService,
+    private service: LineItemsService,
   ) {
-    const data = this.service.getPriceBook();
+    const data = this.service.getLintItem();
     this.source.load(data);
     service.observablePriceBook.subscribe(newData => {
       this.source.load(newData);
@@ -111,7 +111,7 @@ export class LineItemsTableComponent implements OnInit {
   }
 
   onDelete(event): void {
-    this.service.removePriceBook(event);
+    this.service.removeLineItem(event);
   }
 
   ngOnInit() {

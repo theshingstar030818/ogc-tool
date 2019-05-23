@@ -16,7 +16,7 @@
               <label for="Divisions">Divisions</label>
               <select class="form-control" (change)='getSubDivision($event,divisions.value)' #divisions formControlName="divisionsFC">
                   <option value="">Select Division</option>
-                  <option  *ngFor="let item of division"  value="{{item.id}}">{{item.name}}</option>
+                  <option  *ngFor="let item of division"  value="{{item.id}}">{{item.attributes.name}}</option>
               </select>
             </div>
           </div>
@@ -25,7 +25,7 @@
               <label for="SubDivisions">Sub Divisions</label>
               <select class="form-control" formControlName="subDivisionsFC">
                 <option value="">Select Sub Division</option>
-                <option *ngFor="let item of subDivision"  value="{{item.id}}">{{item.name}}</option>
+                <option *ngFor="let item of subDivision"  value="{{item.id}}">{{item.attributes.name}}</option>
               </select>
             </div>
           </div>

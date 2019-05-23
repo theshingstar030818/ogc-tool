@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { PriceBookService } from '../../../@core/data/pricebook.service';
+import { LineItemsService } from '../../../@core/data/lint-tems.service';
 
 @Component({
   selector: 'ngx-header-pricebook',
@@ -10,6 +10,6 @@ import { PriceBookService } from '../../../@core/data/pricebook.service';
 export class HeaderPriceBookComponent {
 
   constructor(
-    public pricebookService: PriceBookService,
+    public lineItemsService: LineItemsService,
   ) { }
 }

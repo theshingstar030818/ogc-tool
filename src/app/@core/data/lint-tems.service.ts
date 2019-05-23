@@ -5,17 +5,17 @@ import { Parse } from 'parse';
 @Injectable({
   providedIn: 'root',
 })
-export class PriceBookService {
+export class LineItemsService {
 
   public lineItems: Array<any> = [];
   public observablePriceBook: BehaviorSubject<any>;
 
   constructor() {
     this.observablePriceBook = new BehaviorSubject<any[]>(this.lineItems);
-    this.getLineItems();
+    this.fetchLineItems();
    }
 
-   async getLineItems() {
+   async fetchLineItems() {
 
     const LineItem = Parse.Object.extend('LineItem');
     const query = new Parse.Query(LineItem);
@@ -25,7 +25,7 @@ export class PriceBookService {
     this.observablePriceBook.next(this.lineItems);
   }
 
-   async addPriceBookLineItem(lineItem?) {
+   async addLintItem(lineItem?) {
     const LineItem = Parse.Object.extend('LineItem');
     const lineItemObject = new LineItem();
     const SubDivisionObject = Parse.Object.extend('SubDivision');
@@ -55,11 +55,11 @@ export class PriceBookService {
     });
   }
 
-  getPriceBook() {
+  getLintItem() {
     return this.lineItems;
   }
 
-  removePriceBook(event) {
+  removeLineItem(event) {
     if (confirm('Are You Sure You Want to Delete This Line Item?')) {
       const LineItem = Parse.Object.extend('LineItem');
       const lineItemObject = new LineItem();
@@ -72,46 +72,5 @@ export class PriceBookService {
       });
     }
   }
-
-  async getDivisions() {
-    const Division = Parse.Object.extend('Division');
-    const query = new Parse.Query(Division);
-    query.limit(1000);
-    const results = await query.find();
-    let divisions: Array<any> = [];
-    for (let i = 0; i < results.length; i++) {
-      let object = results[i];
-
-      let eachDivision = {
-          'id': object.id,
-          'name': object.get('name'),
-      };
-      divisions.push(eachDivision);
-    }
-    return divisions;
-  }
-
-  async getSubDivisions(division?) {
-
-    const Division = Parse.Object.extend('Division');
-    let divisionObject = new Division();
-    divisionObject.id = division;
-
-    const SubDivision = Parse.Object.extend('SubDivision');
-    const query = new Parse.Query(SubDivision);
-    query.limit(1000);
-    query.equalTo('division', divisionObject);
-    const results = await query.find();
-    let subDivisions: Array<any> = [];
-    for (let i = 0; i < results.length; i++) {
-      let object = results[i];
-
-      let eachSubDivision = {
-          'id': object.id,
-          'name': object.get('name'),
-      };
-      subDivisions.push(eachSubDivision);
-    }
-    return subDivisions;
-  }
+  
 }

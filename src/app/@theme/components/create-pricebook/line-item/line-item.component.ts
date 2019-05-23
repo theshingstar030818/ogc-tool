@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { PriceBookService } from '../../../../@core/data/pricebook.service';
+import { LineItemsService } from '../../../../@core/data/lint-tems.service';
+import { SubDivisionsService } from '../../../../@core/data/subDivisions.service';
+import { DivisionsService } from '../../../../@core/data/divisions.service';
 
 @Component({
   selector: 'ngx-line-item',
@@ -32,7 +34,9 @@ export class CreateLineItemComponent implements OnInit {
 
   constructor(
     protected ref: NbDialogRef<CreateLineItemComponent>,
-    protected pricebookService: PriceBookService,
+    protected lineItemsService: LineItemsService,
+    protected subDivisionsService: SubDivisionsService,
+    protected divisionsService: DivisionsService,
   ) {
   }
 
@@ -67,16 +71,12 @@ export class CreateLineItemComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.createForm();
-    this.pricebookService.getDivisions().then((results) => {
-      this.division = results;
-    }, (error) => {
-      // console.log(error);
-    });
+    this.division = this.divisionsService.getDivisions();
   }
 
   onSubmit() {
     if (this.lineitemForm.valid) {
-      this.pricebookService.addPriceBookLineItem(this.lineitemForm.value);
+      this.lineItemsService.addLintItem(this.lineitemForm.value);
       this.lineitemForm.reset();
       this.dismiss();
 
@@ -89,16 +89,10 @@ export class CreateLineItemComponent implements OnInit {
     this.ref.close();
   }
 
-  getSubDivision($event, division) {
+  getSubDivision($event, divisionId) {
     this.subDivisionsFC.reset();
-    if (division !== '') {
-      this.pricebookService.getSubDivisions(division).then((results) => {
-
-        this.subDivision = results;
-
-      }, (error) => {
-        // console.log(error);
-      });
+    if (divisionId !== '') {
+      this.subDivision = this.subDivisionsService.getSubDivisions(divisionId);
     }
   }
 }
