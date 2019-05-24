@@ -57,7 +57,7 @@ export class LineItemsTableComponent implements OnInit {
     this.source.load(data);
     lineItemsService.observablePriceBook.subscribe(newData => {
       this.source.load(newData.map(value => {
-        return {paresObject: value, ...value.attributes}
+        return {paresObject: value, ...value.attributes};
       }));
     });
   }
@@ -84,8 +84,10 @@ export class LineItemsTableComponent implements OnInit {
 
   async onEdit(event) {
     let lineItem = event.newData.paresObject;
-    for (var key in this.settings.columns) {
-      lineItem.set(key, event.newData[key]);
+    for (let key in this.settings.columns) {
+      if (lineItem.attributes[key]) {
+        lineItem.set(key, event.newData[key]);
+      }
     }
     await lineItem.save();
     event.confirm.resolve();
