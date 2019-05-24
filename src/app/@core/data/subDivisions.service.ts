@@ -28,7 +28,7 @@ export class SubDivisionsService {
     }
 
     public async update(subDivision?) {
-        console.log(subDivision)
+        // console.log(subDivision);
     }
 
     public async add(subDivision?) {

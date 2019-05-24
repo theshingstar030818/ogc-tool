@@ -2,7 +2,6 @@ import { SubDivisionsService } from '../../../@core/data/subDivisions.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { NbDialogService } from '@nebular/theme';
-import { CreateSubDivisionComponent } from '../../../@theme/components';
 import { SmartTableService } from '../../../@core/data/smart-table.service';
 
 @Component({
@@ -78,7 +77,7 @@ export class SubDivisionsComponent implements OnInit {
         edit: true,
         title: 'Edit Sub Division',
         buttonText: 'Save',
-        subDivision: event.data
+        subDivision: event.data,
       },
       closeOnBackdropClick: false,
 

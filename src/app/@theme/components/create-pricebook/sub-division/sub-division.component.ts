@@ -32,8 +32,10 @@ export class CreateSubDivisionComponent implements OnInit {
 
   createFormControls() {
     this.subDivisions = new FormControl([], []);
-    this.division = new FormControl(this.data.subDivision? this.data.subDivision.attributes.division.id : '', Validators.required);
-    this.name = new FormControl(this.data.subDivision? this.data.subDivision.attributes.name : '', Validators.required);
+    this.division = new FormControl(this.data.subDivision ?
+      this.data.subDivision.attributes.division.id : '', Validators.required);
+    this.name = new FormControl(this.data.subDivision ?
+      this.data.subDivision.attributes.name : '', Validators.required);
   }
 
   createForm() {
@@ -45,15 +47,15 @@ export class CreateSubDivisionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data)
+    // console.log(this.data);
     this.createFormControls();
     this.createForm();
   }
 
   onSubmit() {
     if (this.subDivision.valid) {
-      !this.data.edit ? 
-      this.subDivisionsService.add(this.subDivision.value) : 
+      !this.data.edit ?
+      this.subDivisionsService.add(this.subDivision.value) :
       this.subDivisionsService.update(this.subDivision.value);
       this.subDivision.reset();
       this.ref.close();
