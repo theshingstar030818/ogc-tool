@@ -5,11 +5,6 @@
 
   <nb-layout-column>
     <router-outlet></router-outlet>
-    <div class="text-center" *ngIf="!lineItemsService?.lineItems.length; else showPricebook">
-      <h1>Create your first Line item to get started</h1>
-      <h3>Line items are used in line item groups and in projects.</h3>
-    </div>
-    <ng-template #showPricebook>
       <nb-tabset>
         <nb-tab tabTitle="Project Templates">
           <ngx-project-templates></ngx-project-templates>
@@ -24,6 +19,5 @@
           <ngx-table></ngx-table>
         </nb-tab>
       </nb-tabset>
-    </ng-template>
   </nb-layout-column>
 </nb-layout>

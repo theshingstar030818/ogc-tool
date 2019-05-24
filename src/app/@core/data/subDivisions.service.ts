@@ -27,6 +27,10 @@ export class SubDivisionsService {
         this.observableSubDivisions.next(this.subDivisions);
     }
 
+    public async update(subDivision?) {
+        console.log(subDivision)
+    }
+
     public async add(subDivision?) {
         if (this.subDivisions.filter(subDiv =>
             (subDiv.attributes.name === subDivision.name)
@@ -68,14 +72,10 @@ export class SubDivisionsService {
             await subDivision.destroy().then(() => {
                 this.subDivisions = this.subDivisions.filter( (value) => value.id !== subDivision.id );
                 this.observableSubDivisions.next(this.subDivisions);
-                event.confirm.resolve();
             }, (error) => {
                 alert('Failed to delete SubDivision: ' + subDivision.attributes.name +
                 ', error message: ' + error.message);
-                event.confirm.reject();
             });
-        } else {
-            event.confirm.reject();
         }
     }
 

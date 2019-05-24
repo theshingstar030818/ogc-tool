@@ -22,7 +22,7 @@ import { ProjectTemplatesComponent } from './projectTemplates/project-templates.
     ProjectTemplatesComponent,
   ],
   entryComponents: [
-
+    SubDivisionsComponent
   ],
 })
 export class PriceBookModule { }

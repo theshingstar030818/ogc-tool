@@ -1,13 +1,17 @@
 <nb-card>
   <nb-card-header>
-    <button nbButton status="success" (click)="createSubDivision()">Create New Sub Division</button>
+    <button nbButton status="success" (click)="createSubDivision(dialog)">Create New Sub Division</button>
   </nb-card-header>
   <nb-card-body>
     <ng2-smart-table 
     [settings]="settings" 
     [source]="source" 
-    (deleteConfirm)="deleteConfirm($event)"
-    (editConfirm)="editConfirm($event)">
+    (delete)="deleteConfirm($event)"
+    (edit)="onEdit($event,dialog)">
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <ngx-create-sub-division [data]="data" [ref]="ref"></ngx-create-sub-division>
+</ng-template>

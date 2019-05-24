@@ -1,5 +1,5 @@
 import { SubDivisionsService } from '../../../@core/data/subDivisions.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { NbDialogService } from '@nebular/theme';
 import { CreateSubDivisionComponent } from '../../../@theme/components';
@@ -13,12 +13,18 @@ import { SmartTableService } from '../../../@core/data/smart-table.service';
 export class SubDivisionsComponent implements OnInit {
 
   settings = {
-    mode: 'inline',
+    mode: 'external',
     actions: {
       add: false,
-      edit: false,
+      edit: true,
       position: 'right',
       columnTitle: 'Options',
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true,
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
@@ -66,20 +72,30 @@ export class SubDivisionsComponent implements OnInit {
     this.subDivisionsService.deleteSubDivision(event);
   }
 
-  editConfirm(event): void {
-    // console.log(event);
+  async onEdit(event, dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog, {
+      context: {
+        edit: true,
+        title: 'Edit Sub Division',
+        buttonText: 'Save',
+        subDivision: event.data
+      },
+      closeOnBackdropClick: false,
+
+    });
   }
 
   ngOnInit() {
 
   }
 
-  createSubDivision() {
-    this.dialogService.open(CreateSubDivisionComponent, {
+  createSubDivision(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog, {
       context: {
         title: 'Create Sub Division',
+        buttonText: 'Create Sub Division',
       },
-      closeOnBackdropClick: false,
+      closeOnBackdropClick: true,
     });
   }
 
