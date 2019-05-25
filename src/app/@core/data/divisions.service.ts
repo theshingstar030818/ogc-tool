@@ -32,8 +32,14 @@ export class DivisionsService {
         }
     }
 
-    public getDivisions() {
+    public getAllDivisions() {
         return this.divisions;
+    }
+
+    public async getDivisionsByTemplates(templates: any[]) {
+        let relationdivisions = templates[0].relation('divisions');
+        let querydivisions = relationdivisions.query();
+        return await querydivisions.find();
     }
 
     private async createDivision(name: String) {

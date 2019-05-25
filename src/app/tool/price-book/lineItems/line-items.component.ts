@@ -53,7 +53,7 @@ export class LineItemsTableComponent implements OnInit {
     private dialogService: NbDialogService,
     private lineItemsService: LineItemsService,
   ) {
-    const data = this.lineItemsService.getLintItem();
+    const data = this.lineItemsService.getAllLineItems();
     this.source.load(data);
     lineItemsService.observablePriceBook.subscribe(newData => {
       this.source.load(newData.map(value => {

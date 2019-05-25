@@ -55,9 +55,13 @@ export class LineItemsService {
     });
   }
 
-  getLintItem() {
+  getAllLineItems() {
     return this.lineItems;
   }
+
+  public getLineItems(subDivisionId) {
+    return this.lineItems.filter(value => value.attributes.subDivision.id === subDivisionId);
+}
 
   removeLineItem(event) {
     if (confirm('Are You Sure You Want to Delete This Line Item?')) {

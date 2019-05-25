@@ -55,7 +55,7 @@ export class DivisionsComponent implements OnInit {
     private dialogService: NbDialogService,
     private divisionsService: DivisionsService,
   ) {
-    const data = this.divisionsService.getDivisions();
+    const data = this.divisionsService.getAllDivisions();
     this.source.load(data);
     divisionsService.observableDivisions.subscribe(newData => {
       this.source.load(newData);

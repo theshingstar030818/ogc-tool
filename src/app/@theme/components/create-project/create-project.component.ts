@@ -66,60 +66,15 @@ export class CreateProjectComponent implements OnInit {
   }
 
   async onSubmit() {
-
-    let divisions: any = {
-      'divisions': await this.fetchTemplateDivisions(this.template.value),
-    };
-
-    divisions = JSON.parse(JSON.stringify(divisions));
-
     if (this.projectForm.valid) {
       this.projectForm.controls['status'].setValue('New');
-      this.projectsService.addProject(this.projectForm.value, divisions);
+      this.projectsService.addProject(
+        this.projectForm.value, await this.projectsService.generateProjectData(this.template.value));
       this.projectForm.reset();
       this.dismiss();
-
     } else {
       window.alert('Form fields are not valid');
     }
-  }
-
-  async fetchTemplateDivisions(templates) {
-    let relationdivisions = templates[0].relation('divisions');
-    let querydivisions = relationdivisions.query();
-    let division = await querydivisions.find();
-    for (let i = 0; i < division.length; i++) {
-      let subDivisions = await this.fetchTemplateSubDivisions(division[i].relation('subDivisions'));
-
-      division[i] = {
-        'parseObject': division[i],
-        'subDivisions' : subDivisions,
-      };
-    }
-    return division;
-  }
-
-  async fetchTemplateSubDivisions(relationSubDivisions) {
-
-    let querySubDivisions = relationSubDivisions.query();
-    let resultSubDivisions = await querySubDivisions.find();
-
-    for (let i = 0; i < resultSubDivisions.length; i++) {
-      let lineItems = await this.fetchTemplateLineItems(resultSubDivisions[i].relation('lineItems'));
-
-      resultSubDivisions[i] = {
-        'parseObject': resultSubDivisions[i],
-        'lineItems' : lineItems,
-      };
-    }
-
-    // console.log(resultSubDivisions);
-    return resultSubDivisions;
-  }
-
-  async fetchTemplateLineItems(relationLineItems) {
-    let queryLineItems = relationLineItems.query();
-    return await queryLineItems.find();
   }
 
   dismiss() {

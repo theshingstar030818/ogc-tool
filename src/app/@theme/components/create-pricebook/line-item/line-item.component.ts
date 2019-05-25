@@ -71,7 +71,7 @@ export class CreateLineItemComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.createForm();
-    this.division = this.divisionsService.getDivisions();
+    this.division = this.divisionsService.getAllDivisions();
   }
 
   onSubmit() {

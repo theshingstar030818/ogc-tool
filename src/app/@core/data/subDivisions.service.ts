@@ -54,7 +54,8 @@ export class SubDivisionsService {
     }
 
     public getAllLineItems(subDivisionId) {
-        return this.lineItemsService.getLintItem().filter(value => value.attributes.subDivision.id === subDivisionId);
+        return this.lineItemsService.getAllLineItems()
+            .filter(value => value.attributes.subDivision.id === subDivisionId);
     }
 
     private async createSubDivision(name: String, division: ParseObject) {
