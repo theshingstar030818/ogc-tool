@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LineItemsService } from '../../../../@core/data/lint-tems.service';
+import { LineItemsService } from '../../../../@core/data/line-items.service';
 import { SubDivisionsService } from '../../../../@core/data/subDivisions.service';
 import { DivisionsService } from '../../../../@core/data/divisions.service';
 

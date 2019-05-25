@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { NbDialogService } from '@nebular/theme';
-import { LineItemsService } from '../../../@core/data/lint-tems.service';
+import { LineItemsService } from '../../../@core/data/line-items.service';
 import { CreateLineItemComponent } from '../../../@theme/components/create-pricebook/line-item/line-item.component';
 @Component({
   selector: 'ngx-table',

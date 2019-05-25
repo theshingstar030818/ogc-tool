@@ -8,6 +8,7 @@ import {
   NbActionsModule,
   NbCardModule,
   NbLayoutModule,
+  NbListModule,
   NbMenuModule,
   NbRouteTabsetModule,
   NbSearchModule,
@@ -24,6 +25,8 @@ import {
   NbSelectModule,
   NbDatepickerModule,
   NbDialogModule,
+  NbButtonModule,
+  NbTooltipModule,
 } from '@nebular/theme';
 
 import { NbSecurityModule } from '@nebular/security';
@@ -78,6 +81,7 @@ const BASE_MODULES = [
 ];
 
 const NB_MODULES = [
+  NbListModule,
   NbCardModule,
   NbInputModule,
   NbLayoutModule,
@@ -98,6 +102,9 @@ const NB_MODULES = [
   NgbModule,
   NbSecurityModule, // *nbIsGranted directive,
   NbProgressBarModule,
+  NbButtonModule,
+  NbTooltipModule,
+  NbPopoverModule,
 ];
 
 const COMPONENTS = [

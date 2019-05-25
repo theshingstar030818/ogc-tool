@@ -79,8 +79,8 @@ export class SubDivisionsComponent implements OnInit {
         buttonText: 'Save',
         subDivision: event.data,
       },
-      closeOnBackdropClick: false,
-
+      closeOnBackdropClick: true,
+      hasScroll: true,
     });
   }
 

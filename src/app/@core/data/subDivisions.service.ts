@@ -1,3 +1,4 @@
+import { LineItemsService } from './line-items.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Parse, ParseObject } from 'parse';
@@ -9,11 +10,13 @@ import { DivisionsService } from './divisions.service';
 
 export class SubDivisionsService {
 
-    private divisionsService: DivisionsService;
     public subDivisions: Array<any> = [];
     public observableSubDivisions: BehaviorSubject<any>;
 
-    constructor(divisionsService: DivisionsService) {
+    constructor(
+        private divisionsService: DivisionsService,
+        protected lineItemsService: LineItemsService,
+    ) {
         this.observableSubDivisions = new BehaviorSubject<any[]>(this.subDivisions);
         this.fetchSubDivisions();
         this.divisionsService = divisionsService;
@@ -28,7 +31,7 @@ export class SubDivisionsService {
     }
 
     public async update(subDivision?) {
-        // console.log(subDivision);
+        console.log(subDivision);
     }
 
     public async add(subDivision?) {
@@ -47,8 +50,11 @@ export class SubDivisionsService {
     }
 
     public getSubDivisions(divisionId) {
-        // console.log('divisionId: ' + divisionId);
         return this.subDivisions.filter(value => value.attributes.division.id === divisionId);
+    }
+
+    public getAllLineItems(subDivisionId) {
+        return this.lineItemsService.getLintItem().filter(value => value.attributes.subDivision.id === subDivisionId);
     }
 
     private async createSubDivision(name: String, division: ParseObject) {

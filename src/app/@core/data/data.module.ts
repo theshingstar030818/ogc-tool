@@ -20,7 +20,7 @@ import { ProjectsService } from './projects.service';
 import { ClientsService } from './clients.service';
 import { BackendService } from './backend.service';
 import { AuthService } from './auth.service';
-import { LineItemsService } from './lint-tems.service';
+import { LineItemsService } from './line-items.service';
 
 const SERVICES = [
   BackendService,

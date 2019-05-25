@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LineItemsService } from '../../@core/data/lint-tems.service';
+import { LineItemsService } from '../../@core/data/line-items.service';
 
 @Component({
   selector: 'ngx-price-book',

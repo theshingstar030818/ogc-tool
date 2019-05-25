@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 // import { NbDialogRef } from '@nebular/theme';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LineItemsService } from '../../../../@core/data/lint-tems.service';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { DivisionsService } from '../../../../@core/data/divisions.service';
 import { SubDivisionsService } from '../../../../@core/data/subDivisions.service';
-
 @Component({
   selector: 'ngx-create-sub-division',
   templateUrl: './sub-division.component.html',
@@ -18,20 +16,18 @@ export class CreateSubDivisionComponent implements OnInit {
 
   subDivision: FormGroup;
 
-  subDivisions: FormControl;
+  lineItems: FormArray;
   division: FormControl;
   name: FormControl;
 
   constructor(
-    protected lineItemsService: LineItemsService,
+    private formBuilder: FormBuilder,
     protected subDivisionsService: SubDivisionsService,
     protected divisionsService: DivisionsService,
-  ) {
-
-  }
+  ) { }
 
   createFormControls() {
-    this.subDivisions = new FormControl([], []);
+    this.lineItems = new FormArray([], []);
     this.division = new FormControl(this.data.subDivision ?
       this.data.subDivision.attributes.division.id : '', Validators.required);
     this.name = new FormControl(this.data.subDivision ?
@@ -40,16 +36,21 @@ export class CreateSubDivisionComponent implements OnInit {
 
   createForm() {
     this.subDivision = new FormGroup({
-      subDivisions: this.subDivisions,
+      lineItems: this.lineItems,
       division: this.division,
       name: this.name,
     });
   }
 
   ngOnInit() {
-    // console.log(this.data);
     this.createFormControls();
     this.createForm();
+    if(this.data.subDivision) {
+      console.log(this.subDivisionsService.getAllLineItems(this.data.subDivision.id));
+      // this.lineItems.setValue(this.subDivisionsService.getAllLineItems(this.data.subDivision.id));
+      this.lineItems = this.formBuilder.array(this.subDivisionsService.getAllLineItems(this.data.subDivision.id));
+      console.log(this.lineItems.controls)
+    }
   }
 
   onSubmit() {
