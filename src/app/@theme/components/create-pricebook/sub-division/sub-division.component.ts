@@ -27,7 +27,9 @@ export class CreateSubDivisionComponent implements OnInit {
   ) { }
 
   createFormControls() {
-    this.lineItems = new FormArray([], []);
+    this.lineItems = this.data.subDivision ?
+    this.formBuilder.array(this.subDivisionsService.getAllLineItems(this.data.subDivision.id)) :
+    new FormArray([], []);
     this.division = new FormControl(this.data.subDivision ?
       this.data.subDivision.attributes.division.id : '', Validators.required);
     this.name = new FormControl(this.data.subDivision ?
@@ -45,15 +47,12 @@ export class CreateSubDivisionComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.createForm();
-    if(this.data.subDivision) {
-      console.log(this.subDivisionsService.getAllLineItems(this.data.subDivision.id));
-      // this.lineItems.setValue(this.subDivisionsService.getAllLineItems(this.data.subDivision.id));
+    if (this.data.subDivision) {
       this.lineItems = this.formBuilder.array(this.subDivisionsService.getAllLineItems(this.data.subDivision.id));
-      console.log(this.lineItems.controls)
     }
   }
 
-  onSubmit() {
+  save() {
     if (this.subDivision.valid) {
       !this.data.edit ?
       this.subDivisionsService.add(this.subDivision.value) :
