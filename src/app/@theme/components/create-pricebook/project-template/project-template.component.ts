@@ -2,6 +2,7 @@ import { DivisionsService } from '../../../../@core/data/divisions.service';
 import { ProjectTemplatesService } from '../../../../@core/data/project-templates.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-create-project-template',
@@ -16,6 +17,7 @@ export class CreateProjectTemplateComponent implements OnInit {
   projectTemplate: FormGroup;
   divisions: FormArray;
   name: FormControl;
+  selectedDivisions: FormControl;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,6 +26,7 @@ export class CreateProjectTemplateComponent implements OnInit {
   ) { }
 
   createFormControls() {
+    this.selectedDivisions = new FormControl([]); 
     this.divisions = this.data.template ?
     this.formBuilder.array(this.data.divisions) :
     new FormArray([], []);
@@ -35,6 +38,7 @@ export class CreateProjectTemplateComponent implements OnInit {
     this.projectTemplate = new FormGroup({
       name: this.name,
       divisions: this.divisions,
+      selectedDivisions: this.selectedDivisions,
     });
   }
 
@@ -42,9 +46,11 @@ export class CreateProjectTemplateComponent implements OnInit {
     this.createFormControls();
     this.createForm();
   }
+  
 
   save() {
     if (this.data.template) {
+      console.log(this.selectedDivisions)
       this.projectTemplatesService.update(this.projectTemplate.value);
       this.ref.close();
     } else {

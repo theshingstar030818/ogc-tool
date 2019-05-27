@@ -26,18 +26,20 @@
           </div>
         </div>
       </nb-card-body>
+      <nb-card [size]="'small'" *ngIf="name.value">
+        <nb-card-header>
+          Divisions
+          <nb-select [formControl]="selectedDivisions" style="width: 15rem;" class="close" multiple placeholder="Add Divisions">
+            <nb-option *ngFor="let division of divisionsService.divisions" [value]="division">{{division.attributes.name}}</nb-option>
+          </nb-select>
+        </nb-card-header>
+        <nb-list>
+          <nb-list-item *ngFor="let division of divisions.value">
+            {{division.attributes.name}}
+          </nb-list-item>
+        </nb-list>
+      </nb-card>
     </form>
-
-    <nb-card [size]="'small'" *ngIf="name.value">    
-      <nb-card-header>
-        Divisions
-      </nb-card-header>
-      <nb-list>
-        <nb-list-item *ngFor="let division of divisions.controls">
-          {{division.value.attributes.name}}
-        </nb-list-item>
-      </nb-list>
-    </nb-card>
 
     <nb-card-footer>
       <button nbButton class="btn btn-success" (click)="save()">{{data.buttonText}}</button>

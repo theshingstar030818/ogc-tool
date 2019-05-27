@@ -13,7 +13,7 @@ export class ProjectsService {
 
   public projects: Array<any> = [];
   public observableProjects: BehaviorSubject<any>;
-  public activeProject: any;
+  public activeProject: any = null;
 
   constructor(
     protected divisionsService: DivisionsService,
@@ -24,16 +24,31 @@ export class ProjectsService {
     this.getProjectsParse();
   }
 
-  async getProjectsParse() {
+  async getPtoject(projectId) {
+    if(this.projects.length) {
+      return this.projects.filter(value => (value.id === projectId));
+    } else {
+      return await this.getProjectParse(projectId);
+    }
+  }
 
+  async getProjectParse(projectId: string) {
+    const Project = Parse.Object.extend('Project');
+    const query = new Parse.Query(Project);
+    query.equalTo("id", projectId);
+    query.include('current');
+    query.include('current.client');
+    return await query.find();
+  }
+
+
+  async getProjectsParse() {
     const Project = Parse.Object.extend('Project');
     const query = new Parse.Query(Project);
     query.limit(1000);
     query.include('current');
     query.include('current.client');
-    const results = await query.find();
-
-    this.projects = results;
+    this.projects = await query.find();
     this.observableProjects.next(this.projects);
   }
 
