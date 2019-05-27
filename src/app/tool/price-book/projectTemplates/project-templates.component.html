@@ -1,13 +1,17 @@
 <nb-card>
   <nb-card-header>
-    <button nbButton status="success" (click)="createProjectTemplate()">Create New Template</button>
+    <button nbButton status="success" (click)="createProjectTemplate(dialog)">Create New Template</button>
   </nb-card-header>
   <nb-card-body>
     <ng2-smart-table 
     [settings]="settings" 
     [source]="source" 
-    (deleteConfirm)="deleteConfirm($event)"
-    (editConfirm)="editConfirm($event)">
+    (delete)="deleteConfirm($event)"
+    (edit)="onEdit($event,dialog)">
     </ng2-smart-table>
   </nb-card-body>
 </nb-card>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+    <ngx-create-project-template [data]="data" [ref]="ref"></ngx-create-project-template>
+  </ng-template>

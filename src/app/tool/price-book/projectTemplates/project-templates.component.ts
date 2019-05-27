@@ -1,11 +1,9 @@
-import {
-  CreateProjectTemplateComponent,
-} from '../../../@theme/components/create-pricebook/project-template/project-template.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { SmartTableService } from '../../../@core/data/smart-table.service';
 import { NbDialogService } from '@nebular/theme';
 import { ProjectTemplatesService } from '../../../@core/data/project-templates.service';
+import { DivisionsService } from '../../../@core/data/divisions.service';
 
 @Component({
   selector: 'ngx-project-templates',
@@ -15,16 +13,22 @@ import { ProjectTemplatesService } from '../../../@core/data/project-templates.s
 export class ProjectTemplatesComponent implements OnInit {
 
   settings = {
-    mode: 'inline',
+    mode: 'external',
     actions: {
       add: false,
-      edit: false,
+      edit: true,
       position: 'right',
       columnTitle: 'Options',
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
       confirmDelete: true,
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true,
     },
     columns: {
       'id': {
@@ -56,6 +60,7 @@ export class ProjectTemplatesComponent implements OnInit {
   constructor(
     private dialogService: NbDialogService,
     private projectTemplatesService: ProjectTemplatesService,
+    private divisionsService: DivisionsService
   ) {
     const data = this.projectTemplatesService.getProjectTemplates();
     this.source.load(data);
@@ -71,12 +76,27 @@ export class ProjectTemplatesComponent implements OnInit {
     this.projectTemplatesService.deleteProjectTemplate(event);
   }
 
-  createProjectTemplate() {
-    this.dialogService.open(CreateProjectTemplateComponent, {
+  async onEdit(event, dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog, {
       context: {
-        title: 'Create New Project Template',
+        edit: true,
+        title: 'Edit Template',
+        buttonText: 'Save',
+        template: event.data,
+        divisions: await this.divisionsService.getDivisionsByTemplates([event.data])
       },
-      closeOnBackdropClick: false,
+      closeOnBackdropClick: true,
+      hasScroll: true,
+    });
+  }
+
+  createProjectTemplate(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog, {
+      context: {
+        title: 'Create Project Template',
+        buttonText: 'Create',
+      },
+      closeOnBackdropClick: true,
     });
   }
 

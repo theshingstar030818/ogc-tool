@@ -55,15 +55,15 @@ export class ProjectTemplatesService {
             await projectTemplate.destroy().then(() => {
                 this.projectTemplates = this.projectTemplates.filter( (value) => value.id !== projectTemplate.id );
                 this.observableProjectTemplates.next(this.projectTemplates);
-                event.confirm.resolve();
             }, (error) => {
                 alert('Failed to delete Project Template: ' + projectTemplate.attributes.name +
                 ', error message: ' + error.message);
-                event.confirm.reject();
             });
-        } else {
-            event.confirm.reject();
         }
+    }
+
+    public update(template) {
+
     }
 
 }

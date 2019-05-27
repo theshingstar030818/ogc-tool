@@ -37,7 +37,7 @@ export class ProjectsService {
     this.observableProjects.next(this.projects);
   }
 
-  async addProject(project, divisions) {
+  async addProject(project, data) {
     const ProjectHistory = Parse.Object.extend('ProjectHistory');
     const projectHistoryObject = new ProjectHistory();
     const Client = Parse.Object.extend('Client');
@@ -48,7 +48,7 @@ export class ProjectsService {
     projectHistoryObject.set('dueDate', project.duedate);
     projectHistoryObject.set('status', project.status);
     projectHistoryObject.set('client', client);
-    projectHistoryObject.set('data', divisions);
+    projectHistoryObject.set('data', data);
     projectHistoryObject.setACL(new Parse.ACL(Parse.User.current()));
     projectHistoryObject.save().then((result) => {
       let relation = result.relation('templates');

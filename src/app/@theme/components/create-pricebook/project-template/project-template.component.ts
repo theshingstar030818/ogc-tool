@@ -1,7 +1,7 @@
+import { DivisionsService } from '../../../../@core/data/divisions.service';
 import { ProjectTemplatesService } from '../../../../@core/data/project-templates.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NbDialogRef } from '@nebular/theme';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'ngx-create-project-template',
@@ -10,23 +10,31 @@ import { NbDialogRef } from '@nebular/theme';
 })
 export class CreateProjectTemplateComponent implements OnInit {
 
-  @Input() title: string;
+  @Input() data?: any;
+  @Input() ref: any;
+
   projectTemplate: FormGroup;
-  divisions: FormGroup;
+  divisions: FormArray;
   name: FormControl;
 
   constructor(
-    protected ref: NbDialogRef<CreateProjectTemplateComponent>,
+    private formBuilder: FormBuilder,
     protected projectTemplatesService: ProjectTemplatesService,
+    protected divisionsService: DivisionsService
   ) { }
 
   createFormControls() {
-    this.name = new FormControl('', Validators.required);
+    this.divisions = this.data.template ?
+    this.formBuilder.array(this.data.divisions) :
+    new FormArray([], []);
+    this.name = new FormControl(this.data.template ?
+    this.data.template.attributes.name : '', Validators.required);
   }
 
   createForm() {
     this.projectTemplate = new FormGroup({
       name: this.name,
+      divisions: this.divisions,
     });
   }
 
@@ -35,14 +43,18 @@ export class CreateProjectTemplateComponent implements OnInit {
     this.createForm();
   }
 
-  onSubmit() {
-    if (this.projectTemplate.valid) {
-      this.projectTemplatesService.add(this.projectTemplate.value);
-      this.projectTemplate.reset();
-      this.dismiss();
-
+  save() {
+    if (this.data.template) {
+      this.projectTemplatesService.update(this.projectTemplate.value);
+      this.ref.close();
     } else {
-      window.alert('Form fields are not valid');
+      if (this.projectTemplate.valid) {
+        this.projectTemplatesService.add(this.projectTemplate.value);
+        this.projectTemplate.reset();
+        this.dismiss();
+      } else {
+        window.alert('Form fields are not valid');
+      }
     }
   }
 
