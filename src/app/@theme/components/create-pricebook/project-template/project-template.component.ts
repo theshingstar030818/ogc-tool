@@ -20,7 +20,7 @@ export class CreateProjectTemplateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     protected projectTemplatesService: ProjectTemplatesService,
-    protected divisionsService: DivisionsService
+    protected divisionsService: DivisionsService,
   ) { }
 
   createFormControls() {

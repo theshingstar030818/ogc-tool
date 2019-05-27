@@ -60,7 +60,7 @@ export class ProjectTemplatesComponent implements OnInit {
   constructor(
     private dialogService: NbDialogService,
     private projectTemplatesService: ProjectTemplatesService,
-    private divisionsService: DivisionsService
+    private divisionsService: DivisionsService,
   ) {
     const data = this.projectTemplatesService.getProjectTemplates();
     this.source.load(data);
@@ -83,7 +83,7 @@ export class ProjectTemplatesComponent implements OnInit {
         title: 'Edit Template',
         buttonText: 'Save',
         template: event.data,
-        divisions: await this.divisionsService.getDivisionsByTemplates([event.data])
+        divisions: await this.divisionsService.getDivisionsByTemplates([event.data]),
       },
       closeOnBackdropClick: true,
       hasScroll: true,
