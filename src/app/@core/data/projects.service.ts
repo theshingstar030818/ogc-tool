@@ -25,7 +25,7 @@ export class ProjectsService {
   }
 
   async getPtoject(projectId) {
-    if(this.projects.length) {
+    if (this.projects.length) {
       return this.projects.filter(value => (value.id === projectId));
     } else {
       return await this.getProjectParse(projectId);
@@ -35,7 +35,7 @@ export class ProjectsService {
   async getProjectParse(projectId: string) {
     const Project = Parse.Object.extend('Project');
     const query = new Parse.Query(Project);
-    query.equalTo("id", projectId);
+    query.equalTo('id', projectId);
     query.include('current');
     query.include('current.client');
     return await query.find();

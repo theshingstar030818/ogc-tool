@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectsService } from '../../@core/data/projects.service';
+// import { ProjectsService } from '../../@core/data/projects.service';
 
 @Component({
   selector: 'ngx-project',
@@ -11,22 +11,22 @@ export class ProjectComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private projectsService: ProjectsService,
+    // private projectsService: ProjectsService,
     // private router: Router,
   ) {
-    this.init()
+    this.init();
   }
 
   ngOnInit() { }
 
-  async init(){
+  async init() {
     let param;
     await this.route.paramMap.subscribe( params => {
       param = params;
-      console.log(params);
+      // console.log(params);
     });
-    let project = await this.projectsService.getPtoject(param['id']);
-    console.log(project)
+    // let project = await this.projectsService.getPtoject(param['id']);
+    // console.log(project);
   }
 
 }
