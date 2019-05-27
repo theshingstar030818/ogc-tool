@@ -12,7 +12,7 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="Divisions">Divisions</label>
+                  <label for="Divisions">Division</label>
                   <select class="form-control" formControlName="division">
                       <option value="">Select Division</option>
                       <option *ngFor="let item of divisionsService.divisions"  [value]="item.id">{{item.attributes.name}}</option>
@@ -21,8 +21,8 @@
               </div>
               <div class="col-sm-6" *ngIf="division.value">
                 <div class="form-group">
-                  <label for="SubDivisions">New Sub Division Name</label>
-                  <input formControlName="name" type="text" class="form-control" placeholder="New Sub Division Name"
+                  <label for="SubDivisions">Sub Division Name</label>
+                  <input formControlName="name" type="text" class="form-control" placeholder="Sub Division Name"
                     [ngClass]="{
                       'form-control-danger': name.invalid && name.dirty,
                       'form-control-success': name.valid && name.dirty
