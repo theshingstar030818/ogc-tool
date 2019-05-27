@@ -33,28 +33,29 @@
                 </div>
               </div>
             </div>
-          </nb-card-body>
-      
-          
+          </nb-card-body>          
         </form>
+
         <nb-card [size]="'small'" *ngIf="lineItems.controls.length">    
+          <nb-card-header>
+            Line Items
+          </nb-card-header>
           <nb-list>
             <nb-list-item *ngFor="let lineItem of lineItems.controls">
               {{lineItem.value.attributes.title}} - 
               <button [nbPopover]="unitType" nbPopoverPlacement="right" nbButton size="xsmall" shape="round" status="info">info</button>
               <ng-template #unitType>
                 <div style="justify-content: center;padding: 1rem;word-wrap: normal;width:20rem;">
-                  <span> <b>Unit Type :</b> {{lineItem.value.attributes.unitType}}</span> <br>
-                  <span> <b>Description :</b> {{lineItem.value.attributes.description}}</span> <br>
-                  <span> <b>OGC Notes :</b> {{lineItem.value.attributes.ogcNotes}}</span>
+                  <span> <b><u>Unit Type :</u></b> {{lineItem.value.attributes.unitType}}</span> <br>
+                  <span> <b><u>Description :</u></b> {{lineItem.value.attributes.description}}</span> <br>
+                  <span> <b><u>OGC Notes :</u></b> {{lineItem.value.attributes.ogcNotes}}</span>
                 </div>
                 
               </ng-template>
             </nb-list-item>
           </nb-list>
         </nb-card>
-        
-      
+
         <nb-card-footer>
           <button nbButton status="success" (click)="save()">{{data.buttonText}}</button>
         </nb-card-footer>

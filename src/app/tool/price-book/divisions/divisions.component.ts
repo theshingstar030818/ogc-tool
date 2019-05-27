@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { DivisionsService } from '../../../@core/data/divisions.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { SmartTableService } from '../../../@core/data/smart-table.service';
 import { NbDialogService } from '@nebular/theme';
-import { CreateDivisionComponent } from '../../../@theme/components/create-pricebook/division/division.component';
 
 @Component({
   selector: 'ngx-divisions',
@@ -13,16 +12,22 @@ import { CreateDivisionComponent } from '../../../@theme/components/create-price
 export class DivisionsComponent implements OnInit {
 
   settings = {
-    mode: 'inline',
+    mode: 'external',
     actions: {
       add: false,
-      edit: false,
+      edit: true,
       position: 'right',
       columnTitle: 'Options',
     },
     delete: {
       deleteButtonContent: '<i class="nb-trash"></i>',
       confirmDelete: true,
+    },
+    edit: {
+      editButtonContent: '<i class="nb-edit"></i>',
+      saveButtonContent: '<i class="nb-checkmark"></i>',
+      cancelButtonContent: '<i class="nb-close"></i>',
+      confirmSave: true,
     },
     columns: {
       'id': {
@@ -69,12 +74,26 @@ export class DivisionsComponent implements OnInit {
     this.divisionsService.deleteDivision(event);
   }
 
-  createDivision() {
-    this.dialogService.open(CreateDivisionComponent, {
+  async onEdit(event, dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog, {
+      context: {
+        edit: true,
+        title: 'Edit Division',
+        buttonText: 'Save',
+        division: event.data,
+      },
+      closeOnBackdropClick: true,
+      hasScroll: true,
+    });
+  }
+
+  createDivision(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog, {
       context: {
         title: 'Create Division',
+        buttonText: 'Create Division',
       },
-      closeOnBackdropClick: false,
+      closeOnBackdropClick: true,
     });
   }
 

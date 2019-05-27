@@ -32,6 +32,10 @@ export class DivisionsService {
         }
     }
 
+    public async update(division) {
+
+    }
+
     public getAllDivisions() {
         return this.divisions;
     }

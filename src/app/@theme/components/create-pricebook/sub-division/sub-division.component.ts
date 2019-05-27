@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-// import { NbDialogRef } from '@nebular/theme';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { DivisionsService } from '../../../../@core/data/divisions.service';
 import { SubDivisionsService } from '../../../../@core/data/subDivisions.service';
@@ -47,21 +46,21 @@ export class CreateSubDivisionComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.createForm();
-    if (this.data.subDivision) {
-      this.lineItems = this.formBuilder.array(this.subDivisionsService.getAllLineItems(this.data.subDivision.id));
-    }
   }
 
   save() {
-    if (this.subDivision.valid) {
-      !this.data.edit ?
-      this.subDivisionsService.add(this.subDivision.value) :
+    if (this.data.subDivision) {
       this.subDivisionsService.update(this.subDivision.value);
-      this.subDivision.reset();
       this.ref.close();
-
     } else {
-      window.alert('Form fields are not valid');
+      if (this.subDivision.valid) {
+        !this.data.edit ?
+        this.subDivisionsService.add(this.subDivision.value) :
+        this.subDivision.reset();
+        this.ref.close();
+      } else {
+        window.alert('Form fields are not valid');
+      }
     }
   }
 }

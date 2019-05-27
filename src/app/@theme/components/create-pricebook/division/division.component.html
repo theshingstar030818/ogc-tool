@@ -3,8 +3,8 @@
   <div class="col-md-12">
     <nb-card>
       <nb-card-header>
-        Create Division
-        <button class="close" aria-label="Close" (click)="dismiss()">
+        {{data?.title}}
+        <button class="close" aria-label="Close" (click)="ref.close()">
           <span aria-hidden="true">&times;</span>
         </button>
       </nb-card-header>
@@ -26,11 +26,22 @@
           </div>
         </div>
       </nb-card-body>
-
-      <nb-card-footer>
-        <button nbButton class="btn btn-success" type="submit">Create Division</button>
-      </nb-card-footer>
     </form>
+
+    <nb-card [size]="'small'" *ngIf="subDivisions.controls.length">    
+      <nb-card-header>
+        Sub Divisions
+      </nb-card-header>
+      <nb-list>
+        <nb-list-item *ngFor="let subDivision of subDivisions.controls">
+          {{subDivision.value.attributes.name}}
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+
+    <nb-card-footer>
+      <button nbButton class="btn btn-success" (click)="save()">{{data.buttonText}}</button>
+    </nb-card-footer>
     </nb-card>
   </div>
 </div>
