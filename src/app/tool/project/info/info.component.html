@@ -1,30 +1,30 @@
-<nb-card>
+<nb-card *ngIf="projectInfoForm" size="giant">
   <nb-card-body>
     <form [formGroup]= "projectInfoForm">
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
             <label for="projectName">Project Name</label>
-            <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" value="{{projectsService.activeProject.get('current').get('name')}}"
+            <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" [value]="projectsService?.activeProject?.attributes?.current?.attributes?.name"
             [ngClass]="{
-              'form-control-danger': projectName.invalid && projectName.dirty,
-              'form-control-success': projectName.valid && projectName.dirty
+              'form-control-danger': projectName?.invalid && projectName?.dirty,
+              'form-control-success': projectName?.valid && projectName?.dirty
               }">
-            <div class="form-control-feedback" *ngIf="projectName.errors && (projectName.dirty || projectName.touched)">
-              <p *ngIf="projectName.errors.required">Project Name is required</p>
+            <div class="form-control-feedback" *ngIf="projectName?.errors && (projectName?.dirty || projectName?.touched)">
+              <p *ngIf="projectName?.errors?.required">Project Name is required</p>
             </div>
           </div>
         </div>
         <div class="col-sm-6">
           <div class="form-group">
             <label for="projectAddress">Address Of Project</label>
-            <input formControlName="projectAddress" type="text" class="form-control" placeholder="Address Of Project" value="{{projectsService.activeProject.get('current').get('address')}}"
+            <input formControlName="projectAddress" type="text" class="form-control" placeholder="Address Of Project" value="{{projectsService?.activeProject?.attributes?.current?.attributes?.address}}"
             [ngClass]="{
-              'form-control-danger': projectAddress.invalid && projectAddress.dirty,
-              'form-control-success': projectAddress.valid && projectAddress.dirty
+              'form-control-danger': projectAddress?.invalid && projectAddress?.dirty,
+              'form-control-success': projectAddress?.valid && projectAddress?.dirty
               }">
-            <div class="form-control-feedback" *ngIf="projectAddress.errors && (projectAddress.dirty || projectAddress.touched)">
-              <p *ngIf="projectAddress.errors.required">Address is required</p>
+            <div class="form-control-feedback" *ngIf="projectAddress?.errors && (projectAddress?.dirty || projectAddress?.touched)">
+              <p *ngIf="projectAddress?.errors?.required">Address is required</p>
             </div>
           </div>
         </div>
@@ -33,13 +33,13 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="client">Client</label>
-            <input disabled formControlName="client" type="text" class="form-control" placeholder="Client" value="{{projectsService.activeProject.get('current').get('client').get('firstName')}} {{projectsService.activeProject.get('current').get('client').get('lastName')}}"
+            <input disabled formControlName="client" type="text" class="form-control" placeholder="Client" value="{{projectsService.activeProject.attributes.current.attributes.client.attributes.firstName}} {{projectsService.activeProject.attributes.current.attributes.client.attributes.lastName}}"
             [ngClass]="{
-              'form-control-danger': client.invalid && client.dirty,
-              'form-control-success': client.valid && client.dirty
+              'form-control-danger': client?.invalid && client?.dirty,
+              'form-control-success': client?.valid && client?.dirty
               }">
-            <div class="form-control-feedback" *ngIf="client.errors && (client.dirty || client.touched)">
-              <p *ngIf="client.errors.required">Client is required</p>
+            <div class="form-control-feedback" *ngIf="client?.errors && (client?.dirty || client?.touched)">
+              <p *ngIf="client?.errors?.required">Client is required</p>
             </div>
           </div>
         </div>
@@ -90,8 +90,10 @@
           </ngb-alert>
         </div>
       </div>
-      <button nbButton class="btn btn-success" (click)="saveProject()">Save Changes</button>
     </form>
 
   </nb-card-body>
+  <nb-card-footer>
+    <button nbButton class="btn btn-success" (click)="saveProject()">Save Changes</button>
+  </nb-card-footer>
 </nb-card>

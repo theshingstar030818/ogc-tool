@@ -3,6 +3,23 @@
         <ngx-header-project></ngx-header-project>
     </nb-layout-header>
     <nb-layout-column>
-        <router-outlet></router-outlet>
+        <nb-card>
+            <nb-card-body>
+                <nb-tabset>
+                    <nb-tab tabTitle="Info">
+                        <ngx-info></ngx-info>
+                    </nb-tab>
+                    <nb-tab tabTitle="Edit">
+                        <ngx-edit *ngIf="projectsService.activeProject" ></ngx-edit>
+                    </nb-tab>
+                    <nb-tab tabTitle="Preview">
+                        
+                    </nb-tab>
+                    <nb-tab tabTitle="Share">
+                        
+                    </nb-tab>
+                </nb-tabset>
+            </nb-card-body>
+        </nb-card>
     </nb-layout-column>
 </nb-layout>

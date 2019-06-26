@@ -55,14 +55,10 @@ export class EditComponent implements OnInit {
   }
 
   createFormControls() {
-    this.drawingNo = new FormControl(
-      this.projectsService.activeProject.get('current').get('drawingNo'), Validators.required);
-    this.projectName = new FormControl(
-      this.projectsService.activeProject.get('current').get('name'), Validators.required);
-    this.revisionDate = new FormControl(
-      this.projectsService.activeProject.get('current').get('updatedAt'), Validators.required);
-    this.estimatedBy = new FormControl(
-      this.projectsService.activeProject.get('current').get('estimatedBy').get('firstName'), Validators.required);
+    this.drawingNo = new FormControl('', Validators.required);
+    this.projectName = new FormControl('', Validators.required);
+    this.revisionDate = new FormControl('', Validators.required);
+    this.estimatedBy = new FormControl('', Validators.required);
     this.lineItemTitle = new FormControl('', Validators.required);
     this.lineItemQty = new FormControl('', Validators.required);
     this.lineItemUnitType = new FormControl('', Validators.required);
@@ -101,9 +97,19 @@ export class EditComponent implements OnInit {
     // console.log(this.projectEditForm);
   }
 
-  ngOnInit() {
-    this.createFormControls();
-    this.createForm();
+  async ngOnInit() {
+    await this.route.params.subscribe(params => {
+      let projectId = params['id'];
+      if(!this.projectsService.activeProject) {
+        this.projectsService.setActiveProject(projectId).then(() => {
+          this.createFormControls();
+          this.createForm();
+        })
+      } else {
+        this.createFormControls();
+        this.createForm();
+      }
+    });
   }
 
   onSubmit() {
@@ -119,35 +125,43 @@ export class EditComponent implements OnInit {
     lineItem['total'] = lineItem.material * lineItem.qty;
     subDivision['total'] = this.calculateSubDivisionTotal(subDivision);
     division['total'] = this.calculateDivisionTotal(division);
-    // console.log(division);
-    // console.log(subDivision);
-    // console.log(lineItem);
+    console.log(division);
+    console.log(subDivision);
+    console.log(lineItem);
   }
 
   calculateSubDivisionTotal(subDivision) {
     let total = 0;
     subDivision['lineItems'].forEach(function (lineItem) {
-      // console.log(lineItem['total']);
+      console.log(lineItem['total']);
       total += lineItem['total'];
     });
-    // console.log('subdivison total : ' + total);
+    console.log('subdivison total : ' + total);
     return total;
   }
 
   calculateDivisionTotal(division) {
     let total = 0;
-    division['subDivisions'].forEach(function (subDivision) {
-      // console.log(subDivision['total']);
+    division['subdivisions'].forEach(function (subDivision) {
+      console.log(subDivision['total']);
       if (subDivision['total']) {
         total += subDivision['total'];
       }
     });
-    // console.log('divison total : ' + total);
+    console.log('divison total : ' + total);
     return total;
   }
 
   public printActiveProject() {
     // console.log(this.projectsService.activeProject);
+  }
+
+  public saveProject(){
+    console.log(this.projectsService.activeProject)
+    let newVersion = this.projectsService.activeProject.attributes.current.clone();
+    newVersion.save().then((newProjectHistoryObj) => {
+      console.log(newProjectHistoryObj)
+    })
   }
 
 }

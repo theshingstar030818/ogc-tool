@@ -69,7 +69,9 @@ export class CreateProjectComponent implements OnInit {
     if (this.projectForm.valid) {
       this.projectForm.controls['status'].setValue('New');
       this.projectsService.addProject(
-        this.projectForm.value, await this.projectsService.generateProjectData(this.template.value));
+        this.projectForm.value, 
+        await this.projectsService.generateProjectData(this.template.value)
+      );
       this.projectForm.reset();
       this.dismiss();
     } else {

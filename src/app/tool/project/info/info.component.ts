@@ -11,24 +11,18 @@ import { ProjectsService } from '../../../@core/data/projects.service';
 export class InfoComponent implements OnInit {
 
   projectInfoForm: FormGroup;
-  projectName: FormControl;
-  projectAddress: FormControl;
-  client: FormControl;
-  dueDate: FormControl;
-  created: FormControl;
-  templates: FormControl;
+  projectName: FormControl = new FormControl();
+  projectAddress: FormControl = new FormControl();
+  client: FormControl = new FormControl();
+  dueDate: FormControl = new FormControl();
+  created: FormControl = new FormControl();
+  templates: FormControl = new FormControl();
   template: any;
 
   constructor(
     private route: ActivatedRoute,
     protected projectsService: ProjectsService,
-    // private router: Router,
-  ) {
-    this.route.parent.params.subscribe( params => {
-      // console.log(params);
-    });
-    // console.log(projectsService.activeProject);
-  }
+  ) {}
 
   createFormControls() {
     this.projectName = new FormControl(
@@ -56,12 +50,23 @@ export class InfoComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.createFormControls();
-    this.createForm();
+  async ngOnInit() {
+    await this.route.params.subscribe(params => {
+      let projectId = params['id'];
+      if(!this.projectsService.activeProject) {
+        this.projectsService.setActiveProject(projectId).then(() => {
+          this.createFormControls();
+          this.createForm();
+        })
+      } else {
+        this.createFormControls();
+        this.createForm();
+      }
+    });
+        
     this.projectsService.getTemplates().then((results) => {
       this.template = results;
-      // console.log(this.template);
+      console.log(this.template);
     }, (error) => {
       // console.log(error);
     });

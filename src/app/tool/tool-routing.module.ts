@@ -4,13 +4,14 @@ import { ToolComponent } from './tool.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { PriceBookComponent } from './price-book/price-book.component';
 import { ClientsComponent } from './clients/clients.component';
+import { ProjectComponent } from './project/project.component';
 
 const routes: Routes = [{
   path: '',
   component: ToolComponent,
   children: [
     { path: 'projects', loadChildren: './projects/projects.module#ProjectsModule' },
-    { path: 'project/:id', loadChildren: './project/project.module#ProjectModule' },
+    { path: 'project/:id', component: ProjectComponent },
     { path: 'price-book', component: PriceBookComponent },
     { path: 'clients', component: ClientsComponent },
     { path: '', redirectTo: 'projects', pathMatch: 'full' },

@@ -1,14 +1,7 @@
 <div class="header-container">
   <div class="logo-containter">
-    <div class="logo">{{projectsService.activeProject.get("current").get("address")}}</div>
+    <div class="logo">{{projectsService?.activeProject?.attributes?.current?.attributes?.address}}</div>
   </div>
 </div>
 
-<nb-tabset routeParam="Preview" (click)="goTo($event.currentTarget.getElementsByClassName('active')[0].textContent)">
-  <nb-tab tabTitle="Info"></nb-tab>
-  <nb-tab tabTitle="Edit"></nb-tab>
-  <nb-tab tabTitle="Preview"></nb-tab>
-  <nb-tab tabTitle="Share"></nb-tab>
-</nb-tabset>
-
-<span><a>Version {{projectsService.activeProject.get("current").get("version")}}</a></span>
+<span><a>Version {{projectsService?.activeProject?.attributes?.current?.attributes?.version}}</a></span>

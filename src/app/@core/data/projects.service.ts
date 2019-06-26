@@ -13,7 +13,7 @@ export class ProjectsService {
 
   public projects: Array<any> = [];
   public observableProjects: BehaviorSubject<any>;
-  public activeProject: any = null;
+  public activeProject: any;
 
   constructor(
     protected divisionsService: DivisionsService,
@@ -25,20 +25,26 @@ export class ProjectsService {
   }
 
   async getPtoject(projectId) {
-    if (this.projects.length) {
-      return this.projects.filter(value => (value.id === projectId));
+    if (this.projects.length != 0) {
+      let project = this.projects.filter(value => (value.id === projectId))[0];
+      return project;
     } else {
-      return await this.getProjectParse(projectId);
+      let project = await this.getProjectParse(projectId);
+      return project;
     }
   }
 
-  async getProjectParse(projectId: string) {
+  async setActiveProject(projectId) {
+    this.activeProject = await this.getPtoject(projectId);
+    console.log(this.activeProject);
+  }
+
+  async getProjectParse(projectId) {
     const Project = Parse.Object.extend('Project');
     const query = new Parse.Query(Project);
-    query.equalTo('id', projectId);
     query.include('current');
     query.include('current.client');
-    return await query.find();
+    return await query.get(projectId);
   }
 
 
@@ -64,15 +70,18 @@ export class ProjectsService {
     projectHistoryObject.set('status', project.status);
     projectHistoryObject.set('client', client);
     projectHistoryObject.set('data', data);
+    projectHistoryObject.set('version', 0);
     projectHistoryObject.setACL(new Parse.ACL(Parse.User.current()));
     projectHistoryObject.save().then((result) => {
       let relation = result.relation('templates');
+      console.log(project.template);
       for (let template of project.template) {
         relation.add(template);
       }
       result.save().then(() => {
         const Project = Parse.Object.extend('Project');
         const projectObject = new Project();
+        projectObject.set('maxVersionCount', 0);
         projectObject.set('current', result);
         projectObject.setACL(new Parse.ACL(Parse.User.current()));
         projectObject.save().then((newProject) => {
@@ -140,6 +149,10 @@ export class ProjectsService {
     const queryProjectTemplate = new Parse.Query(ProjectTemplate);
     const resultsProjectTemplate = await queryProjectTemplate.find();
     return resultsProjectTemplate;
+  }
+
+  public saveProject(project){
+
   }
 
 }
