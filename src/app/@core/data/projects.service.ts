@@ -25,7 +25,7 @@ export class ProjectsService {
   }
 
   async getPtoject(projectId) {
-    if (this.projects.length != 0) {
+    if (this.projects.length !== 0) {
       let project = this.projects.filter(value => (value.id === projectId))[0];
       return project;
     } else {
@@ -36,7 +36,7 @@ export class ProjectsService {
 
   async setActiveProject(projectId) {
     this.activeProject = await this.getPtoject(projectId);
-    console.log(this.activeProject);
+    // console.log(this.activeProject);
   }
 
   async getProjectParse(projectId) {
@@ -74,7 +74,7 @@ export class ProjectsService {
     projectHistoryObject.setACL(new Parse.ACL(Parse.User.current()));
     projectHistoryObject.save().then((result) => {
       let relation = result.relation('templates');
-      console.log(project.template);
+      // console.log(project.template);
       for (let template of project.template) {
         relation.add(template);
       }
@@ -151,7 +151,7 @@ export class ProjectsService {
     return resultsProjectTemplate;
   }
 
-  public saveProject(project){
+  public saveProject(project) {
 
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ProjectsService } from '../../@core/data/projects.service';
 
 @Component({
@@ -13,12 +13,11 @@ export class ProjectComponent implements OnInit {
     private route: ActivatedRoute,
     private projectsService: ProjectsService,
   ) {
-    
+
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.route.params.subscribe( params => {
-      console.log(params)
       this.projectsService.setActiveProject(params['id']);
     });
   }

@@ -53,20 +53,20 @@ export class InfoComponent implements OnInit {
   async ngOnInit() {
     await this.route.params.subscribe(params => {
       let projectId = params['id'];
-      if(!this.projectsService.activeProject) {
+      if (!this.projectsService.activeProject) {
         this.projectsService.setActiveProject(projectId).then(() => {
           this.createFormControls();
           this.createForm();
-        })
+        });
       } else {
         this.createFormControls();
         this.createForm();
       }
     });
-        
+
     this.projectsService.getTemplates().then((results) => {
       this.template = results;
-      console.log(this.template);
+      // console.log(this.template);
     }, (error) => {
       // console.log(error);
     });

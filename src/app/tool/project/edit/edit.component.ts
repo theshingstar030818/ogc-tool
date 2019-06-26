@@ -100,11 +100,11 @@ export class EditComponent implements OnInit {
   async ngOnInit() {
     await this.route.params.subscribe(params => {
       let projectId = params['id'];
-      if(!this.projectsService.activeProject) {
+      if (!this.projectsService.activeProject) {
         this.projectsService.setActiveProject(projectId).then(() => {
           this.createFormControls();
           this.createForm();
-        })
+        });
       } else {
         this.createFormControls();
         this.createForm();
@@ -125,30 +125,30 @@ export class EditComponent implements OnInit {
     lineItem['total'] = lineItem.material * lineItem.qty;
     subDivision['total'] = this.calculateSubDivisionTotal(subDivision);
     division['total'] = this.calculateDivisionTotal(division);
-    console.log(division);
-    console.log(subDivision);
-    console.log(lineItem);
+    // console.log(division);
+    // console.log(subDivision);
+    // console.log(lineItem);
   }
 
   calculateSubDivisionTotal(subDivision) {
     let total = 0;
     subDivision['lineItems'].forEach(function (lineItem) {
-      console.log(lineItem['total']);
+      // console.log(lineItem['total']);
       total += lineItem['total'];
     });
-    console.log('subdivison total : ' + total);
+    // console.log('subdivison total : ' + total);
     return total;
   }
 
   calculateDivisionTotal(division) {
     let total = 0;
     division['subdivisions'].forEach(function (subDivision) {
-      console.log(subDivision['total']);
+      // console.log(subDivision['total']);
       if (subDivision['total']) {
         total += subDivision['total'];
       }
     });
-    console.log('divison total : ' + total);
+    // console.log('divison total : ' + total);
     return total;
   }
 
@@ -156,12 +156,12 @@ export class EditComponent implements OnInit {
     // console.log(this.projectsService.activeProject);
   }
 
-  public saveProject(){
-    console.log(this.projectsService.activeProject)
+  public saveProject() {
+    // console.log(this.projectsService.activeProject);
     let newVersion = this.projectsService.activeProject.attributes.current.clone();
     newVersion.save().then((newProjectHistoryObj) => {
-      console.log(newProjectHistoryObj)
-    })
+      // console.log(newProjectHistoryObj);
+    });
   }
 
 }
