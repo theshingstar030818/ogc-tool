@@ -8,6 +8,7 @@ import { Parse } from 'parse';
 
 export class ProjectTemplatesService {
 
+    public projectTemplatesMap: {} = {};
     public projectTemplates: Array<any> = [];
     public observableProjectTemplates: BehaviorSubject<any>;
 
@@ -21,7 +22,14 @@ export class ProjectTemplatesService {
         const query = new Parse.Query(ProjectTemplate);
         query.limit(1000);
         this.projectTemplates = await query.find();
+        this.generateProjectTemplatesMap(this.projectTemplates);
         this.observableProjectTemplates.next(this.projectTemplates);
+    }
+
+    private generateProjectTemplatesMap(projectTemplates) {
+        for(let projectTemplate of projectTemplates) {
+            this.projectTemplatesMap[projectTemplate['id']] = projectTemplate;
+        }
     }
 
     public async add(projectTemplate) {

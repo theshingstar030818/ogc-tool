@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ProjectsService } from '../../../@core/data/projects.service';
+import { ProjectTemplatesService } from '../../../@core/data/project-templates.service';
 
 @Component({
   selector: 'ngx-info',
@@ -16,12 +17,14 @@ export class InfoComponent implements OnInit {
   client: FormControl = new FormControl();
   dueDate: FormControl = new FormControl();
   created: FormControl = new FormControl();
-  templates: FormControl = new FormControl();
+  templates;
   template: any;
 
   constructor(
     private route: ActivatedRoute,
     protected projectsService: ProjectsService,
+    public projectTemplatesService: ProjectTemplatesService,
+    private formBuilder: FormBuilder,
   ) {}
 
   createFormControls() {
@@ -36,7 +39,8 @@ export class InfoComponent implements OnInit {
       this.projectsService.activeProject.get('current').get('dueDate'), Validators.required);
     this.created = new FormControl(
       this.projectsService.activeProject.createdAt, Validators.required);
-    this.templates = new FormControl('', Validators.required);
+    this.templates =
+      this.projectsService.activeProject.get('current').get('templates');
   }
 
   createForm() {
@@ -46,7 +50,7 @@ export class InfoComponent implements OnInit {
       client: this.client,
       dueDate: this.dueDate,
       created: this.created,
-      templates: this.templates,
+      templates: this.formBuilder.array(this.templates),
     });
   }
 
@@ -66,9 +70,9 @@ export class InfoComponent implements OnInit {
 
     this.projectsService.getTemplates().then((results) => {
       this.template = results;
-      // console.log(this.template);
+      console.log(this.template);
     }, (error) => {
-      // console.log(error);
+      console.log(error);
     });
   }
 

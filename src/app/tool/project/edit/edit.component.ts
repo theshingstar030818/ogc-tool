@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
 import { ProjectsService } from '../../../@core/data/projects.service';
 import { ClientsService } from '../../../@core/data/clients.service';
+import { ParseObject } from 'parse';
+import { LineItemsService } from '../../../@core/data/line-items.service';
 
 @Component({
   selector: 'ngx-edit',
@@ -42,9 +44,10 @@ export class EditComponent implements OnInit {
   lineItemClientTotal: FormControl;
 
   constructor(
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     public projectsService: ProjectsService,
-    private clientsService: ClientsService,
+    public clientsService: ClientsService,
+    public lineItemsService: LineItemsService,
   ) {
     this.clientsService.observableClients.subscribe(newClients => {
       this.clients = newClients;
@@ -56,8 +59,10 @@ export class EditComponent implements OnInit {
 
   createFormControls() {
     this.drawingNo = new FormControl('', Validators.required);
-    this.projectName = new FormControl('', Validators.required);
-    this.revisionDate = new FormControl('', Validators.required);
+    this.projectName = new FormControl(
+      this.projectsService.activeProject.get('current').get('name'), Validators.required);
+    this.revisionDate = new FormControl(
+      this.projectsService.activeProject.attributes.current.updatedAt, Validators.required);
     this.estimatedBy = new FormControl('', Validators.required);
     this.lineItemTitle = new FormControl('', Validators.required);
     this.lineItemQty = new FormControl('', Validators.required);
@@ -94,7 +99,6 @@ export class EditComponent implements OnInit {
       signatureDate: this.signatureDate,
       agent: this.agent,
     });
-    // console.log(this.projectEditForm);
   }
 
   async ngOnInit() {
@@ -122,7 +126,7 @@ export class EditComponent implements OnInit {
   }
 
   updateTotal(lineItem, subDivision, division) {
-    lineItem['total'] = lineItem.material * lineItem.qty;
+    lineItem['total'] = (lineItem.material ? lineItem.material : 0) * (lineItem.qty ? lineItem.qty : 0) ;
     subDivision['total'] = this.calculateSubDivisionTotal(subDivision);
     division['total'] = this.calculateDivisionTotal(division);
     // console.log(division);
@@ -134,7 +138,7 @@ export class EditComponent implements OnInit {
     let total = 0;
     subDivision['lineItems'].forEach(function (lineItem) {
       // console.log(lineItem['total']);
-      total += lineItem['total'];
+      total += (lineItem['total'] ? lineItem['total'] : 0);
     });
     // console.log('subdivison total : ' + total);
     return total;
@@ -145,7 +149,7 @@ export class EditComponent implements OnInit {
     division['subdivisions'].forEach(function (subDivision) {
       // console.log(subDivision['total']);
       if (subDivision['total']) {
-        total += subDivision['total'];
+        total += (subDivision['total'] ? subDivision['total'] : 0);
       }
     });
     // console.log('divison total : ' + total);
@@ -156,12 +160,19 @@ export class EditComponent implements OnInit {
     // console.log(this.projectsService.activeProject);
   }
 
-  public saveProject() {
-    // console.log(this.projectsService.activeProject);
-    let newVersion = this.projectsService.activeProject.attributes.current.clone();
-    newVersion.save().then((newProjectHistoryObj) => {
-      // console.log(newProjectHistoryObj);
-    });
+  async saveProject() {
+    let project: ParseObject = await this.projectsService.getPtoject(this.projectsService.activeProject.id);
+    let newVersionCount = project.get("maxVersionCount")+1;
+    let newProject = this.projectsService.activeProject.attributes.current.clone();
+    newProject.set("version", newVersionCount);
+    newProject = await newProject.save();
+
+    project.set("maxVersionCount", newVersionCount);
+    project.set("current", newProject);
+    let relationHistory = project.relation('history');
+    relationHistory.add(newProject);
+    project = await project.save();
+
   }
 
 }

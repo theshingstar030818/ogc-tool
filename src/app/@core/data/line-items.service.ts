@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Parse } from 'parse';
+import { Parse, ParseObject } from 'parse';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LineItemsService {
-
+  
+  public lineItemsMap: any = {};
   public lineItems: Array<any> = [];
   public observablePriceBook: BehaviorSubject<any>;
 
@@ -22,6 +23,7 @@ export class LineItemsService {
     query.limit(1000);
     const lineItems = await query.find();
     this.lineItems = lineItems;
+    this.generateLineItemsMap(lineItems);
     this.observablePriceBook.next(this.lineItems);
   }
 
@@ -44,7 +46,6 @@ export class LineItemsService {
 
     lineItemObject.setACL(new Parse.ACL(Parse.User.current()));
     lineItemObject.save().then((saveLineItem) => {
-      // Execute any logic that should take place after the object is saved.
       let relation = subDivision.relation('lineItems');
       relation.add(saveLineItem);
       subDivision.save();
@@ -53,6 +54,12 @@ export class LineItemsService {
     }, (error) => {
       // console.log('Failed to create new object, with error code: ' + error.message);
     });
+  }
+
+  generateLineItemsMap(lineItems: Array<ParseObject>){
+    for(let lineItem of lineItems) {
+      this.lineItemsMap[lineItem['id']] = lineItem;
+    }
   }
 
   getAllLineItems() {

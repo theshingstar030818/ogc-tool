@@ -26,7 +26,7 @@ export class ProjectsService {
 
   async getPtoject(projectId) {
     if (this.projects.length !== 0) {
-      let project = this.projects.filter(value => (value.id === projectId))[0];
+      let project = await this.projects.filter(value => (value.id === projectId))[0];
       return project;
     } else {
       let project = await this.getProjectParse(projectId);
@@ -71,31 +71,26 @@ export class ProjectsService {
     projectHistoryObject.set('client', client);
     projectHistoryObject.set('data', data);
     projectHistoryObject.set('version', 0);
+    projectHistoryObject.set('templates', project.template.map((template) => {return template.id}));
     projectHistoryObject.setACL(new Parse.ACL(Parse.User.current()));
     projectHistoryObject.save().then((result) => {
-      let relation = result.relation('templates');
-      // console.log(project.template);
-      for (let template of project.template) {
-        relation.add(template);
-      }
-      result.save().then(() => {
-        const Project = Parse.Object.extend('Project');
-        const projectObject = new Project();
-        projectObject.set('maxVersionCount', 0);
-        projectObject.set('current', result);
-        projectObject.setACL(new Parse.ACL(Parse.User.current()));
-        projectObject.save().then((newProject) => {
-          let relationHistory = newProject.relation('history');
-          relationHistory.add(result);
-          newProject.save().then(() => {
-            this.projects.push(newProject);
-            this.observableProjects.next(this.projects);
-          });
-        }, (error) => {
-           alert('Failed to create new object, with error code: ' + error.message);
-          //  console.log(error);
+      const Project = Parse.Object.extend('Project');
+      const projectObject = new Project();
+      projectObject.set('maxVersionCount', 0);
+      projectObject.set('current', result);
+      projectObject.setACL(new Parse.ACL(Parse.User.current()));
+      projectObject.save().then((newProject) => {
+        let relationHistory = newProject.relation('history');
+        relationHistory.add(result);
+        newProject.save().then(() => {
+          this.projects.push(newProject);
+          this.observableProjects.next(this.projects);
         });
+      }, (error) => {
+          alert('Failed to create new object, with error code: ' + error.message);
+         console.log(error);
       });
+
 
     }, (error) => {
       // console.log('Failed to create new object, with error code: ' + error.message);
@@ -124,20 +119,27 @@ export class ProjectsService {
   }
 
   public async generateProjectData(templates) {
-    let divisions: any[] = await this.divisionsService.getDivisionsByTemplates(templates);
-    let compressedDivisions = divisions.map(division => {
-      let subdivisions: any[] = this.subDivisionsService.getSubDivisions(division.id).map(subDivision => {
-        let lineItems: any[] = this.lineItemsService.getLineItems(subDivision.id).map(lineItem => {
-          let compressedLineItem = { id: lineItem.id, ...lineItem.attributes };
-          delete compressedLineItem.subDivision;
-          delete compressedLineItem.ACL;
-          return compressedLineItem;
+    let compressedTemplates: any[] = [];
+    for(let template of templates){
+      let divisions = await this.divisionsService.getDivisionsByTemplate(template);
+      let compressedDivisions = divisions.map(division => {
+        let subdivisions: any[] = this.subDivisionsService.getSubDivisions(division.id).map(subDivision => {
+          let lineItems: any[] = this.lineItemsService.getLineItems(subDivision.id).map(lineItem => {
+            let compressedLineItem = { id: lineItem.id };
+            return compressedLineItem;
+          });
+          return {id: subDivision.id, name: subDivision.attributes.name, lineItems: lineItems };
         });
-        return {id: subDivision.id, name: subDivision.attributes.name, lineItems: lineItems };
+        return { id: division.id, name: division.attributes.name, subdivisions: subdivisions };
       });
-      return { id: division.id, name: division.attributes.name, subdivisions: subdivisions };
-    });
-    return {'divisions': compressedDivisions};
+      compressedTemplates.push({
+        id: template.id,
+        name: template.attributes.name,
+        divisions: compressedDivisions,
+      });
+    }
+    
+    return {'templates': compressedTemplates};
   }
 
   shareProject(emails?) {

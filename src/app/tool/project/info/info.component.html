@@ -5,7 +5,9 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="projectName">Project Name</label>
-            <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" [value]="projectsService?.activeProject?.attributes?.current?.attributes?.name"
+            <input formControlName="projectName" type="text" class="form-control" 
+            placeholder="Project Name" 
+            [value]="projectsService?.activeProject?.attributes?.current?.attributes?.name"
             [ngClass]="{
               'form-control-danger': projectName?.invalid && projectName?.dirty,
               'form-control-success': projectName?.valid && projectName?.dirty
@@ -18,7 +20,10 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="projectAddress">Address Of Project</label>
-            <input formControlName="projectAddress" type="text" class="form-control" placeholder="Address Of Project" value="{{projectsService?.activeProject?.attributes?.current?.attributes?.address}}"
+            <input formControlName="projectAddress" 
+            type="text" class="form-control" placeholder="Address Of Project" 
+            [value]="projectsService?.activeProject?.attributes?.current?.attributes?.address"
+            (input)="projectsService.activeProject.get('current').set('address', $event.target.value);"
             [ngClass]="{
               'form-control-danger': projectAddress?.invalid && projectAddress?.dirty,
               'form-control-success': projectAddress?.valid && projectAddress?.dirty
@@ -58,7 +63,7 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="created">Created</label>
-            <input class="form-control" [nbDatepicker]="created" formControlName="created">
+            <input disabled class="form-control" [nbDatepicker]="created" formControlName="created">
             <nb-datepicker #created></nb-datepicker>
             <div class="form-control-feedback" *ngIf="created.errors && (created.dirty || created.touched)">
               <p *ngIf="created.errors.required">Created Date is required</p>
@@ -67,17 +72,20 @@
         </div>
         <div class="col-sm-6">
           <div class="form-group">
-            <label for="templates">Project Templates</label>
-            <select class="form-control" formControlName="templates" multiple>
-              <option *ngFor="let item of template"  value="{{item}}">{{item.attributes.name}}</option>
-            </select>
-            <div class="form-control-feedback" *ngIf="templates.errors && (templates.dirty || templates.touched)">
-              <p *ngIf="templates.errors.required">Template is required</p>
-            </div>
+            <nb-card>
+              <nb-card-header>
+                  Project Templates
+              </nb-card-header>
+              <nb-list>
+                <nb-list-item *ngFor="let templateId of templates">
+                  {{ projectTemplatesService.projectTemplatesMap[templateId].attributes.name }}
+                </nb-list-item>
+              </nb-list>
+            </nb-card>
           </div>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-sm-6 form-group">
           <button nbButton class="btn btn-success" (click)="doNothing()">Customize Pages And Elements In This Project</button>
         </div>
@@ -89,7 +97,7 @@
             a template will be added which will cause the project to be recalculated.
           </ngb-alert>
         </div>
-      </div>
+      </div> -->
     </form>
 
   </nb-card-body>

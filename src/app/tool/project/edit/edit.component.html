@@ -1,9 +1,6 @@
 <nb-card *ngIf="projectEditForm" size="giant">
     <nb-card-body>
-      
-      <button nbButton>Print</button>
       <button nbButton (click)="saveProject()">Save</button>
-
       <form [formGroup]= "projectEditForm" (ngSubmit)="onSubmit()">
       <nb-tabset>
         <nb-tab tabTitle="Budget Breakdown">
@@ -16,7 +13,9 @@
                     <div class="col-md-6">
                       <div class="form-group">
                           <label for="projectName">Project:</label>
-                          <input formControlName="projectName" type="text" class="form-control" placeholder="Project Name" value="{{projectsService.activeProject?.get('current')?.get('name')}}"
+                          <input formControlName="projectName" type="text" class="form-control" 
+                          placeholder="Project Name" 
+                          [value]="projectsService?.activeProject?.attributes?.current?.attributes?.name"
                           [ngClass]="{
                             'form-control-danger': projectName.invalid && projectName.dirty,
                             'form-control-success': projectName.valid && projectName.dirty
@@ -40,7 +39,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                           <label for="revisionDate">Revision Date:</label>
-                          <input class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate">
+                          <input disabled class="form-control" [nbDatepicker]="revisionDate" formControlName="revisionDate">
                           <nb-datepicker #revisionDate></nb-datepicker>
                           <div class="form-control-feedback" *ngIf="revisionDate.errors && (revisionDate.dirty || revisionDate.touched)">
                             <p *ngIf="revisionDate.errors.required">Revision Date is required</p>
@@ -62,70 +61,74 @@
                 </nb-card-body>
               </nb-card>
               <nb-card size="medium">
-                <nb-card-body>
-                  <nb-accordion *ngFor="let division of projectsService.activeProject?.attributes?.current?.attributes?.data.divisions">
-                    <nb-accordion-item>
-                      <nb-accordion-item-header>
-                        <h5 class="division">{{division?.name}} Division Total: ${{division.total || 0.00}}</h5>
-                      </nb-accordion-item-header>
-                      <nb-accordion-item-body>
-                        <nb-accordion *ngFor="let subDivision of division.subdivisions">
-                          <nb-accordion-item>
-                            <nb-accordion-item-header><h6>{{subDivision.name}}</h6></nb-accordion-item-header>
-                            <nb-accordion-item-body>
-                              <table  class="table table-responsive-md btn-table">
-                                <thead class="fixed_headers">
-                                  <tr>
-                                    <th>Title</th>
-                                    <th>QTY</th>
-                                    <th>Unit</th>
-                                    <th>Material</th>
-                                    <th>Trade</th>
-                                    <th>Description</th>
-                                    <th>OGC Notes</th>
-                                    <th>Total</th>
-                                    <th>Client Total</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr *ngFor="let lineItem of subDivision.lineItems">
-                                    <td>
-                                      {{lineItem.title}}
-                                    </td>
-                                    <td>
-                                      <input nbInput formControlName="lineItemQty" type="number" placeholder="Qty" [value]="lineItem.qty" (input)="lineItem.qty = $event.target.value; updateTotal(lineItem, subDivision, division);">
-                                    </td>
-                                    <td>
-                                      {{lineItem.unitType}}
-                                    </td>
-                                    <td>
-                                      <input nbInput formControlName="lineItemMaterial" type="number" placeholder="Material" [value]="lineItem.material" (input)="lineItem.material = $event.target.value; updateTotal(lineItem, subDivision, division);">
-                                    </td>
-                                    <td>
-                                      {{lineItem.trade}}
-                                    </td>
-                                    <td>
-                                      {{lineItem.description}}
-                                    </td>
-                                    <td>
-                                      {{lineItem.ogcNotes}}
-                                    </td>
-                                    <td>
-                                      {{lineItem.total}}
-                                    </td>
-                                    <td>
-                                      {{lineItem.clientTotal}}
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </nb-accordion-item-body>
-                          </nb-accordion-item>
-                        </nb-accordion>
-                      </nb-accordion-item-body>
-                    </nb-accordion-item>
-                  </nb-accordion>
-                </nb-card-body>
+                <nb-tabset>
+                  <nb-tab *ngFor="let template of projectsService.activeProject?.attributes?.current?.attributes?.data.templates" tabTitle="{{template.name}}">
+                    <nb-card-body>
+                      <nb-accordion *ngFor="let division of template.divisions">
+                        <nb-accordion-item>
+                          <nb-accordion-item-header>
+                            <h5 class="division">{{division?.name}} - Division Total: ${{division.total || 0.00}}</h5>
+                          </nb-accordion-item-header>
+                          <nb-accordion-item-body>
+                            <nb-accordion *ngFor="let subDivision of division.subdivisions">
+                              <nb-accordion-item>
+                                <nb-accordion-item-header><h6>{{subDivision.name}}</h6></nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                  <table  class="table table-responsive-md btn-table">
+                                    <thead class="fixed_headers">
+                                      <tr>
+                                        <th>Title</th>
+                                        <th>QTY</th>
+                                        <th>Unit</th>
+                                        <th>Material</th>
+                                        <th>Trade</th>
+                                        <th>Description</th>
+                                        <th>OGC Notes</th>
+                                        <th>Total</th>
+                                        <th>Client Total</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let lineItem of subDivision?.lineItems">
+                                        <td>
+                                          {{lineItemsService.lineItemsMap[lineItem.id]?.attributes.title}}
+                                        </td>
+                                        <td>
+                                          <input nbInput formControlName="lineItemQty" type="number" placeholder="Qty" [value]="lineItem.qty" (input)="lineItem.qty = $event.target.value; updateTotal(lineItem, subDivision, division);">
+                                        </td>
+                                        <td>
+                                          {{lineItemsService.lineItemsMap[lineItem.id]?.attributes.unitType}}
+                                        </td>
+                                        <td>
+                                          <input nbInput formControlName="lineItemMaterial" type="number" placeholder="Material" [value]="lineItem.material" (input)="lineItem.material = $event.target.value; updateTotal(lineItem, subDivision, division);">
+                                        </td>
+                                        <td>
+                                          {{lineItemsService.lineItemsMap[lineItem.id]?.attributes.trade}}
+                                        </td>
+                                        <td>
+                                          {{lineItemsService.lineItemsMap[lineItem.id]?.attributes.description}}
+                                        </td>
+                                        <td>
+                                          {{lineItemsService.lineItemsMap[lineItem.id]?.attributes.ogcNotes}}
+                                        </td>
+                                        <td>
+                                          {{lineItem.total}}
+                                        </td>
+                                        <td>
+                                          {{lineItem.clientTotal}}
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </nb-accordion-item-body>
+                              </nb-accordion-item>
+                            </nb-accordion>
+                          </nb-accordion-item-body>
+                        </nb-accordion-item>
+                      </nb-accordion>
+                    </nb-card-body>
+                  </nb-tab>
+                </nb-tabset>
               </nb-card>
             </nb-card-body>
           </nb-card>

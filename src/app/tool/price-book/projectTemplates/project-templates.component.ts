@@ -83,7 +83,7 @@ export class ProjectTemplatesComponent implements OnInit {
         title: 'Edit Template',
         buttonText: 'Save',
         template: event.data,
-        divisions: await this.divisionsService.getDivisionsByTemplates([event.data]),
+        divisions: await this.divisionsService.getDivisionsByTemplate(event.data),
       },
       closeOnBackdropClick: true,
       hasScroll: true,

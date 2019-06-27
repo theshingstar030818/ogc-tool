@@ -40,8 +40,8 @@ export class DivisionsService {
         return this.divisions;
     }
 
-    public async getDivisionsByTemplates(templates: any[]) {
-        let relationdivisions = templates[0].relation('divisions');
+    public async getDivisionsByTemplate(template: any) {
+        let relationdivisions = template.relation('divisions');
         let querydivisions = relationdivisions.query();
         return await querydivisions.find();
     }
