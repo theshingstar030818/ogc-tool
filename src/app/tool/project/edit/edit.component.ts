@@ -162,13 +162,13 @@ export class EditComponent implements OnInit {
 
   async saveProject() {
     let project: ParseObject = await this.projectsService.getPtoject(this.projectsService.activeProject.id);
-    let newVersionCount = project.get("maxVersionCount")+1;
+    let newVersionCount = project.get('maxVersionCount') + 1;
     let newProject = this.projectsService.activeProject.attributes.current.clone();
-    newProject.set("version", newVersionCount);
+    newProject.set('version', newVersionCount);
     newProject = await newProject.save();
 
-    project.set("maxVersionCount", newVersionCount);
-    project.set("current", newProject);
+    project.set('maxVersionCount', newVersionCount);
+    project.set('current', newProject);
     let relationHistory = project.relation('history');
     relationHistory.add(newProject);
     project = await project.save();

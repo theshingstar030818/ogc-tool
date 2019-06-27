@@ -27,7 +27,7 @@ export class ProjectTemplatesService {
     }
 
     private generateProjectTemplatesMap(projectTemplates) {
-        for(let projectTemplate of projectTemplates) {
+        for (let projectTemplate of projectTemplates) {
             this.projectTemplatesMap[projectTemplate['id']] = projectTemplate;
         }
     }

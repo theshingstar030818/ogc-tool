@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ProjectsService } from '../../../@core/data/projects.service';
 import { ProjectTemplatesService } from '../../../@core/data/project-templates.service';
 
@@ -70,9 +70,9 @@ export class InfoComponent implements OnInit {
 
     this.projectsService.getTemplates().then((results) => {
       this.template = results;
-      console.log(this.template);
+      // console.log(this.template);
     }, (error) => {
-      console.log(error);
+      // console.log(error);
     });
   }
 

@@ -71,7 +71,7 @@ export class ProjectsService {
     projectHistoryObject.set('client', client);
     projectHistoryObject.set('data', data);
     projectHistoryObject.set('version', 0);
-    projectHistoryObject.set('templates', project.template.map((template) => {return template.id}));
+    projectHistoryObject.set('templates', project.template.map((template) => template.id));
     projectHistoryObject.setACL(new Parse.ACL(Parse.User.current()));
     projectHistoryObject.save().then((result) => {
       const Project = Parse.Object.extend('Project');
@@ -88,7 +88,7 @@ export class ProjectsService {
         });
       }, (error) => {
           alert('Failed to create new object, with error code: ' + error.message);
-         console.log(error);
+        //  console.log(error);
       });
 
 
@@ -120,7 +120,7 @@ export class ProjectsService {
 
   public async generateProjectData(templates) {
     let compressedTemplates: any[] = [];
-    for(let template of templates){
+    for (let template of templates){
       let divisions = await this.divisionsService.getDivisionsByTemplate(template);
       let compressedDivisions = divisions.map(division => {
         let subdivisions: any[] = this.subDivisionsService.getSubDivisions(division.id).map(subDivision => {
@@ -138,7 +138,7 @@ export class ProjectsService {
         divisions: compressedDivisions,
       });
     }
-    
+
     return {'templates': compressedTemplates};
   }
 

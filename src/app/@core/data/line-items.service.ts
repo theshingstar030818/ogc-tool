@@ -6,7 +6,7 @@ import { Parse, ParseObject } from 'parse';
   providedIn: 'root',
 })
 export class LineItemsService {
-  
+
   public lineItemsMap: any = {};
   public lineItems: Array<any> = [];
   public observablePriceBook: BehaviorSubject<any>;
@@ -56,8 +56,8 @@ export class LineItemsService {
     });
   }
 
-  generateLineItemsMap(lineItems: Array<ParseObject>){
-    for(let lineItem of lineItems) {
+  generateLineItemsMap(lineItems: Array<ParseObject>) {
+    for (let lineItem of lineItems) {
       this.lineItemsMap[lineItem['id']] = lineItem;
     }
   }
